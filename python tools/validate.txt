@@ -1,0 +1,81 @@
+
+ [cbn_cli]: Running sample... 
+Connecting to: https://backstory.googleapis.com/v1/tools:validateCbnParser
+events: <
+  timestamp: <
+    seconds: 1676462371
+    nanos: 452194000
+  >
+  dns: <
+    client: <
+      ip_addresses: "\300\250\014\n"
+    >
+    server: <
+      ip_addresses: "\315\373\306\355"
+    >
+    authoritative: true
+    questions: <
+      name: "kinesis.us-west-2.amazonaws.com"
+      type: 1
+      class: 1
+    >
+    answers: <
+      name: "34.223.45.37"
+    >
+    action: ALLOWED
+    summary: <
+      queries: <
+        name: "kinesis.us-west-2.amazonaws.com"
+      >
+    >
+  >
+  idm: <
+    read_only_udm: <
+      metadata: <
+        product_log_id: "Ci7ewz4neaWl2DJDP7"
+        event_timestamp: <
+          seconds: 1676462371
+          nanos: 452194000
+        >
+        event_type: NETWORK_DNS
+        vendor_name: "Corelight"
+        product_name: "Zeek"
+        product_event_type: "dns"
+        description: "C_INTERNET"
+      >
+      principal: <
+        ip: "192.168.12.10"
+        port: 45197
+      >
+      target: <
+        ip: "205.251.198.237"
+        port: 53
+      >
+      observer: <
+        hostname: "Lagermann-AP200"
+      >
+      security_result: <
+        action: ALLOW
+        severity: INFORMATIONAL
+      >
+      network: <
+        ip_protocol: UDP
+        application_protocol: DNS
+        dns: <
+          authoritative: true
+          questions: <
+            name: "kinesis.us-west-2.amazonaws.com"
+            type: 1
+            class: 1
+          >
+          answers: <
+            name: "34.223.45.37"
+          >
+        >
+        dns_domain: "amazonaws.com"
+      >
+    >
+  >
+>
+
+[cbn_cli]: Runtime 1.5959s
