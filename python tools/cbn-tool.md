@@ -46,7 +46,7 @@ python cbn_cli.py --credentials_file=~/.chronicle_credentials.json run --conf_fi
 ```
 
 - Download a parser
-- ```shell
+```shell
 python cbn_cli.py --credentials_file=~/.chronicle_credentials.json download --config_id=CORELIGHT
 ```
 
