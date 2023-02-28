@@ -1,29 +1,29 @@
-Log, Field Name, Type, UDM Field, Default, Description
-dns, ts, time, , , The earliest time at which a DNS protocol message over the associated connection is observed
-dns, uid, string, , ,
-dns, id.orig_h, string, , ,
-dns, id.orig_p, string, , ,
-dns, id.resp_h, string, , ,
-dns, id.resp_p, string, , ,
-dns, proto, string, , ,
-dns, trans_id, integer, , ,
-dns, rtt, number, , ,
-dns, query, string, , ,
-dns, qclass, integer, , , The QCLASS value specifying the class of the query
-dns, qclass_name, string, , , A descriptive name for the class of the query
-dns, qtype, integer, , , A QTYPE value specifying the type of the query
-dns, qtype_name, string, , , A descriptive name for the type of the query
-dns, rcode, integer, , , The response code value in DNS response messages
-dns, rcode_name, string, , , A descriptive name for the response code value
-dns, AA, boolean, , , The Authoritative Answer bit for response messages specifies that the responding name server is an authority for the domain name in the question section
-dns, TC, boolean, , , The Truncation bit specifies that the message was truncated
-dns, RD, boolean, , , The Recursion Desired bit in a request message indicates that the client wants recursive service for this query
-dns, RA, boolean, , , The Recursion Available bit in a response message indicates that the name server supports recursive queries
-dns, Z, integer, , , A reserved field that is usually zero in queries and responses
-dns, answers, array[string], , , vector of string, The set of resource descriptions in the query answer
-dns, TTLs, array[number], , , vector of interval, The caching intervals of the associated RRs described by the *answers* field
-dns, rejected, boolean, , , The DNS query was rejected by the server
-dns, is_trusted_domain, string, , F, The is_trusted_domain information
-dns, icann_host_subdomain, string, , F, The icann_host_subdomain information
-dns, icann_domain, string, event1.idm.read_only_udm.network.dns_domain, F, The icann_domain information
-dns, icann_tld, string, , F, The icann_tld information
+Log, Field Name, Type, UDM Field, Type, Default, Description
+dns, ts, time, , , , The earliest time at which a DNS protocol message over the associated connection is observed.
+dns, uid, string, , , , A unique identifier of the connection over which DNS messages are being transferred.
+dns, id.orig_h, string, , , , The originator's IP address.
+dns, id.orig_p, string, , , , The originator's port number.
+dns, id.resp_h, string, , , , The responder's IP address.
+dns, id.resp_p, string, , , , The responder's port number.
+dns, proto, string, , , , The transport layer protocol of the connection.
+dns, trans_id, integer, , , , A 16-bit identifier assigned by the program that generated the DNS query.  Also used in responses to match up replies to outstanding queries.
+dns, rtt, number, , , , Round trip time for the query and response. This indicates the delay between when the request was seen until the answer started.
+dns, query, string, dns_question.name, , T, The domain name that is the subject of the DNS query.
+dns, qclass, integer, , , , The QCLASS value specifying the class of the query.
+dns, qclass_name, string, dns_question.class, uinteger, T, A descriptive name for the class of the query.
+dns, qtype, integer, dns_question.type, uinteger, T, A QTYPE value specifying the type of the query.
+dns, qtype_name, string, , , , A descriptive name for the type of the query.
+dns, rcode, integer, network_dns_response_code, uinteger, T, The response code value in DNS response messages.
+dns, rcode_name, string, , , , A descriptive name for the response code value.
+dns, AA, boolean, dns.authoritative, , T, The Authoritative Answer bit for response messages specifies that the responding name server is an authority for the domain name in the question section.
+dns, TC, boolean, dns.truncated, , T, The Truncation bit specifies that the message was truncated.
+dns, RD, boolean, dns.recursion_desired, , T, The Recursion Desired bit in a request message indicates that the client wants recursive service for this query.
+dns, RA, boolean, dns.recursion_available, , T, The Recursion Available bit in a response message indicates that the name server supports recursive queries.
+dns, Z, integer, , , , A reserved field that is usually zero in queries and responses.
+dns, answers, array[string], dns_answer.name, , T, vector of string, The set of resource descriptions in the query answer.
+dns, TTLs, array[number], , , , vector of interval, The caching intervals of the associated RRs described by the *answers* field.
+dns, rejected, boolean, , , , The DNS query was rejected by the server.
+dns, is_trusted_domain, string, , , F, The is_trusted_domain information.
+dns, icann_host_subdomain, string, , , F, The icann_host_subdomain information.
+dns, icann_domain, string, event1.idm.read_only_udm.network.dns_domain, , F, The icann_domain information.
+dns, icann_tld, string, , , F, The icann_tld information.
