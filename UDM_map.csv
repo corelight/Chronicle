@@ -1,16 +1,17 @@
 Log, Field Name, Type, UDM Field, Type, Description
-dns, ts, time, , , The earliest time at which a DNS protocol message over the associated connection is observed.
-dns, uid, string, , , A unique identifier of the connection over which DNS messages are being transferred.
-dns, id.orig_h, string, , , The originator's IP address.
-dns, id.orig_p, string, , , The originator's port number.
-dns, id.resp_h, string, , , The responder's IP address.
-dns, id.resp_p, string, , , The responder's port number.
-dns, proto, string, , , The transport layer protocol of the connection.
+dns, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
+dns, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
+dns, id.orig_h, string, principal_ip, , The originator's IP address.
+dns, id.orig_p, string, principal_port, string, The originator's port number.
+dns, id.resp_h, string, target_ip, , The responder's IP address.
+dns, id.resp_p, string, target_port, string, The responder's port number.
+
+dns, proto, string, network_ip_protocol, , The transport layer protocol of the connection.
 dns, trans_id, integer, , , A 16-bit identifier assigned by the program that generated the DNS query.  Also used in responses to match up replies to outstanding queries.
 dns, rtt, number, , , Round trip time for the query and response. This indicates the delay between when the request was seen until the answer started.
 dns, query, string, dns_question.name, , The domain name that is the subject of the DNS query.
 dns, qclass, integer, dns_question.class, uinteger, The QCLASS value specifying the class of the query.
-dns, qclass_name, string, , , A descriptive name for the class of the query.
+dns, qclass_name, string, metadata_description, , A descriptive name for the class of the query.
 dns, qtype, integer, dns_question.type, uinteger, A QTYPE value specifying the type of the query.
 dns, qtype_name, string, , , A descriptive name for the type of the query.
 dns, rcode, integer, network_dns_response_code, uinteger, The response code value in DNS response messages.
