@@ -1,5 +1,5 @@
-conn_long
----------
+conn
+----
 .. list-table::
    :header-rows: 1
    :class: longtable
