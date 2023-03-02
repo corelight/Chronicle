@@ -1,133 +1,133 @@
 Log, Field Name, Type, UDM Field, Type, Description
 
-conn, ts, (time), , , This is the time of the first packet.
-conn, uid, (string), , , A unique identifier of the connection.
-conn, id.orig_h, (string - addr), principal_ip, , The originator's IP address.
-conn, id.orig_p, (integer - port), principal_port, , The originator's port number.
-conn, id.resp_h, (string - addr), target_ip, , The responder's IP address.
-conn, id.resp_p, (integer - port), target_port, , The responder's port number.
-conn, proto, (string - enum), network_ip_protocol, , The transport layer protocol of the connection.
-conn, service, (string), network_application_protocol, , An identification of an application protocol being sent over the connection.
-conn, duration, (number - interval), , , How long the connection lasted.  For 3-way or 4-way connection tear-downs - this will not include the final ACK.
-conn, orig_bytes, (integer - count), network_sent_bytes, uinteger, The number of payload bytes the originator sent. For TCP this is taken from sequence numbers and might be inaccurate (e.g. due to large connections).
-conn, resp_bytes, (integer - count), network_received_bytes, uinteger, The number of payload bytes the responder sent. See *orig_bytes*.
-conn, conn_state, (string), metadata_description, , The state of the connection.
-conn, local_orig, (boolean - bool), , , If the connection is originated locally - this value will be T. If it was originated remotely it will be F.  In the case that the `Site::local_nets` variable is undefined - this field will be left empty at all times.
-conn, local_resp, (boolean - bool), , , If the connection is responded to locally - this value will be T. If it was responded to remotely it will be F.  In the case that the `Site::local_nets` variable is undefined - this field will be left empty at all times.
-conn, missed_bytes, (integer - count), , , Indicates the number of bytes missed in content gaps - which is representative of packet loss.  A value other than zero will normally cause protocol analysis to fail but some analysis may have been completed prior to the packet loss.
-conn, history, (string), , , Records the state history of connections as a string of letters.  The meaning of those letters is:
-conn, orig_pkts, (integer - count), , , Number of packets that the originator sent. Only set if `use_conn_size_analyzer` = T.
-conn, orig_ip_bytes, (integer - count), , , Number of IP level bytes that the originator sent (as seen on the wire - taken from the IP total_length header field). Only set if `use_conn_size_analyzer` = T.
-conn, resp_pkts, (integer - count), , , Number of packets that the responder sent. Only set if `use_conn_size_analyzer` = T.
-conn, resp_ip_bytes, (integer - count), , , Number of IP level bytes that the responder sent (as seen on the wire - taken from the IP total_length header field). Only set if `use_conn_size_analyzer` = T.
-conn, tunnel_parents, (array[string] - set[string]), , , If this connection was over a tunnel - indicate the *uid* values for any encapsulating parent connections used over the lifetime of this inner connection.
-conn, orig_cc, (string), , , The name of the node where this connection was analyzed. Country code for GeoIP lookup of the originating IP address.
-conn, resp_cc, (string), , , Country code for GeoIP lookup of the responding IP address.
-conn, suri_ids, (array[string] - set[string]), , , The suri_ids information.
-conn, spcap.url, (string), , , The spcap.url information.
-conn, spcap.rule, (integer - count), , , The spcap.rule information.
-conn, spcap.trigger, (string), , , The spcap.trigger information.
-conn, app, (array[string] - vector of string), , , The app information.
-conn, corelight_shunted, (boolean - bool), , , The corelight_shunted information.
-conn, orig_shunted_pkts, (integer - count), , , The orig_shunted_pkts information.
-conn, orig_shunted_bytes, (integer - count), , , The orig_shunted_bytes information.
-conn, resp_shunted_pkts, (integer - count), , , The resp_shunted_pkts information.
-conn, resp_shunted_bytes, (integer - count), , , The resp_shunted_bytes information.
-conn, orig_l2_addr, (string), , , Link-layer address of the originator (if available).
-conn, resp_l2_addr, (string), , , Link-layer address of the responder (if available).
-conn, id_orig_h_n.src, (string), , , How we determined the name/address pair. Either ``DNS_A`` representing the DNS_A* family of query types - or ``DNS_PTR`` for reverse DNS lookups.
-conn, id_orig_h_n.vals, (array[string] - set[string]), , , The set of names we observed for a given address.
-conn, id_resp_h_n.src, (string), , , How we determined the name/address pair. Either ``DNS_A`` representing the DNS_A* family of query types - or ``DNS_PTR`` for reverse DNS lookups.
-conn, id_resp_h_n.vals, (array[string] - set[string]), , , The set of names we observed for a given address.
-conn, vlan, (integer - int), , , The outer VLAN for this connection (if applicable).
-conn, inner_vlan, (integer - int), , , The inner VLAN for this connection (if applicable).
-conn, community_id, (string), event1.idm.read_only_udm.network.community_id, , The community_id information.
+conn, ts, time, , , This is the time of the first packet.
+conn, uid, string, , , A unique identifier of the connection.
+conn, id.orig_h, string, principal_ip, , The originator's IP address.
+conn, id.orig_p, integer, principal_port, , The originator's port number.
+conn, id.resp_h, string, target_ip, , The responder's IP address.
+conn, id.resp_p, integer, target_port, , The responder's port number.
+conn, proto, string, network_ip_protocol, , The transport layer protocol of the connection.
+conn, service, string, network_application_protocol, , An identification of an application protocol being sent over the connection.
+conn, duration, number, , , How long the connection lasted.  For 3-way or 4-way connection tear-downs - this will not include the final ACK.
+conn, orig_bytes, integer, network_sent_bytes, uinteger, The number of payload bytes the originator sent. For TCP this is taken from sequence numbers and might be inaccurate (e.g. due to large connections).
+conn, resp_bytes, integer, network_received_bytes, uinteger, The number of payload bytes the responder sent. See *orig_bytes*.
+conn, conn_state, string, metadata_description, , The state of the connection.
+conn, local_orig, boolean, , , If the connection is originated locally - this value will be T. If it was originated remotely it will be F.  In the case that the `Site::local_nets` variable is undefined - this field will be left empty at all times.
+conn, local_resp, boolean, , , If the connection is responded to locally - this value will be T. If it was responded to remotely it will be F.  In the case that the `Site::local_nets` variable is undefined - this field will be left empty at all times.
+conn, missed_bytes, integer, , , Indicates the number of bytes missed in content gaps - which is representative of packet loss.  A value other than zero will normally cause protocol analysis to fail but some analysis may have been completed prior to the packet loss.
+conn, history, string, , , Records the state history of connections as a string of letters.  The meaning of those letters is:
+conn, orig_pkts, integer, , , Number of packets that the originator sent. Only set if `use_conn_size_analyzer` = T.
+conn, orig_ip_bytes, integer, , , Number of IP level bytes that the originator sent (as seen on the wire - taken from the IP total_length header field). Only set if `use_conn_size_analyzer` = T.
+conn, resp_pkts, integer, , , Number of packets that the responder sent. Only set if `use_conn_size_analyzer` = T.
+conn, resp_ip_bytes, integer, , , Number of IP level bytes that the responder sent (as seen on the wire - taken from the IP total_length header field). Only set if `use_conn_size_analyzer` = T.
+conn, tunnel_parents, array[string], , , If this connection was over a tunnel - indicate the *uid* values for any encapsulating parent connections used over the lifetime of this inner connection.
+conn, orig_cc, string, , , The name of the node where this connection was analyzed. Country code for GeoIP lookup of the originating IP address.
+conn, resp_cc, string, , , Country code for GeoIP lookup of the responding IP address.
+conn, suri_ids, array[string], , , The suri_ids information.
+conn, spcap.url, string, , , The spcap.url information.
+conn, spcap.rule, integer, , , The spcap.rule information.
+conn, spcap.trigger, string, , , The spcap.trigger information.
+conn, app, array[string], , , The app information.
+conn, corelight_shunted, boolean, , , The corelight_shunted information.
+conn, orig_shunted_pkts, integer, , , The orig_shunted_pkts information.
+conn, orig_shunted_bytes, integer, , , The orig_shunted_bytes information.
+conn, resp_shunted_pkts, integer, , , The resp_shunted_pkts information.
+conn, resp_shunted_bytes, integer, , , The resp_shunted_bytes information.
+conn, orig_l2_addr, string, , , Link-layer address of the originator (if available).
+conn, resp_l2_addr, string, , , Link-layer address of the responder (if available).
+conn, id_orig_h_n.src, string, , , How we determined the name/address pair. Either ``DNS_A`` representing the DNS_A* family of query types - or ``DNS_PTR`` for reverse DNS lookups.
+conn, id_orig_h_n.vals, array[string], , , The set of names we observed for a given address.
+conn, id_resp_h_n.src, string, , , How we determined the name/address pair. Either ``DNS_A`` representing the DNS_A* family of query types - or ``DNS_PTR`` for reverse DNS lookups.
+conn, id_resp_h_n.vals, array[string], , , The set of names we observed for a given address.
+conn, vlan, integer, , , The outer VLAN for this connection (if applicable).
+conn, inner_vlan, integer, , , The inner VLAN for this connection (if applicable).
+conn, community_id, string, event1.idm.read_only_udm.network.community_id, , The community_id information.
 
-conn_red, ts, (time), , , This is the time of the first packet.
-conn_red, uid, (string), , , A unique identifier of the connection.
-conn_red, id.orig_h, (string - addr), principal_ip, , The originator's IP address.
-conn_red, id.orig_p, (integer - port), principal_port, , The originator's port number.
-conn_red, id.resp_h, (string - addr), target_ip, , The responder's IP address.
-conn_red, id.resp_p, (integer - port), target_port, , The responder's port number.
-conn_red, proto, (string - enum), network_ip_protocol, , The transport layer protocol of the connection.
-conn_red, service, (string), network_application_protocol, , An identification of an application protocol being sent over the connection.
-conn_red, duration, (number - interval), , , How long the connection lasted.  For 3-way or 4-way connection tear-downs - this will not include the final ACK.
-conn_red, orig_bytes, (integer - count), network_sent_bytes, uinteger, The number of payload bytes the originator sent. For TCP this is taken from sequence numbers and might be inaccurate (e.g. due to large connections).
-conn_red, resp_bytes, (integer - count), network_received_bytes, uinteger, The number of payload bytes the responder sent. See *orig_bytes*.
-conn_red, conn_state, (string), metadata_description, , The state of the connection.
-conn_red, local_orig, (boolean - bool), , , If the connection is originated locally - this value will be T. If it was originated remotely it will be F.  In the case that the `Site::local_nets` variable is undefined - this field will be left empty at all times.
-conn_red, local_resp, (boolean - bool), , , If the connection is responded to locally - this value will be T. If it was responded to remotely it will be F.  In the case that the `Site::local_nets` variable is undefined - this field will be left empty at all times.
-conn_red, missed_bytes, (integer - count), , , Indicates the number of bytes missed in content gaps - which is representative of packet loss.  A value other than zero will normally cause protocol analysis to fail but some analysis may have been completed prior to the packet loss.
-conn_red, history, (string), , , Records the state history of connections as a string of letters.  The meaning of those letters is:
-conn_red, orig_pkts, (integer - count), , , Number of packets that the originator sent. Only set if `use_conn_size_analyzer` = T.
-conn_red, orig_ip_bytes, (integer - count), , , Number of IP level bytes that the originator sent (as seen on the wire - taken from the IP total_length header field). Only set if `use_conn_size_analyzer` = T.
-conn_red, resp_pkts, (integer - count), , , Number of packets that the responder sent. Only set if `use_conn_size_analyzer` = T.
-conn_red, resp_ip_bytes, (integer - count), , , Number of IP level bytes that the responder sent (as seen on the wire - taken from the IP total_length header field). Only set if `use_conn_size_analyzer` = T.
-conn_red, tunnel_parents, (array[string] - set[string]), , , If this connection was over a tunnel - indicate the *uid* values for any encapsulating parent connections used over the lifetime of this inner connection.
-conn_red, orig_cc, (string), , , The name of the node where this connection was analyzed. Country code for GeoIP lookup of the originating IP address.
-conn_red, resp_cc, (string), , , Country code for GeoIP lookup of the responding IP address.
-conn_red, suri_ids, (array[string] - set[string]), , , The suri_ids information.
-conn_red, spcap.url, (string), , , The spcap.url information.
-conn_red, spcap.rule, (integer - count), , , The spcap.rule information.
-conn_red, spcap.trigger, (string), , , The spcap.trigger information.
-conn_red, app, (array[string] - vector of string), , , The app information.
-conn_red, corelight_shunted, (boolean - bool), , , The corelight_shunted information.
-conn_red, orig_shunted_pkts, (integer - count), , , The orig_shunted_pkts information.
-conn_red, orig_shunted_bytes, (integer - count), , , The orig_shunted_bytes information.
-conn_red, resp_shunted_pkts, (integer - count), , , The resp_shunted_pkts information.
-conn_red, resp_shunted_bytes, (integer - count), , , The resp_shunted_bytes information.
-conn_red, orig_l2_addr, (string), , , Link-layer address of the originator (if available).
-conn_red, resp_l2_addr, (string), , , Link-layer address of the responder (if available).
-conn_red, id_orig_h_n.src, (string), , , How we determined the name/address pair. Either ``DNS_A`` representing the DNS_A* family of query types - or ``DNS_PTR`` for reverse DNS lookups.
-conn_red, id_orig_h_n.vals, (array[string] - set[string]), , , The set of names we observed for a given address.
-conn_red, id_resp_h_n.src, (string), , , How we determined the name/address pair. Either ``DNS_A`` representing the DNS_A* family of query types - or ``DNS_PTR`` for reverse DNS lookups.
-conn_red, id_resp_h_n.vals, (array[string] - set[string]), , , The set of names we observed for a given address.
-conn_red, vlan, (integer - int), , , The outer VLAN for this connection (if applicable).
-conn_red, inner_vlan, (integer - int), , , The inner VLAN for this connection (if applicable).
-conn_red, community_id, (string), event1.idm.read_only_udm.network.community_id, , The community_id information.
+conn_red, ts, time, , , This is the time of the first packet.
+conn_red, uid, string, , , A unique identifier of the connection.
+conn_red, id.orig_h, string, principal_ip, , The originator's IP address.
+conn_red, id.orig_p, integer, principal_port, , The originator's port number.
+conn_red, id.resp_h, string, target_ip, , The responder's IP address.
+conn_red, id.resp_p, integer, target_port, , The responder's port number.
+conn_red, proto, string, network_ip_protocol, , The transport layer protocol of the connection.
+conn_red, service, string, network_application_protocol, , An identification of an application protocol being sent over the connection.
+conn_red, duration, number, , , How long the connection lasted.  For 3-way or 4-way connection tear-downs - this will not include the final ACK.
+conn_red, orig_bytes, integer, network_sent_bytes, uinteger, The number of payload bytes the originator sent. For TCP this is taken from sequence numbers and might be inaccurate (e.g. due to large connections).
+conn_red, resp_bytes, integer, network_received_bytes, uinteger, The number of payload bytes the responder sent. See *orig_bytes*.
+conn_red, conn_state, string, metadata_description, , The state of the connection.
+conn_red, local_orig, boolean, , , If the connection is originated locally - this value will be T. If it was originated remotely it will be F.  In the case that the `Site::local_nets` variable is undefined - this field will be left empty at all times.
+conn_red, local_resp, boolean, , , If the connection is responded to locally - this value will be T. If it was responded to remotely it will be F.  In the case that the `Site::local_nets` variable is undefined - this field will be left empty at all times.
+conn_red, missed_bytes, integer, , , Indicates the number of bytes missed in content gaps - which is representative of packet loss.  A value other than zero will normally cause protocol analysis to fail but some analysis may have been completed prior to the packet loss.
+conn_red, history, string, , , Records the state history of connections as a string of letters.  The meaning of those letters is:
+conn_red, orig_pkts, integer, , , Number of packets that the originator sent. Only set if `use_conn_size_analyzer` = T.
+conn_red, orig_ip_bytes, integer, , , Number of IP level bytes that the originator sent (as seen on the wire - taken from the IP total_length header field). Only set if `use_conn_size_analyzer` = T.
+conn_red, resp_pkts, integer, , , Number of packets that the responder sent. Only set if `use_conn_size_analyzer` = T.
+conn_red, resp_ip_bytes, integer, , , Number of IP level bytes that the responder sent (as seen on the wire - taken from the IP total_length header field). Only set if `use_conn_size_analyzer` = T.
+conn_red, tunnel_parents, array[string], , , If this connection was over a tunnel - indicate the *uid* values for any encapsulating parent connections used over the lifetime of this inner connection.
+conn_red, orig_cc, string, , , The name of the node where this connection was analyzed. Country code for GeoIP lookup of the originating IP address.
+conn_red, resp_cc, string, , , Country code for GeoIP lookup of the responding IP address.
+conn_red, suri_ids, array[string], , , The suri_ids information.
+conn_red, spcap.url, string, , , The spcap.url information.
+conn_red, spcap.rule, integer, , , The spcap.rule information.
+conn_red, spcap.trigger, string, , , The spcap.trigger information.
+conn_red, app, array[string], , , The app information.
+conn_red, corelight_shunted, boolean, , , The corelight_shunted information.
+conn_red, orig_shunted_pkts, integer, , , The orig_shunted_pkts information.
+conn_red, orig_shunted_bytes, integer, , , The orig_shunted_bytes information.
+conn_red, resp_shunted_pkts, integer, , , The resp_shunted_pkts information.
+conn_red, resp_shunted_bytes, integer, , , The resp_shunted_bytes information.
+conn_red, orig_l2_addr, string, , , Link-layer address of the originator (if available).
+conn_red, resp_l2_addr, string, , , Link-layer address of the responder (if available).
+conn_red, id_orig_h_n.src, string, , , How we determined the name/address pair. Either ``DNS_A`` representing the DNS_A* family of query types - or ``DNS_PTR`` for reverse DNS lookups.
+conn_red, id_orig_h_n.vals, array[string], , , The set of names we observed for a given address.
+conn_red, id_resp_h_n.src, string, , , How we determined the name/address pair. Either ``DNS_A`` representing the DNS_A* family of query types - or ``DNS_PTR`` for reverse DNS lookups.
+conn_red, id_resp_h_n.vals, array[string], , , The set of names we observed for a given address.
+conn_red, vlan, integer, , , The outer VLAN for this connection (if applicable).
+conn_red, inner_vlan, integer, , , The inner VLAN for this connection (if applicable).
+conn_red, community_id, string, event1.idm.read_only_udm.network.community_id, , The community_id information.
 
-conn_long, ts, (time), , , This is the time of the first packet.
-conn_long, uid, (string), , , A unique identifier of the connection.
-conn_long, id.orig_h, (string - addr), principal_ip, , The originator's IP address.
-conn_long, id.orig_p, (integer - port), principal_port, , The originator's port number.
-conn_long, id.resp_h, (string - addr), target_ip, , The responder's IP address.
-conn_long, id.resp_p, (integer - port), target_port, , The responder's port number.
-conn_long, proto, (string - enum), network_ip_protocol, , The transport layer protocol of the connection.
-conn_long, service, (string), network_application_protocol, , An identification of an application protocol being sent over the connection.
-conn_long, duration, (number - interval), , , How long the connection lasted.  For 3-way or 4-way connection tear-downs - this will not include the final ACK.
-conn_long, orig_bytes, (integer - count), network_sent_bytes, uinteger, The number of payload bytes the originator sent. For TCP this is taken from sequence numbers and might be inaccurate (e.g. due to large connections).
-conn_long, resp_bytes, (integer - count), network_received_bytes, uinteger, The number of payload bytes the responder sent. See *orig_bytes*.
-conn_long, conn_state, (string), metadata_description, , The state of the connection.
-conn_long, local_orig, (boolean - bool), , , If the connection is originated locally - this value will be T. If it was originated remotely it will be F.  In the case that the `Site::local_nets` variable is undefined - this field will be left empty at all times.
-conn_long, local_resp, (boolean - bool), , , If the connection is responded to locally - this value will be T. If it was responded to remotely it will be F.  In the case that the `Site::local_nets` variable is undefined - this field will be left empty at all times.
-conn_long, missed_bytes, (integer - count), , , Indicates the number of bytes missed in content gaps - which is representative of packet loss.  A value other than zero will normally cause protocol analysis to fail but some analysis may have been completed prior to the packet loss.
-conn_long, history, (string), , , Records the state history of connections as a string of letters.  The meaning of those letters is:
-conn_long, orig_pkts, (integer - count), , , Number of packets that the originator sent. Only set if `use_conn_size_analyzer` = T.
-conn_long, orig_ip_bytes, (integer - count), , , Number of IP level bytes that the originator sent (as seen on the wire - taken from the IP total_length header field). Only set if `use_conn_size_analyzer` = T.
-conn_long, resp_pkts, (integer - count), , , Number of packets that the responder sent. Only set if `use_conn_size_analyzer` = T.
-conn_long, resp_ip_bytes, (integer - count), , , Number of IP level bytes that the responder sent (as seen on the wire - taken from the IP total_length header field). Only set if `use_conn_size_analyzer` = T.
-conn_long, tunnel_parents, (array[string] - set[string]), , , If this connection was over a tunnel - indicate the *uid* values for any encapsulating parent connections used over the lifetime of this inner connection.
-conn_long, orig_cc, (string), , , The name of the node where this connection was analyzed. Country code for GeoIP lookup of the originating IP address.
-conn_long, resp_cc, (string), , , Country code for GeoIP lookup of the responding IP address.
-conn_long, suri_ids, (array[string] - set[string]), , , The suri_ids information.
-conn_long, spcap.url, (string), , , The spcap.url information.
-conn_long, spcap.rule, (integer - count), , , The spcap.rule information.
-conn_long, spcap.trigger, (string), , , The spcap.trigger information.
-conn_long, app, (array[string] - vector of string), , , The app information.
-conn_long, corelight_shunted, (boolean - bool), , , The corelight_shunted information.
-conn_long, orig_shunted_pkts, (integer - count), , , The orig_shunted_pkts information.
-conn_long, orig_shunted_bytes, (integer - count), , , The orig_shunted_bytes information.
-conn_long, resp_shunted_pkts, (integer - count), , , The resp_shunted_pkts information.
-conn_long, resp_shunted_bytes, (integer - count), , , The resp_shunted_bytes information.
-conn_long, orig_l2_addr, (string), , , Link-layer address of the originator (if available).
-conn_long, resp_l2_addr, (string), , , Link-layer address of the responder (if available).
-conn_long, id_orig_h_n.src, (string), , , How we determined the name/address pair. Either ``DNS_A`` representing the DNS_A* family of query types - or ``DNS_PTR`` for reverse DNS lookups.
-conn_long, id_orig_h_n.vals, (array[string] - set[string]), , , The set of names we observed for a given address.
-conn_long, id_resp_h_n.src, (string), , , How we determined the name/address pair. Either ``DNS_A`` representing the DNS_A* family of query types - or ``DNS_PTR`` for reverse DNS lookups.
-conn_long, id_resp_h_n.vals, (array[string] - set[string]), , , The set of names we observed for a given address.
-conn_long, vlan, (integer - int), , , The outer VLAN for this connection (if applicable).
-conn_long, inner_vlan, (integer - int), , , The inner VLAN for this connection (if applicable).
-conn_long, community_id, (string), event1.idm.read_only_udm.network.community_id, , The community_id information.
+conn_long, ts, time, , , This is the time of the first packet.
+conn_long, uid, string, , , A unique identifier of the connection.
+conn_long, id.orig_h, string, principal_ip, , The originator's IP address.
+conn_long, id.orig_p, integer, principal_port, , The originator's port number.
+conn_long, id.resp_h, string, target_ip, , The responder's IP address.
+conn_long, id.resp_p, integer, target_port, , The responder's port number.
+conn_long, proto, string, network_ip_protocol, , The transport layer protocol of the connection.
+conn_long, service, string, network_application_protocol, , An identification of an application protocol being sent over the connection.
+conn_long, duration, number, , , How long the connection lasted.  For 3-way or 4-way connection tear-downs - this will not include the final ACK.
+conn_long, orig_bytes, integer, network_sent_bytes, uinteger, The number of payload bytes the originator sent. For TCP this is taken from sequence numbers and might be inaccurate (e.g. due to large connections).
+conn_long, resp_bytes, integer, network_received_bytes, uinteger, The number of payload bytes the responder sent. See *orig_bytes*.
+conn_long, conn_state, string, metadata_description, , The state of the connection.
+conn_long, local_orig, boolean, , , If the connection is originated locally - this value will be T. If it was originated remotely it will be F.  In the case that the `Site::local_nets` variable is undefined - this field will be left empty at all times.
+conn_long, local_resp, boolean, , , If the connection is responded to locally - this value will be T. If it was responded to remotely it will be F.  In the case that the `Site::local_nets` variable is undefined - this field will be left empty at all times.
+conn_long, missed_bytes, integer, , , Indicates the number of bytes missed in content gaps - which is representative of packet loss.  A value other than zero will normally cause protocol analysis to fail but some analysis may have been completed prior to the packet loss.
+conn_long, history, string, , , Records the state history of connections as a string of letters.  The meaning of those letters is:
+conn_long, orig_pkts, integer, , , Number of packets that the originator sent. Only set if `use_conn_size_analyzer` = T.
+conn_long, orig_ip_bytes, integer, , , Number of IP level bytes that the originator sent (as seen on the wire - taken from the IP total_length header field). Only set if `use_conn_size_analyzer` = T.
+conn_long, resp_pkts, integer, , , Number of packets that the responder sent. Only set if `use_conn_size_analyzer` = T.
+conn_long, resp_ip_bytes, integer, , , Number of IP level bytes that the responder sent (as seen on the wire - taken from the IP total_length header field). Only set if `use_conn_size_analyzer` = T.
+conn_long, tunnel_parents, array[string], , , If this connection was over a tunnel - indicate the *uid* values for any encapsulating parent connections used over the lifetime of this inner connection.
+conn_long, orig_cc, string, , , The name of the node where this connection was analyzed. Country code for GeoIP lookup of the originating IP address.
+conn_long, resp_cc, string, , , Country code for GeoIP lookup of the responding IP address.
+conn_long, suri_ids, array[string], , , The suri_ids information.
+conn_long, spcap.url, string, , , The spcap.url information.
+conn_long, spcap.rule, integer, , , The spcap.rule information.
+conn_long, spcap.trigger, string, , , The spcap.trigger information.
+conn_long, app, array[string], , , The app information.
+conn_long, corelight_shunted, boolean, , , The corelight_shunted information.
+conn_long, orig_shunted_pkts, integer, , , The orig_shunted_pkts information.
+conn_long, orig_shunted_bytes, integer, , , The orig_shunted_bytes information.
+conn_long, resp_shunted_pkts, integer, , , The resp_shunted_pkts information.
+conn_long, resp_shunted_bytes, integer, , , The resp_shunted_bytes information.
+conn_long, orig_l2_addr, string, , , Link-layer address of the originator (if available).
+conn_long, resp_l2_addr, string, , , Link-layer address of the responder (if available).
+conn_long, id_orig_h_n.src, string, , , How we determined the name/address pair. Either ``DNS_A`` representing the DNS_A* family of query types - or ``DNS_PTR`` for reverse DNS lookups.
+conn_long, id_orig_h_n.vals, array[string], , , The set of names we observed for a given address.
+conn_long, id_resp_h_n.src, string, , , How we determined the name/address pair. Either ``DNS_A`` representing the DNS_A* family of query types - or ``DNS_PTR`` for reverse DNS lookups.
+conn_long, id_resp_h_n.vals, array[string], , , The set of names we observed for a given address.
+conn_long, vlan, integer, , , The outer VLAN for this connection (if applicable).
+conn_long, inner_vlan, integer, , , The inner VLAN for this connection (if applicable).
+conn_long, community_id, string, event1.idm.read_only_udm.network.community_id, , The community_id information.
 
 dns, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
 dns, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
@@ -169,3 +169,27 @@ dns_red, qtype_name, string, , , A descriptive name for the type of the query.
 dns_red, rcode, integer, network_dns_response_code, uinteger, The response code value in DNS response messages.
 dns_red, answers, array[string], dns_answer.name, vector of string, The set of resource descriptions in the query answer.
 dns_red, num,integer, , , How often we've seen this query in this coalescence interval.
+
+intel, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
+intel, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
+intel, id.orig_h, string, principal_ip, , The originator's IP address.
+intel, id.orig_p, string, principal_port, string, The originator's port number.
+intel, id.resp_h, string, target_ip, , The responder's IP address.
+intel, id.resp_p, string, target_port, string, The responder's port number.
+intel, seen.indicator, string, , , The string if the data is about a string.
+intel, seen.indicator_type, string, , , The type of data that the indicator represents.
+intel, seen.where, string, , , Where the data was discovered.
+intel, matched, array[string], , , Which indicator types matched.
+intel, sources, array[string], , , Sources which supplied data that resulted in this match.
+intel, fuid, string, , , If a file was associated with this intelligence hit - this is the uid for the file.
+intel, file_mime_type, string, , , A mime type if the intelligence hit is related to a file. If the $f field is provided this will be automatically filled out.
+intel, file_desc, string, , , Frequently files can be \""described\"" to give a bit more context. If the $f field is provided this field will be automatically filled out.
+intel, desc, array[string], , , The desc information.
+intel, url, array[string], , , The url information.
+intel, confidence, array[number], , , The confidence information.
+intel, firstseen, array[string], , , The firstseen information.
+intel, lastseen, array[string], , , The lastseen information.
+intel, associated, array[string], , , The associated information.
+intel, category, array[string], , , The category information.
+intel, campaigns, array[string], , , The campaigns information.
+intel, reports, array[string], , , The reports information.
