@@ -5,7 +5,6 @@ dns, id.orig_h, string, principal_ip, , The originator's IP address.
 dns, id.orig_p, string, principal_port, string, The originator's port number.
 dns, id.resp_h, string, target_ip, , The responder's IP address.
 dns, id.resp_p, string, target_port, string, The responder's port number.
-
 dns, proto, string, network_ip_protocol, , The transport layer protocol of the connection.
 dns, trans_id, integer, , , A 16-bit identifier assigned by the program that generated the DNS query.  Also used in responses to match up replies to outstanding queries.
 dns, rtt, number, , , Round trip time for the query and response. This indicates the delay between when the request was seen until the answer started.
@@ -28,3 +27,15 @@ dns, is_trusted_domain, string, , , The is_trusted_domain information.
 dns, icann_host_subdomain, string, , , The icann_host_subdomain information.
 dns, icann_domain, string, event1.idm.read_only_udm.network.dns_domain, , The icann_domain information.
 dns, icann_tld, string, , , The icann_tld information.
+
+dns_red, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
+dns_red, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
+dns_red, id.orig_h, string, principal_ip, , The originator's IP address.
+dns_red, id.orig_p, string, principal_port, string, The originator's port number.
+dns_red, id.resp_h, string, target_ip, , The responder's IP address.
+dns_red, id.resp_p, string, target_port, string, The responder's port number.
+dns_red, query, string, dns_question.name, , The domain name that is the subject of the DNS query.
+dns_red, qtype_name, string, , , A descriptive name for the type of the query.
+dns_red, rcode, integer, network_dns_response_code, uinteger, The response code value in DNS response messages.
+dns_red, answers, array[string], dns_answer.name, vector of string, The set of resource descriptions in the query answer.
+dns_red, num,integer, , , How often we've seen this query in this coalescence interval.
