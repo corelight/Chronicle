@@ -1,5 +1,9 @@
 Log, Field Name, Type, UDM Field, Type, Description
 
+, , , metadata_vendor_name, , Corelight
+
+conn, , , metadate_event_type, , NETWORK_CONNECTION
+conn, , , metadata_product_name, , Zeek
 conn, ts, time, , , This is the time of the first packet.
 conn, uid, string, , , A unique identifier of the connection.
 conn, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -43,6 +47,8 @@ conn, vlan, integer, , , The outer VLAN for this connection (if applicable).
 conn, inner_vlan, integer, , , The inner VLAN for this connection (if applicable).
 conn, community_id, string, event1.idm.read_only_udm.network.community_id, , The community_id information.
 
+conn_red, , , metadate_event_type, , NETWORK_CONNECTION
+conn_red, , , metadata_product_name, , Zeek
 conn_red, ts, time, , , This is the time of the first packet.
 conn_red, uid, string, , , A unique identifier of the connection.
 conn_red, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -86,6 +92,8 @@ conn_red, vlan, integer, , , The outer VLAN for this connection (if applicable).
 conn_red, inner_vlan, integer, , , The inner VLAN for this connection (if applicable).
 conn_red, community_id, string, event1.idm.read_only_udm.network.community_id, , The community_id information.
 
+conn_long, , , metadate_event_type, , NETWORK_CONNECTION
+conn_long, , , metadata_product_name, , Zeek
 conn_long, ts, time, , , This is the time of the first packet.
 conn_long, uid, string, , , A unique identifier of the connection.
 conn_long, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -129,6 +137,8 @@ conn_long, vlan, integer, , , The outer VLAN for this connection (if applicable)
 conn_long, inner_vlan, integer, , , The inner VLAN for this connection (if applicable).
 conn_long, community_id, string, event1.idm.read_only_udm.network.community_id, , The community_id information.
 
+dns, , , metadate_event_type, , NETWORK_DNS
+dns, , , metadata_product_name, , Zeek
 dns, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
 dns, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
 dns, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -158,6 +168,8 @@ dns, icann_host_subdomain, string, , , The icann_host_subdomain information.
 dns, icann_domain, string, event1.idm.read_only_udm.network.dns_domain, , The icann_domain information.
 dns, icann_tld, string, , , The icann_tld information.
 
+dns_red, , , metadate_event_type, , NETWORK_DNS
+dns_red, , , metadata_product_name, , Zeek
 dns_red, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
 dns_red, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
 dns_red, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -170,6 +182,8 @@ dns_red, rcode, integer, network_dns_response_code, uinteger, The response code 
 dns_red, answers, array[string], dns_answer.name, vector of string, The set of resource descriptions in the query answer.
 dns_red, num,integer, , , How often we've seen this query in this coalescence interval.
 
+intel, , , metadate_event_type, , SCAN_NETWORK
+intel, , , metadata_product_name, , Zeek
 intel, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
 intel, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
 intel, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -194,6 +208,8 @@ intel, category, array[string], , , The category information.
 intel, campaigns, array[string], , , The campaigns information.
 intel, reports, array[string], , , The reports information.
 
+notice, , , metadate_event_type, , STATUS_UPDATE
+notice, , , metadata_product_name, , Zeek
 notice, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
 notice, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
 notice, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -204,7 +220,8 @@ notice, fuid,  string, ,  , A file unique ID if this notice is related to a file
 notice, file_mime_type,  string, ,  , A mime type if the notice is related to a file.  If the *f* field is provided - this will be automatically filled out.
 notice, file_desc,  string, ,  , Frequently files can be "described" to give a bit more context.  This field will typically be automatically filled out from an fa_file record.  For example - if a notice was related to a file over HTTP - the URL of the request would be shown.
 notice, proto,  string, ,  , The transport protocol. Filled automatically when either *conn* - *iconn* or *p* is specified.
-notice, note,  string, ,  , The `Notice::Type` of the notice.
+notice, note,  string, metadata_description,  , The `Notice::Type` of the notice.
+notice, note,  string, security_result.description,  , The `Notice::Type` of the notice.
 notice, msg,  string, ,  , The human readable message for the notice.
 notice, sub,  string, ,  , The human readable sub-message.
 notice, src,  string, ,  , Source address - if we don't have a `conn_id`.
@@ -219,3 +236,35 @@ notice, remote_location.region,  string, ,  , The region.
 notice, remote_location.city,  string, ,  , The city.
 notice, remote_location.latitude,  number, ,  , Latitude.
 notice, remote_location.longitude,  number, ,  , Longitude.
+
+suricata_corelight, , , metadate_event_type, , SCAN_NETWORK
+suricata_corelight, , , metadata_product_name, , Suricata
+suricata_corelight, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
+suricata_corelight, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
+suricata_corelight, id.orig_h, string, principal_ip, , The originator's IP address.
+suricata_corelight, id.orig_p, string, principal_port, string, The originator's port number.
+suricata_corelight, id.resp_h, string, target_ip, , The responder's IP address.
+suricata_corelight, id.resp_p, string, target_port, string, The responder's port number.
+suricata_corelight, id.vlan, integer, , , The id.vlan information.
+suricata_corelight, id.vlan_inner, integer, , , The id.vlan_inner information.
+suricata_corelight, icmp_type, integer, , , The icmp type if this was ICMP.
+suricata_corelight, icmp_code, integer, , , The icmp code if this was ICMP.
+suricata_corelight, suri_id, string, , , The Suricata log id.
+suricata_corelight, service, string, , , The service name (e.g. - http)
+suricata_corelight, flow_id, integer, , , The flow id
+suricata_corelight, tx_id, integer, , , The transaction id
+suricata_corelight, pcap_cnt, integer, , , The pcap record count
+suricata_corelight, alert.action, string, , , The alert.action information.
+suricata_corelight, alert.gid, integer, , , The alert.gid information.
+suricata_corelight, alert.signature_id, integer, security_result.rule_id, string, The alert.signature_id information.
+suricata_corelight, alert.rev, integer, , , The alert.rev information.
+suricata_corelight, alert.signature, string, metadata_product_event_type, , The alert.signature information.
+suricata_corelight, alert.signature, string, security_result.summary, , The alert.signature information.
+suricata_corelight, alert.signature, string, security_result.threat_name, , The alert.signature information.
+suricata_corelight, alert.category, string, sr_category, , The alert.category information.
+suricata_corelight, alert.severity, integer, security_result.severity_details, string, The alert.severity information.
+suricata_corelight, alert.metadata, array[string], , , The alert.metadata information.
+suricata_corelight, community_id, string, , , The community id
+suricata_corelight, payload, string, , , The payload
+suricata_corelight, packet, string, , , The packet
+suricata_corelight, metadata, array[string], , , Alert metadata (if any)
