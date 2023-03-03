@@ -1,5 +1,6 @@
-dns_red
--------
+``dns_red`` field reference
+---------------------------
+
 .. list-table::
    :header-rows: 1
    :class: longtable

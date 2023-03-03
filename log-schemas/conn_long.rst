@@ -1,5 +1,6 @@
-conn_long
----------
+``conn_long`` field reference
+-----------------------------
+
 .. list-table::
    :header-rows: 1
    :class: longtable

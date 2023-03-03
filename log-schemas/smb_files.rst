@@ -1,5 +1,6 @@
-smb_files
----------
+``smb_files`` field reference
+-----------------------------
+
 .. list-table::
    :header-rows: 1
    :class: longtable

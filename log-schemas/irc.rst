@@ -1,5 +1,6 @@
-irc
----
+``irc`` field reference
+-----------------------
+
 .. list-table::
    :header-rows: 1
    :class: longtable

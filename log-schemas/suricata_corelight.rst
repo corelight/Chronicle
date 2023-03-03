@@ -1,5 +1,6 @@
-suricata_corelight
-------------------
+``suricata_corelight`` field reference
+--------------------------------------
+
 .. list-table::
    :header-rows: 1
    :class: longtable
@@ -88,3 +89,9 @@ suricata_corelight
 
    * - ``metadata`` (array[string] - vector of string)
      - Alert metadata, if any
+
+   * - ``orig_cve`` (string)
+     - The orig_cve information.
+
+   * - ``resp_cve`` (string)
+     - The resp_cve information.

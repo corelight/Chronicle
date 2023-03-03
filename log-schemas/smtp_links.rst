@@ -1,5 +1,6 @@
-smtp_links
-----------
+``smtp_links`` field reference
+------------------------------
+
 .. list-table::
    :header-rows: 1
    :class: longtable
