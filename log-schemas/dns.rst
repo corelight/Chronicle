@@ -94,13 +94,13 @@
      - The DNS query was rejected by the server.
 
    * - ``is_trusted_domain`` (string)
-     - The is_trusted_domain information.
+     - The is_trusted_domain information. Requires the icannTLD package.
 
    * - ``icann_host_subdomain`` (string)
-     - The icann_host_subdomain information.
+     - The host or subdomain information based on publicsuffix.org. Requires the icannTLD package.
 
    * - ``icann_domain`` (string)
-     - The icann_domain information.
+     - The Domain information based on publicsuffix.org. Requires the icannTLD package.
 
    * - ``icann_tld`` (string)
-     - The icann_tld information.
+     - The Top-level Domain information from publicsuffix.org. Requires the icannTLD package.

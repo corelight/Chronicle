@@ -91,7 +91,7 @@
      - Alert metadata, if any
 
    * - ``orig_cve`` (string)
-     - The orig_cve information.
+     - The orig_cve information. Requires the zeek_suricata_cve_enrichment package.
 
    * - ``resp_cve`` (string)
-     - The resp_cve information.
+     - The resp_cve information. Requires the zeek_suricata_cve_enrichment package.

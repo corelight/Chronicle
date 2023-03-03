@@ -58,28 +58,28 @@
        filled out.
 
    * - ``desc`` (array[string] - set[string])
-     - The desc information.
+     - The description information for the indicator. Requires the ExtendIntel package.
 
    * - ``url`` (array[string] - set[string])
-     - The url information.
+     - The URL with more information about the indicator. Requires the ExtendIntel package.
 
    * - ``confidence`` (array[number] - set[double])
-     - The confidence information.
+     - The confidence information for the indicator. Requires the ExtendIntel package.
 
    * - ``firstseen`` (array[string] - set[string])
-     - The firstseen information.
+     - When the indicator was first seen by one of the sources. Requires the ExtendIntel package.
 
    * - ``lastseen`` (array[string] - set[string])
-     - The lastseen information.
+     - When the indicator was last seen by one of the sources. Requires the ExtendIntel package.
 
    * - ``associated`` (array[string] - set[string])
-     - The associated information.
+     - Any associated information to the indicator. Requires the ExtendIntel package.
 
    * - ``category`` (array[string] - set[string])
-     - The category information.
+     - The category of the indicator. Requires the ExtendIntel package.
 
    * - ``campaigns`` (array[string] - set[string])
-     - The campaigns information.
+     - Any campaigns related to the indicator. Requires the ExtendIntel package.
 
    * - ``reports`` (array[string] - set[string])
-     - The reports information.
+     - Any reports related to the indicator. Requires the ExtendIntel package.
