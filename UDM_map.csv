@@ -1,6 +1,7 @@
 Log, Field Name, Type, UDM Field, Type, Description
 
-, , , metadata_vendor_name, , Corelight
+, , , metadata_vendor_name, , replace with "Corelight"
+, , , metadate_event_type, , replace with "GENRIC_EVENT"
 , _path, , metadata_product_event_type
 , _system_name, , observer_hostname
 , uid, string, metadata_product_log_id, , A unique identifier of the connection.
@@ -10,8 +11,8 @@ Log, Field Name, Type, UDM Field, Type, Description
 , id.resp_h, string, target_ip, , The responder's IP address.
 , id.resp_p, integer, target_port, , The responder's port number.
 
-conn, , , metadata_event_type, , NETWORK_CONNECTION
-conn, , , metadata_product_name, , Zeek
+conn, , , metadata_event_type, , replace with "NETWORK_CONNECTION"
+conn, , , metadata_product_name, , replace with "Zeek"
 conn, ts, time, , , This is the time of the first packet.
 conn, uid, string, metadata_product_log_id, , A unique identifier of the connection.
 conn, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -55,8 +56,8 @@ conn, vlan, integer, , , The outer VLAN for this connection (if applicable).
 conn, inner_vlan, integer, , , The inner VLAN for this connection (if applicable).
 conn, community_id, string, event1.idm.read_only_udm.network.community_id, , The community_id information.
 
-conn_red, , , metadata_event_type, , NETWORK_CONNECTION
-conn_red, , , metadata_product_name, , Zeek
+conn_red, , , metadata_event_type, , replace with "NETWORK_CONNECTION"
+conn_red, , , metadata_product_name, , replace with "Zeek"
 conn_red, ts, time, , , This is the time of the first packet.
 conn_red, uid, string, metadata_product_log_id, , A unique identifier of the connection.
 conn_red, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -100,8 +101,8 @@ conn_red, vlan, integer, , , The outer VLAN for this connection (if applicable).
 conn_red, inner_vlan, integer, , , The inner VLAN for this connection (if applicable).
 conn_red, community_id, string, event1.idm.read_only_udm.network.community_id, , The community_id information.
 
-conn_long, , , metadata_event_type, , NETWORK_CONNECTION
-conn_long, , , metadata_product_name, , Zeek
+conn_long, , , metadata_event_type, , replace with "NETWORK_CONNECTION"
+conn_long, , , metadata_product_name, , replace with "Zeek"
 conn_long, ts, time, , , This is the time of the first packet.
 conn_long, uid, string, metadata_product_log_id, , A unique identifier of the connection.
 conn_long, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -145,8 +146,8 @@ conn_long, vlan, integer, , , The outer VLAN for this connection (if applicable)
 conn_long, inner_vlan, integer, , , The inner VLAN for this connection (if applicable).
 conn_long, community_id, string, event1.idm.read_only_udm.network.community_id, , The community_id information.
 
-dns, , , metadata_event_type, , NETWORK_DNS
-dns, , , metadata_product_name, , Zeek
+dns, , , metadata_event_type, , replace with "NETWORK_DNS"
+dns, , , metadata_product_name, , replace with "Zeek"
 dns, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
 dns, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
 dns, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -176,8 +177,8 @@ dns, icann_host_subdomain, string, , , The icann_host_subdomain information.
 dns, icann_domain, string, event1.idm.read_only_udm.network.dns_domain, , The icann_domain information.
 dns, icann_tld, string, , , The icann_tld information.
 
-dns_red, , , metadata_event_type, , NETWORK_DNS
-dns_red, , , metadata_product_name, , Zeek
+dns_red, , , metadata_event_type, , replace with "NETWORK_DNS"
+dns_red, , , metadata_product_name, , replace with "Zeek"
 dns_red, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
 dns_red, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
 dns_red, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -190,11 +191,11 @@ dns_red, rcode, integer, network_dns_response_code, uinteger, The response code 
 dns_red, answers, array[string], dns_answer.name, vector of string, The set of resource descriptions in the query answer.
 dns_red, num, integer, , , How often we've seen this query in this coalescence interval.
 
-files, , , metadata_event_type, , FILE_UNCATEGORIZED
-files, , , metadata_product_name, , Zeek
-files, , , principal_ip, , tx_hosts.0
-files, , , principal_hostname, , tx_hosts.0
-files, , , target_ip, , rx_hosts.0
+files, , , metadata_event_type, , replace with "FILE_UNCATEGORIZED"
+files, , , metadata_product_name, , replace with "Zeek"
+files, , , principal_ip, , replace with "%{tx_hosts.0}"
+files, , , principal_hostname, , replace with "%{tx_hosts.0}"
+files, , , target_ip, , replace with "%{rx_hosts.0}"
 files, ts, time, , , The time when the file was first seen.
 files, fuid, string, metadata_product_log_id, , An identifier associated with a single file.
 files, tx_hosts, array[string], , , If this file was transferred over a network connection this should show the host or hosts that the data sourced from.
@@ -221,11 +222,11 @@ files, extracted, string, about.file.full_path, , Local filename of extracted fi
 files, extracted_cutoff, boolean - bool, , , Set to true if the file being extracted was cut off so the whole file was not logged.
 files, extracted_size, integer - count, , , The number of bytes extracted to disk.
 
-files_red, , , metadata_event_type, , FILE_UNCATEGORIZED
-files_red, , , metadata_product_name, , Zeek
-files_red, , , principal_ip, , tx_hosts.0
-files_red, , , principal_hostname, , tx_hosts.0
-files_red, , , target_ip, , rx_hosts.0
+files_red, , , metadata_event_type, , replace with "FILE_UNCATEGORIZED"
+files_red, , , metadata_product_name, , replace with "Zeek"
+files_red, , , principal_ip, , replace with "%{tx_hosts.0}"
+files_red, , , principal_hostname, , replace with "%{tx_hosts.0}"
+files_red, , , target_ip, , replace with "%{rx_hosts.0}"
 files_red, ts, time, , , The time when the file was first seen.
 files_red, fuid, string, metadata_product_log_id, , An identifier associated with a single file.
 files_red, tx_hosts, array[string], , , If this file was transferred over a network connection this should show the host or hosts that the data sourced from.
@@ -252,8 +253,8 @@ files_red, extracted_cutoff, boolean - bool, , , Set to true if the file being e
 files_red, extracted_size, integer - count, , , The number of bytes extracted to disk.
 files_red, num, integer - count, , , Number of times we've seen this file.
 
-intel, , , metadata_event_type, , SCAN_NETWORK
-intel, , , metadata_product_name, , Zeek
+intel, , , metadata_event_type, , replace with "SCAN_NETWORK"
+intel, , , metadata_product_name, , replace with "Zeek"
 intel, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
 intel, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
 intel, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -278,8 +279,8 @@ intel, category, array[string], , , The category information.
 intel, campaigns, array[string], , , The campaigns information.
 intel, reports, array[string], , , The reports information.
 
-notice, , , metadata_event_type, , STATUS_UPDATE
-notice, , , metadata_product_name, , Zeek
+notice, , , metadata_event_type, , replace with "STATUS_UPDATE"
+notice, , , metadata_product_name, , replace with "Zeek"
 notice, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
 notice, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
 notice, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -307,8 +308,8 @@ notice, remote_location.city,  string, ,  , The city.
 notice, remote_location.latitude,  number, ,  , Latitude.
 notice, remote_location.longitude,  number, ,  , Longitude.
 
-suricata_corelight, , , metadata_event_type, , SCAN_NETWORK
-suricata_corelight, , , metadata_product_name, , Suricata
+suricata_corelight, , , metadata_event_type, , replace with "SCAN_NETWORK"
+suricata_corelight, , , metadata_product_name, , replace with "Suricata"
 suricata_corelight, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
 suricata_corelight, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
 suricata_corelight, id.orig_h, string, principal_ip, , The originator's IP address.
