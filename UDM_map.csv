@@ -1,7 +1,6 @@
 Log, Field Name, Type, UDM Field, Type, Description
-
-, , , metadata_vendor_name, , replace with "Corelight"
-, , , metadate_event_type, , replace with "GENRIC_EVENT"
+, , , metadata_vendor_name, , replace with 'Corelight'
+, , , metadate_event_type, , replace with 'GENRIC_EVENT'
 , _path, , metadata_product_event_type
 , _system_name, , observer_hostname
 , uid, string, metadata_product_log_id, , A unique identifier of the connection.
@@ -10,9 +9,8 @@ Log, Field Name, Type, UDM Field, Type, Description
 , id.orig_p, integer, principal_port, , The originator's port number.
 , id.resp_h, string, target_ip, , The responder's IP address.
 , id.resp_p, integer, target_port, , The responder's port number.
-
-conn, , , metadata_event_type, , replace with "NETWORK_CONNECTION"
-conn, , , metadata_product_name, , replace with "Zeek"
+conn, , , metadata_event_type, , replace with 'NETWORK_CONNECTION'
+conn, , , metadata_product_name, , replace with 'Zeek'
 conn, ts, time, , , This is the time of the first packet.
 conn, uid, string, metadata_product_log_id, , A unique identifier of the connection.
 conn, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -56,8 +54,8 @@ conn, vlan, integer, , , The outer VLAN for this connection (if applicable).
 conn, inner_vlan, integer, , , The inner VLAN for this connection (if applicable).
 conn, community_id, string, event1.idm.read_only_udm.network.community_id, , The community_id information.
 
-conn_red, , , metadata_event_type, , replace with "NETWORK_CONNECTION"
-conn_red, , , metadata_product_name, , replace with "Zeek"
+conn_red, , , metadata_event_type, , replace with 'NETWORK_CONNECTION'
+conn_red, , , metadata_product_name, , replace with 'Zeek'
 conn_red, ts, time, , , This is the time of the first packet.
 conn_red, uid, string, metadata_product_log_id, , A unique identifier of the connection.
 conn_red, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -101,8 +99,8 @@ conn_red, vlan, integer, , , The outer VLAN for this connection (if applicable).
 conn_red, inner_vlan, integer, , , The inner VLAN for this connection (if applicable).
 conn_red, community_id, string, event1.idm.read_only_udm.network.community_id, , The community_id information.
 
-conn_long, , , metadata_event_type, , replace with "NETWORK_CONNECTION"
-conn_long, , , metadata_product_name, , replace with "Zeek"
+conn_long, , , metadata_event_type, , replace with 'NETWORK_CONNECTION'
+conn_long, , , metadata_product_name, , replace with 'Zeek'
 conn_long, ts, time, , , This is the time of the first packet.
 conn_long, uid, string, metadata_product_log_id, , A unique identifier of the connection.
 conn_long, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -146,8 +144,8 @@ conn_long, vlan, integer, , , The outer VLAN for this connection (if applicable)
 conn_long, inner_vlan, integer, , , The inner VLAN for this connection (if applicable).
 conn_long, community_id, string, event1.idm.read_only_udm.network.community_id, , The community_id information.
 
-dns, , , metadata_event_type, , replace with "NETWORK_DNS"
-dns, , , metadata_product_name, , replace with "Zeek"
+dns, , , metadata_event_type, , replace with 'NETWORK_DNS'
+dns, , , metadata_product_name, , replace with 'Zeek'
 dns, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
 dns, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
 dns, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -177,8 +175,8 @@ dns, icann_host_subdomain, string, , , The icann_host_subdomain information.
 dns, icann_domain, string, event1.idm.read_only_udm.network.dns_domain, , The icann_domain information.
 dns, icann_tld, string, , , The icann_tld information.
 
-dns_red, , , metadata_event_type, , replace with "NETWORK_DNS"
-dns_red, , , metadata_product_name, , replace with "Zeek"
+dns_red, , , metadata_event_type, , replace with 'NETWORK_DNS'
+dns_red, , , metadata_product_name, , replace with 'Zeek'
 dns_red, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
 dns_red, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
 dns_red, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -191,11 +189,11 @@ dns_red, rcode, integer, network_dns_response_code, uinteger, The response code 
 dns_red, answers, array[string], dns_answer.name, vector of string, The set of resource descriptions in the query answer.
 dns_red, num, integer, , , How often we've seen this query in this coalescence interval.
 
-files, , , metadata_event_type, , replace with "FILE_UNCATEGORIZED"
-files, , , metadata_product_name, , replace with "Zeek"
-files, , , principal_ip, , replace with "%{tx_hosts.0}"
-files, , , principal_hostname, , replace with "%{tx_hosts.0}"
-files, , , target_ip, , replace with "%{rx_hosts.0}"
+files, , , metadata_event_type, , replace with 'FILE_UNCATEGORIZED'
+files, , , metadata_product_name, , replace with 'Zeek'
+files, , , principal_ip, , replace with '%{tx_hosts.0}'
+files, , , principal_hostname, , replace with '%{tx_hosts.0}'
+files, , , target_ip, , replace with '%{rx_hosts.0}'
 files, ts, time, , , The time when the file was first seen.
 files, fuid, string, metadata_product_log_id, , An identifier associated with a single file.
 files, tx_hosts, array[string], , , If this file was transferred over a network connection this should show the host or hosts that the data sourced from.
@@ -205,7 +203,7 @@ files, source, string, , , An identification of the source of the file data.  E.
 files, depth, integer, , , A value to represent the depth of this file in relation to its source.  In SMTP it is the depth of the MIME attachment on the message.  In HTTP it is the depth of the request within the TCP connection.
 files, analyzers, array[string], , , A set of analysis types done during the file analysis.
 files, mime_type, string, target_file_mime_type, , A mime type provided by the strongest file magic signature match against the *bof_buffer* field of `fa_file` or in the cases where no buffering of the beginning of file occurs an initial guess of the mime type based on the first data seen.
-files, filename, string, target_file_full_path, , A filename for the file if one is available from the source for the file.  These will frequently come from "Content-Disposition" headers in network protocols.
+files, filename, string, target_file_full_path, , A filename for the file if one is available from the source for the file.  These will frequently come from 'Content-Disposition' headers in network protocols.
 files, duration, number - interval, , , The duration the file was analyzed for.
 files, local_orig, boolean - bool, , , If the source of this file is a network connection this field indicates if the data originated from the local network or not as determined by the configured `Site::local_nets`.
 files, is_orig, boolean - bool, , , If the source of this file is a network connection this field indicates if the file is being sent by the originator of the connection or the responder.
@@ -222,11 +220,11 @@ files, extracted, string, about.file.full_path, , Local filename of extracted fi
 files, extracted_cutoff, boolean - bool, , , Set to true if the file being extracted was cut off so the whole file was not logged.
 files, extracted_size, integer - count, , , The number of bytes extracted to disk.
 
-files_red, , , metadata_event_type, , replace with "FILE_UNCATEGORIZED"
-files_red, , , metadata_product_name, , replace with "Zeek"
-files_red, , , principal_ip, , replace with "%{tx_hosts.0}"
-files_red, , , principal_hostname, , replace with "%{tx_hosts.0}"
-files_red, , , target_ip, , replace with "%{rx_hosts.0}"
+files_red, , , metadata_event_type, , replace with 'FILE_UNCATEGORIZED'
+files_red, , , metadata_product_name, , replace with 'Zeek'
+files_red, , , principal_ip, , replace with '%{tx_hosts.0}'
+files_red, , , principal_hostname, , replace with '%{tx_hosts.0}'
+files_red, , , target_ip, , replace with '%{rx_hosts.0}'
 files_red, ts, time, , , The time when the file was first seen.
 files_red, fuid, string, metadata_product_log_id, , An identifier associated with a single file.
 files_red, tx_hosts, array[string], , , If this file was transferred over a network connection this should show the host or hosts that the data sourced from.
@@ -236,7 +234,7 @@ files_red, source, string, , , An identification of the source of the file data.
 files_red, depth, integer, , , A value to represent the depth of this file in relation to its source.  In SMTP it is the depth of the MIME attachment on the message.  In HTTP it is the depth of the request within the TCP connection.
 files_red, analyzers, array[string], , , A set of analysis types done during the file analysis.
 files_red, mime_type, string, target_file_mime_type, , A mime type provided by the strongest file magic signature match against the *bof_buffer* field of `fa_file` or in the cases where no buffering of the beginning of file occurs an initial guess of the mime type based on the first data seen.
-files_red, filename, string, target_file_full_path, , A filename for the file if one is available from the source for the file.  These will frequently come from "Content-Disposition" headers in network protocols.
+files_red, filename, string, target_file_full_path, , A filename for the file if one is available from the source for the file.  These will frequently come from 'Content-Disposition' headers in network protocols.
 files_red, local_orig, boolean - bool, , , If the source of this file is a network connection this field indicates if the data originated from the local network or not as determined by the configured `Site::local_nets`.
 files_red, is_orig, boolean - bool, , , If the source of this file is a network connection this field indicates if the file is being sent by the originator of the connection or the responder.
 files_red, seen_bytes, integer - count, target_file_size, , Number of bytes provided to the file analysis engine for the file.
@@ -253,8 +251,8 @@ files_red, extracted_cutoff, boolean - bool, , , Set to true if the file being e
 files_red, extracted_size, integer - count, , , The number of bytes extracted to disk.
 files_red, num, integer - count, , , Number of times we've seen this file.
 
-intel, , , metadata_event_type, , replace with "SCAN_NETWORK"
-intel, , , metadata_product_name, , replace with "Zeek"
+intel, , , metadata_event_type, , replace with 'SCAN_NETWORK'
+intel, , , metadata_product_name, , replace with 'Zeek'
 intel, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
 intel, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
 intel, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -268,7 +266,7 @@ intel, matched, array[string], , , Which indicator types matched.
 intel, sources, array[string], , , Sources which supplied data that resulted in this match.
 intel, fuid, string, , , If a file was associated with this intelligence hit - this is the uid for the file.
 intel, file_mime_type, string, , , A mime type if the intelligence hit is related to a file. If the $f field is provided this will be automatically filled out.
-intel, file_desc, string, , , Frequently files can be "described" to give a bit more context. If the $f field is provided this field will be automatically filled out.
+intel, file_desc, string, , , Frequently files can be 'described' to give a bit more context. If the $f field is provided this field will be automatically filled out.
 intel, desc, array[string], , , The desc information.
 intel, url, array[string], , , The url information.
 intel, confidence, array[number], , , The confidence information.
@@ -279,8 +277,8 @@ intel, category, array[string], , , The category information.
 intel, campaigns, array[string], , , The campaigns information.
 intel, reports, array[string], , , The reports information.
 
-notice, , , metadata_event_type, , replace with "STATUS_UPDATE"
-notice, , , metadata_product_name, , replace with "Zeek"
+notice, , , metadata_event_type, , replace with 'STATUS_UPDATE'
+notice, , , metadata_product_name, , replace with 'Zeek'
 notice, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
 notice, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
 notice, id.orig_h, string, principal_ip, , The originator's IP address.
@@ -289,7 +287,7 @@ notice, id.resp_h, string, target_ip, , The responder's IP address.
 notice, id.resp_p, string, target_port, string, The responder's port number.
 notice, fuid,  string, ,  , A file unique ID if this notice is related to a file.  If the *f* field is provided - this will be automatically filled out.
 notice, file_mime_type,  string, ,  , A mime type if the notice is related to a file.  If the *f* field is provided - this will be automatically filled out.
-notice, file_desc,  string, ,  , Frequently files can be "described" to give a bit more context.  This field will typically be automatically filled out from an fa_file record.  For example - if a notice was related to a file over HTTP - the URL of the request would be shown.
+notice, file_desc,  string, ,  , Frequently files can be 'described' to give a bit more context.  This field will typically be automatically filled out from an fa_file record.  For example - if a notice was related to a file over HTTP - the URL of the request would be shown.
 notice, proto,  string, ,  , The transport protocol. Filled automatically when either *conn* - *iconn* or *p* is specified.
 notice, note,  string, metadata_description,  , The `Notice::Type` of the notice.
 notice, note,  string, security_result.description,  , The `Notice::Type` of the notice.
@@ -308,8 +306,8 @@ notice, remote_location.city,  string, ,  , The city.
 notice, remote_location.latitude,  number, ,  , Latitude.
 notice, remote_location.longitude,  number, ,  , Longitude.
 
-suricata_corelight, , , metadata_event_type, , replace with "SCAN_NETWORK"
-suricata_corelight, , , metadata_product_name, , replace with "Suricata"
+suricata_corelight, , , metadata_event_type, , replace with 'SCAN_NETWORK'
+suricata_corelight, , , metadata_product_name, , replace with 'Suricata'
 suricata_corelight, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
 suricata_corelight, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
 suricata_corelight, id.orig_h, string, principal_ip, , The originator's IP address.
