@@ -355,17 +355,17 @@ x509, certificate.not_valid_before, time, event1.idm.read_only_udm.network.tls.s
 x509, certificate.not_valid_after, time, event1.idm.read_only_udm.network.tls.server.certificate.not_after, yyyy-MM-dd HH:mm:ss.SSS, Timestamp after when certificate is not valid.
 x509, certificate.key_alg, string, , , Name of the key algorithm
 x509, certificate.sig_alg, string, , , Name of the signature algorithm
-x509, certificate.key_type, string, , , Key type, if key parseable by openssl (either rsa, dsa or ec)
+x509, certificate.key_type, string, , , Key type - if key parseable by openssl (either rsa or dsa or ec)
 x509, certificate.key_length, integer, , , Key length in bits
-x509, certificate.exponent, string, , , Exponent, if RSA-certificate
-x509, certificate.curve, string, , , Curve, if EC-certificate
+x509, certificate.exponent, string, , , Exponent (if RSA-certificate)
+x509, certificate.curve, string, , , Curve (if EC-certificate)
 x509, san.dns, array[string], , , List of DNS entries in SAN
 x509, san.uri, array[string], , , List of URI entries in SAN
 x509, san.email, array[string], , , List of email entries in SAN
 x509, san.ip, array[string], , , List of IP entries in SAN
 x509, basic_constraints.ca, boolean, , , CA flag set?
 x509, basic_constraints.path_len, integer, , , Maximum path length
-x509, host_cert, boolean, , , Indicates if this certificate was a end-host certificate, or sent as part of a chain
+x509, host_cert, boolean, , , Indicates if this certificate was a end-host certificate - or sent as part of a chain
 x509, client_cert, boolean, , , Indicates if this certificate was sent from the client
 
 x509_red, , , metadata_event_type, , replace with 'GENERIC_EVENT'
@@ -382,15 +382,15 @@ x509_red, certificate.not_valid_before, time, event1.idm.read_only_udm.network.t
 x509_red, certificate.not_valid_after, time, event1.idm.read_only_udm.network.tls.server.certificate.not_after, yyyy-MM-dd HH:mm:ss.SSS, Timestamp after when certificate is not valid.
 x509_red, certificate.key_alg, string, , , Name of the key algorithm
 x509_red, certificate.sig_alg, string, , , Name of the signature algorithm
-x509_red, certificate.key_type, string, , , Key type, if key parseable by openssl (either rsa, dsa or ec)
+x509_red, certificate.key_type, string, , , Key type - if key parseable by openssl (either rsa or dsa or ec)
 x509_red, certificate.key_length, integer, , , Key length in bits
-x509_red, certificate.exponent, string, , , Exponent, if RSA-certificate
-x509_red, certificate.curve, string, , , Curve, if EC-certificate
+x509_red, certificate.exponent, string, , , Exponent (if RSA-certificate)
+x509_red, certificate.curve, string, , , Curve (if EC-certificate)
 x509_red, san.dns, array[string], , , List of DNS entries in SAN
 x509_red, san.uri, array[string], , , List of URI entries in SAN
 x509_red, san.email, array[string], , , List of email entries in SAN
 x509_red, san.ip, array[string], , , List of IP entries in SAN
 x509_red, basic_constraints.ca, boolean, , , CA flag set?
 x509_red, basic_constraints.path_len, integer, , , Maximum path length
-x509_red, host_cert, boolean, , , Indicates if this certificate was a end-host certificate, or sent as part of a chain
+x509_red, host_cert, boolean, , , Indicates if this certificate was a end-host certificate - or sent as part of a chain
 x509_red, client_cert, boolean, , , Indicates if this certificate was sent from the client
