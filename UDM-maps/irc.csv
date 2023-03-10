@@ -19,4 +19,4 @@ irc, addl, string, , , Any additional data for the command.
 irc, dcc_file_name, string, , , DCC filename requested.
 irc, dcc_file_size, integer, , , Size of the DCC transfer as indicated by the sender.
 irc, dcc_mime_type, string, , , Sniffed mime type of the file.
-irc, fuid, string, metadata_product_log_id, , File unique identifier.
+irc, fuid, string, , , File unique identifier.
