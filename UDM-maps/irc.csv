@@ -1,0 +1,22 @@
+Log, Field Name, Type, UDM Field, Type, Description
+
+irc, , , metadata_vendor_name, , replace with 'Corelight'
+irc, , , metadata_event_type, , replace with ' '
+irc, , , metadata_product_name, , replace with 'Zeek'
+irc, _path, , metadata_product_event_type, ,
+irc, _system_name, , observer_hostname, ,
+irc, ts, time, date, ,
+irc, uid, string, metadata_product_log_id, , A unique identifier of the connection.
+irc, id.orig_h, string, principal_ip, , The originator's IP address.
+irc, id.orig_p, integer, principal_port, , The originator's port number.
+irc, id.resp_h, string, target_ip, , The responder's IP address.
+irc, id.resp_p, integer, target_port, , The responder's port number.
+irc, nick, string, , , Nickname given for the connection.
+irc, user, string, , , Username given for the connection.
+irc, command, string, , , Command given by the client.
+irc, value, string, , , Value for the command given by the client.
+irc, addl, string, , , Any additional data for the command.
+irc, dcc_file_name, string, , , DCC filename requested.
+irc, dcc_file_size, integer, , , Size of the DCC transfer as indicated by the sender.
+irc, dcc_mime_type, string, , , Sniffed mime type of the file.
+irc, fuid, string, metadata_product_log_id, , File unique identifier.

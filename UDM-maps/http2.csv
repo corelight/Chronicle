@@ -1,33 +1,33 @@
 Log, Field Name, Type, UDM Field, Type, Description
 
-http, , , metadata_vendor_name, , replace with 'Corelight'
-http, , , metadata_event_type, , replace with 'NETWORK_HTTP'
-http, , , metadata_product_name, , replace with 'Zeek'
-http, _path, , metadata_product_event_type, ,
-http, _system_name, , observer_hostname, ,
-http, ts, time, date, , Timestamp for when the request happened.
-http, uid, string, , , Unique ID for the connection.
-http, id.orig_h, string, , , The originator's IP address.
-http, id.orig_p, integer, , , The originator's port number.
-http, id.resp_h, string, , , The responder's IP address.
-http, id.resp_p, integer, , , The responder's port number.
-http, trans_depth, integer, , , Represents the pipelined depth into the connection of this request/response transaction.
-http, stream_id, integer, , , Unique ID for the stream.
-http, method, string, network_http_method, , Verb used in the HTTP request (GET POST HEAD etc.).
-http, host, string, target_hostname, , Value of the HOST header.
-http, uri, string, target_url, , URI used in the request.
-http, referrer, string, , , Value of the 'referer' header.  The comment is deliberately misspelled like the standard declares - but the name used here is 'referrer' (spelled correctly).
-http, version, string, , , Value of the version portion of the reply. If you require message-level detail - consider the http_request and http_reply events - which report each message's version string.
-http, user_agent, string, network_http_user_agent, , Value of the User-Agent header from the client.
-http, origin, string, , , Value of the Origin header from the client.
-http, request_body_len, integer, network_sent_bytes, uinteger, Actual uncompressed content size of the data transferred from the client.
-http, response_body_len, integer, network_received_bytes, uinteger, Actual uncompressed content size of the data transferred from the server.
-http, status_code, integer, network_http_response_code, integer, Status code returned by the server.
-http, status_msg, string, , , Status message returned by the server.
-http, info_code, integer, , , Last seen 1xx informational reply code returned by the server.
-http, info_msg, string, , , Last seen 1xx informational reply message returned by the server.
-http, encoding, string, , , A set of indicators of various attributes discovered and related to a particular request/response pair. Encoding Type.
-http, username, string, , , Username if basic-auth is performed for the request.
-http, password, string, , , Password if basic-auth is performed for the request.
-http, proxied, array[string], , , All of the headers that may indicate if the request was proxied.
-http, push, boolean, , , Whether this was a push transaction
+http2, , , metadata_vendor_name, , replace with 'Corelight'
+http2, , , metadata_event_type, , replace with 'NETWORK_HTTP'
+http2, , , metadata_product_name, , replace with 'Zeek'
+http2, _path, , metadata_product_event_type, ,
+http2, _system_name, , observer_hostname, ,
+http2, ts, time, date, , Timestamp for when the request happened.
+http2, uid, string, metadata_product_log_id, , A unique identifier of the connection.
+http2, id.orig_h, string, principal_ip, , The originator's IP address.
+http2, id.orig_p, integer, principal_port, , The originator's port number.
+http2, id.resp_h, string, target_ip, , The responder's IP address.
+http2, id.resp_p, integer, target_port, , The responder's port number.
+http2, trans_depth, integer, , , Represents the pipelined depth into the connection of this request/response transaction.
+http2, stream_id, integer, , , Unique ID for the stream.
+http2, method, string, network_http_method, , Verb used in the HTTP request (GET POST HEAD etc.).
+http2, host, string, target_hostname, , Value of the HOST header.
+http2, uri, string, target_url, , URI used in the request.
+http2, referrer, string, , , Value of the 'referer' header.  The comment is deliberately misspelled like the standard declares - but the name used here is 'referrer' (spelled correctly).
+http2, version, string, , , Value of the version portion of the reply. If you require message-level detail - consider the http_request and http_reply events - which report each message's version string.
+http2, user_agent, string, network_http_user_agent, , Value of the User-Agent header from the client.
+http2, origin, string, , , Value of the Origin header from the client.
+http2, request_body_len, integer, network_sent_bytes, uinteger, Actual uncompressed content size of the data transferred from the client.
+http2, response_body_len, integer, network_received_bytes, uinteger, Actual uncompressed content size of the data transferred from the server.
+http2, status_code, integer, network_http_response_code, integer, Status code returned by the server.
+http2, status_msg, string, , , Status message returned by the server.
+http2, info_code, integer, , , Last seen 1xx informational reply code returned by the server.
+http2, info_msg, string, , , Last seen 1xx informational reply message returned by the server.
+http2, encoding, string, , , A set of indicators of various attributes discovered and related to a particular request/response pair. Encoding Type.
+http2, username, string, , , Username if basic-auth is performed for the request.
+http2, password, string, , , Password if basic-auth is performed for the request.
+http2, proxied, array[string], , , All of the headers that may indicate if the request was proxied.
+http2, push, boolean, , , Whether this was a push transaction

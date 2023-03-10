@@ -6,11 +6,11 @@ http, , , metadata_product_name, , replace with 'Zeek'
 http, _path, , metadata_product_event_type, ,
 http, _system_name, , observer_hostname, ,
 http, ts, time, date, , Timestamp for when the request happened.
-http, uid, string, , , Unique ID for the connection.
-http, id.orig_h, string, , , The originator's IP address.
-http, id.orig_p, integer, , , The originator's port number.
-http, id.resp_h, string, , , The responder's IP address.
-http, id.resp_p, integer, , , The responder's port number.
+http, uid, string, metadata_product_log_id, , A unique identifier of the connection.
+http, id.orig_h, string, principal_ip, , The originator's IP address.
+http, id.orig_p, integer, principal_port, , The originator's port number.
+http, id.resp_h, string, target_ip, , The responder's IP address.
+http, id.resp_p, integer, target_port, , The responder's port number.
 http, trans_depth, integer, , , Represents the pipelined depth into the connection of this request/response transaction.
 http, method, string, network_http_method, , Verb used in the HTTP request (GET POST HEAD etc.).
 http, host, string, target_hostname, , Value of the HOST header.

@@ -6,11 +6,11 @@ http_red, , , metadata_product_name, , replace with 'Zeek'
 http_red, _path, , metadata_product_event_type, ,
 http_red, _system_name, , observer_hostname, ,
 http_red, ts, time, date, , Timestamp for when the request happened.
-http_red, uid, string, , , Unique ID for the connection.
-http_red, id.orig_h, string, , , The originator's IP address.
-http_red, id.orig_p, integer, , , The originator's port number.
-http_red, id.resp_h, string, , , The responder's IP address.
-http_red, id.resp_p, integer, , , The responder's port number.
+http_red, uid, string, metadata_product_log_id, , A unique identifier of the connection.
+http_red, id.orig_h, string, principal_ip, , The originator's IP address.
+http_red, id.orig_p, integer, principal_port, , The originator's port number.
+http_red, id.resp_h, string, target_ip, , The responder's IP address.
+http_red, id.resp_p, integer, target_port, , The responder's port number.
 http_red, trans_depth, integer, , , Represents the pipelined depth into the connection of this request/response transaction.
 http_red, method, string, network_http_method, , Verb used in the HTTP request (GET POST HEAD etc.).
 http_red, host, string, target_hostname, , Value of the HOST header.
