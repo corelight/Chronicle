@@ -18,18 +18,18 @@ files, depth, integer, , , A value to represent the depth of this file in relati
 files, analyzers, array[string], , , A set of analysis types done during the file analysis.
 files, mime_type, string, target_file_mime_type, , A mime type provided by the strongest file magic signature match against the *bof_buffer* field of `fa_file` or in the cases where no buffering of the beginning of file occurs an initial guess of the mime type based on the first data seen.
 files, filename, string, target_file_full_path, , A filename for the file if one is available from the source for the file.  These will frequently come from 'Content-Disposition' headers in network protocols.
-files, duration, number - interval, , , The duration the file was analyzed for.
-files, local_orig, boolean - bool, , , If the source of this file is a network connection this field indicates if the data originated from the local network or not as determined by the configured `Site::local_nets`.
-files, is_orig, boolean - bool, , , If the source of this file is a network connection this field indicates if the file is being sent by the originator of the connection or the responder.
-files, seen_bytes, integer - count, target_file_size, , Number of bytes provided to the file analysis engine for the file.
-files, total_bytes, integer - count, , , Total number of bytes that are supposed to comprise the full file.
-files, missing_bytes, integer - count, , , The number of bytes in the file stream that were completely missed during the process of analysis e.g. due to dropped packets.
-files, overflow_bytes, integer - count, , , The number of bytes in the file stream that were not delivered to stream file analyzers.  This could be overlapping bytes or bytes that couldn't be reassembled.
-files, timedout, boolean - bool, , , Whether the file analysis timed out at least once for the file.
+files, duration, number, , , The duration the file was analyzed for.
+files, local_orig, boolean, , , If the source of this file is a network connection this field indicates if the data originated from the local network or not as determined by the configured `Site::local_nets`.
+files, is_orig, boolean, , , If the source of this file is a network connection this field indicates if the file is being sent by the originator of the connection or the responder.
+files, seen_bytes, integer, target_file_size, , Number of bytes provided to the file analysis engine for the file.
+files, total_bytes, integer, , , Total number of bytes that are supposed to comprise the full file.
+files, missing_bytes, integer, , , The number of bytes in the file stream that were completely missed during the process of analysis e.g. due to dropped packets.
+files, overflow_bytes, integer, , , The number of bytes in the file stream that were not delivered to stream file analyzers.  This could be overlapping bytes or bytes that couldn't be reassembled.
+files, timedout, boolean, , , Whether the file analysis timed out at least once for the file.
 files, parent_fuid, string, , , Identifier associated with a container file from which this one was extracted as part of the file analysis.
 files, md5, string, target_file_md5, , An MD5 digest of the file contents.
 files, sha1, string, target_file_sha1, , A SHA1 digest of the file contents.
 files, sha256, string, target_file_sha256, , A SHA256 digest of the file contents.
 files, extracted, string, about.file.full_path, , Local filename of extracted file.
-files, extracted_cutoff, boolean - bool, , , Set to true if the file being extracted was cut off so the whole file was not logged.
-files, extracted_size, integer - count, , , The number of bytes extracted to disk.
+files, extracted_cutoff, boolean, , , Set to true if the file being extracted was cut off so the whole file was not logged.
+files, extracted_size, integer, , , The number of bytes extracted to disk.
