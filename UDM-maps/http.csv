@@ -1,0 +1,39 @@
+Log, Field Name, Type, UDM Field, Type, Description
+
+http, , , metadata_vendor_name, , replace with 'Corelight'
+http, , , metadata_event_type, , replace with 'NETWORK_HTTP'
+http, , , metadata_product_name, , replace with 'Zeek'
+http, _path, , metadata_product_event_type, ,
+http, _system_name, , observer_hostname, ,
+http, ts, time, date, , Timestamp for when the request happened.
+http, uid, string, , , Unique ID for the connection.
+http, id.orig_h, string, , , The originator's IP address.
+http, id.orig_p, integer, , , The originator's port number.
+http, id.resp_h, string, , , The responder's IP address.
+http, id.resp_p, integer, , , The responder's port number.
+http, trans_depth, integer, , , Represents the pipelined depth into the connection of this request/response transaction.
+http, method, string, network_http_method, , Verb used in the HTTP request (GET POST HEAD etc.).
+http, host, string, target_hostname, , Value of the HOST header.
+http, uri, string, target_url, , URI used in the request.
+http, referrer, string, , , Value of the 'referer' header.  The comment is deliberately misspelled like the standard declares - but the name used here is 'referrer' (spelled correctly).
+http, version, string, , , Value of the version portion of the reply. If you require message-level detail - consider the http_request and http_reply events - which report each message's version string.
+http, user_agent, string, network_http_user_agent, , Value of the User-Agent header from the client.
+http, origin, string, , , Value of the Origin header from the client.
+http, request_body_len, integer, network_sent_bytes, uinteger, Actual uncompressed content size of the data transferred from the client.
+http, response_body_len, integer, network_received_bytes, uinteger, Actual uncompressed content size of the data transferred from the server.
+http, status_code, integer, network_http_response_code, integer, Status code returned by the server.
+http, status_msg, string, , , Status message returned by the server.
+http, info_code, integer, , , Last seen 1xx informational reply code returned by the server.
+http, info_msg, string, , , Last seen 1xx informational reply message returned by the server.
+http, tags, array[string], , , A set of indicators of various attributes discovered and related to a particular request/response pair.
+http, username, string, , , Username if basic-auth is performed for the request.
+http, password, string, , , Password if basic-auth is performed for the request.
+http, proxied, array[string], , , All of the headers that may indicate if the request was proxied.
+http, orig_fuids, array[string], , , An ordered vector of file unique IDs. Limited to HTTP::max_files_orig entries.
+http, orig_filenames, array[string], , , An ordered vector of filenames from the client. Limited to HTTP::max_files_orig entries.
+http, orig_mime_types, array[string], , , An ordered vector of mime types. Limited to HTTP::max_files_orig entries.
+http, resp_fuids, array[string], , , An ordered vector of file unique IDs. Limited to HTTP::max_files_resp entries.
+http, resp_filenames, array[string], , , An ordered vector of filenames from the server. Limited to HTTP::max_files_resp entries.
+http, resp_mime_types, array[string], , , An ordered vector of mime types. Limited to HTTP::max_files_resp entries.
+http, , , about.file.mime_type, , replace with '%{resp_mime_types.0}'
+http, post_body, string, , , The post_body information.
