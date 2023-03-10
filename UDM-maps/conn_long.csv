@@ -1,0 +1,49 @@
+Log, Field Name, Type, UDM Field, Type, Description
+
+conn_long, , , metadata_vendor_name, , replace with 'Corelight'
+conn_long, , , metadata_event_type, , replace with 'NETWORK_CONNECTION'
+conn_long, , , metadata_product_name, , replace with 'Zeek'
+conn_long, _path, , metadata_product_event_type, ,
+conn_long, _system_name, , observer_hostname, ,
+conn_long, ts, time, , , This is the time of the first packet.
+conn_long, uid, string, metadata_product_log_id, , A unique identifier of the connection.
+conn_long, id.orig_h, string, principal_ip, , The originator's IP address.
+conn_long, id.orig_p, integer, principal_port, , The originator's port number.
+conn_long, id.resp_h, string, target_ip, , The responder's IP address.
+conn_long, id.resp_p, integer, target_port, , The responder's port number.
+conn_long, proto, string, network_ip_protocol, , The transport layer protocol of the connection.
+conn_long, service, string, network_application_protocol, , An identification of an application protocol being sent over the connection.
+conn_long, duration, number, , , How long the connection lasted.  For 3-way or 4-way connection tear-downs - this will not include the final ACK.
+conn_long, orig_bytes, integer, network_sent_bytes, uinteger, The number of payload bytes the originator sent. For TCP this is taken from sequence numbers and might be inaccurate (e.g. due to large connections).
+conn_long, resp_bytes, integer, network_received_bytes, uinteger, The number of payload bytes the responder sent. See *orig_bytes*.
+conn_long, conn_state, string, metadata_description, , The state of the connection.
+conn_long, local_orig, boolean, , , If the connection is originated locally - this value will be T. If it was originated remotely it will be F.  In the case that the `Site::local_nets` variable is undefined - this field will be left empty at all times.
+conn_long, local_resp, boolean, , , If the connection is responded to locally - this value will be T. If it was responded to remotely it will be F.  In the case that the `Site::local_nets` variable is undefined - this field will be left empty at all times.
+conn_long, missed_bytes, integer, , , Indicates the number of bytes missed in content gaps - which is representative of packet loss.  A value other than zero will normally cause protocol analysis to fail but some analysis may have been completed prior to the packet loss.
+conn_long, history, string, , , Records the state history of connections as a string of letters.  The meaning of those letters is:
+conn_long, orig_pkts, integer, , , Number of packets that the originator sent. Only set if `use_conn_size_analyzer` = T.
+conn_long, orig_ip_bytes, integer, , , Number of IP level bytes that the originator sent (as seen on the wire - taken from the IP total_length header field). Only set if `use_conn_size_analyzer` = T.
+conn_long, resp_pkts, integer, , , Number of packets that the responder sent. Only set if `use_conn_size_analyzer` = T.
+conn_long, resp_ip_bytes, integer, , , Number of IP level bytes that the responder sent (as seen on the wire - taken from the IP total_length header field). Only set if `use_conn_size_analyzer` = T.
+conn_long, tunnel_parents, array[string], , , If this connection was over a tunnel - indicate the *uid* values for any encapsulating parent connections used over the lifetime of this inner connection.
+conn_long, orig_cc, string, , , The name of the node where this connection was analyzed. Country code for GeoIP lookup of the originating IP address.
+conn_long, resp_cc, string, , , Country code for GeoIP lookup of the responding IP address.
+conn_long, suri_ids, array[string], , , The suri_ids information.
+conn_long, spcap.url, string, , , The spcap.url information.
+conn_long, spcap.rule, integer, , , The spcap.rule information.
+conn_long, spcap.trigger, string, , , The spcap.trigger information.
+conn_long, app, array[string], , , The app information.
+conn_long, corelight_shunted, boolean, , , The corelight_shunted information.
+conn_long, orig_shunted_pkts, integer, , , The orig_shunted_pkts information.
+conn_long, orig_shunted_bytes, integer, , , The orig_shunted_bytes information.
+conn_long, resp_shunted_pkts, integer, , , The resp_shunted_pkts information.
+conn_long, resp_shunted_bytes, integer, , , The resp_shunted_bytes information.
+conn_long, orig_l2_addr, string, , , Link-layer address of the originator (if available).
+conn_long, resp_l2_addr, string, , , Link-layer address of the responder (if available).
+conn_long, id_orig_h_n.src, string, , , How we determined the name/address pair. Either ``DNS_A`` representing the DNS_A* family of query types - or ``DNS_PTR`` for reverse DNS lookups.
+conn_long, id_orig_h_n.vals, array[string], , , The set of names we observed for a given address.
+conn_long, id_resp_h_n.src, string, , , How we determined the name/address pair. Either ``DNS_A`` representing the DNS_A* family of query types - or ``DNS_PTR`` for reverse DNS lookups.
+conn_long, id_resp_h_n.vals, array[string], , , The set of names we observed for a given address.
+conn_long, vlan, integer, , , The outer VLAN for this connection (if applicable).
+conn_long, inner_vlan, integer, , , The inner VLAN for this connection (if applicable).
+conn_long, community_id, string, event1.idm.read_only_udm.network.community_id, , The community_id information.

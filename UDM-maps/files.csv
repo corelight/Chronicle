@@ -1,0 +1,35 @@
+Log, Field Name, Type, UDM Field, Type, Description
+
+files, , , metadata_vendor_name, , replace with 'Corelight'
+files, , , metadata_event_type, , replace with 'FILE_UNCATEGORIZED'
+files, , , metadata_product_name, , replace with 'Zeek'
+files, , , principal_ip, , replace with '%{tx_hosts.0}'
+files, , , principal_hostname, , replace with '%{tx_hosts.0}'
+files, , , target_ip, , replace with '%{rx_hosts.0}'
+files, _path, , metadata_product_event_type, ,
+files, _system_name, , observer_hostname, ,
+files, ts, time, , , The time when the file was first seen.
+files, fuid, string, metadata_product_log_id, , An identifier associated with a single file.
+files, tx_hosts, array[string], , , If this file was transferred over a network connection this should show the host or hosts that the data sourced from.
+files, rx_hosts, array[string], , , If this file was transferred over a network connection this should show the host or hosts that the data traveled to.
+files, conn_uids, array[string], , , Connection UIDs over which the file was transferred.
+files, source, string, , , An identification of the source of the file data.  E.g. it may be a network protocol over which it was transferred or a local file path which was read or some other input source.
+files, depth, integer, , , A value to represent the depth of this file in relation to its source.  In SMTP it is the depth of the MIME attachment on the message.  In HTTP it is the depth of the request within the TCP connection.
+files, analyzers, array[string], , , A set of analysis types done during the file analysis.
+files, mime_type, string, target_file_mime_type, , A mime type provided by the strongest file magic signature match against the *bof_buffer* field of `fa_file` or in the cases where no buffering of the beginning of file occurs an initial guess of the mime type based on the first data seen.
+files, filename, string, target_file_full_path, , A filename for the file if one is available from the source for the file.  These will frequently come from 'Content-Disposition' headers in network protocols.
+files, duration, number - interval, , , The duration the file was analyzed for.
+files, local_orig, boolean - bool, , , If the source of this file is a network connection this field indicates if the data originated from the local network or not as determined by the configured `Site::local_nets`.
+files, is_orig, boolean - bool, , , If the source of this file is a network connection this field indicates if the file is being sent by the originator of the connection or the responder.
+files, seen_bytes, integer - count, target_file_size, , Number of bytes provided to the file analysis engine for the file.
+files, total_bytes, integer - count, , , Total number of bytes that are supposed to comprise the full file.
+files, missing_bytes, integer - count, , , The number of bytes in the file stream that were completely missed during the process of analysis e.g. due to dropped packets.
+files, overflow_bytes, integer - count, , , The number of bytes in the file stream that were not delivered to stream file analyzers.  This could be overlapping bytes or bytes that couldn't be reassembled.
+files, timedout, boolean - bool, , , Whether the file analysis timed out at least once for the file.
+files, parent_fuid, string, , , Identifier associated with a container file from which this one was extracted as part of the file analysis.
+files, md5, string, target_file_md5, , An MD5 digest of the file contents.
+files, sha1, string, target_file_sha1, , A SHA1 digest of the file contents.
+files, sha256, string, target_file_sha256, , A SHA256 digest of the file contents.
+files, extracted, string, about.file.full_path, , Local filename of extracted file.
+files, extracted_cutoff, boolean - bool, , , Set to true if the file being extracted was cut off so the whole file was not logged.
+files, extracted_size, integer - count, , , The number of bytes extracted to disk.

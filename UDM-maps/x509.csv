@@ -1,0 +1,29 @@
+Log, Field Name, Type, UDM Field, Type, Description
+
+x509, , , metadata_vendor_name, , replace with 'Corelight'
+x509, , , metadata_event_type, , replace with 'GENERIC_EVENT'
+x509, , , metadata_product_name, , replace with 'Zeek'
+x509, , , metadata_product_log_id, , replace with '%{fingerprint}'
+x509, , , event1.idm.read_only_udm.target.application, , replace with 'x509'
+x509, ts, time, date, , Current timestamp.
+x509, fingerprint, string, , , Fingerprint of the certificate - uses chosen algorithm.
+x509, certificate.version, integer, event1.idm.read_only_udm.network.tls.server.certificate.version, string, Version number.
+x509, certificate.serial, string, event1.idm.read_only_udm.network.tls.server.certificate.serial, , Serial number.
+x509, certificate.subject, string, event1.idm.read_only_udm.network.tls.server.certificate.subject, , Subject.
+x509, certificate.issuer, string, event1.idm.read_only_udm.network.tls.server.certificate.issuer, , Issuer.
+x509, certificate.not_valid_before, time, event1.idm.read_only_udm.network.tls.server.certificate.not_before, yyyy-MM-dd HH:mm:ss.SSS, Timestamp before when certificate is not valid.
+x509, certificate.not_valid_after, time, event1.idm.read_only_udm.network.tls.server.certificate.not_after, yyyy-MM-dd HH:mm:ss.SSS, Timestamp after when certificate is not valid.
+x509, certificate.key_alg, string, , , Name of the key algorithm
+x509, certificate.sig_alg, string, , , Name of the signature algorithm
+x509, certificate.key_type, string, , , Key type - if key parseable by openssl (either rsa or dsa or ec)
+x509, certificate.key_length, integer, , , Key length in bits
+x509, certificate.exponent, string, , , Exponent (if RSA-certificate)
+x509, certificate.curve, string, , , Curve (if EC-certificate)
+x509, san.dns, array[string], , , List of DNS entries in SAN
+x509, san.uri, array[string], , , List of URI entries in SAN
+x509, san.email, array[string], , , List of email entries in SAN
+x509, san.ip, array[string], , , List of IP entries in SAN
+x509, basic_constraints.ca, boolean, , , CA flag set?
+x509, basic_constraints.path_len, integer, , , Maximum path length
+x509, host_cert, boolean, , , Indicates if this certificate was a end-host certificate - or sent as part of a chain
+x509, client_cert, boolean, , , Indicates if this certificate was sent from the client

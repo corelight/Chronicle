@@ -1,0 +1,28 @@
+Log, Field Name, Type, UDM Field, Type, Description
+
+intel, , , metadata_vendor_name, , replace with 'Corelight'
+intel, , , metadata_event_type, , replace with 'SCAN_NETWORK'
+intel, , , metadata_product_name, , replace with 'Zeek'
+intel, ts, time, date, , Timestamp when the data was discovered.
+intel, uid, string, metadata_product_log_id, , A unique identifier of the connection associated with this intelligence hit.
+intel, id.orig_h, string, principal_ip, , The originator's IP address.
+intel, id.orig_p, string, principal_port, string, The originator's port number.
+intel, id.resp_h, string, target_ip, , The responder's IP address.
+intel, id.resp_p, string, target_port, string, The responder's port number.
+intel, seen.indicator, string, , , The string if the data is about a string.
+intel, seen.indicator_type, string, , , The type of data that the indicator represents.
+intel, seen.where, string, , , Where the data was discovered.
+intel, matched, array[string], , , Which indicator types matched.
+intel, sources, array[string], , , Sources which supplied data that resulted in this match.
+intel, fuid, string, , , If a file was associated with this intelligence hit - this is the uid for the file.
+intel, file_mime_type, string, , , A mime type if the intelligence hit is related to a file. If the $f field is provided this will be automatically filled out.
+intel, file_desc, string, , , Frequently files can be 'described' to give a bit more context. If the $f field is provided this field will be automatically filled out.
+intel, desc, array[string], , , The desc information.
+intel, url, array[string], , , The url information.
+intel, confidence, array[number], , , The confidence information.
+intel, firstseen, array[string], , , The firstseen information.
+intel, lastseen, array[string], , , The lastseen information.
+intel, associated, array[string], , , The associated information.
+intel, category, array[string], , , The category information.
+intel, campaigns, array[string], , , The campaigns information.
+intel, reports, array[string], , , The reports information.

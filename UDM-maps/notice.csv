@@ -1,0 +1,31 @@
+Log, Field Name, Type, UDM Field, Type, Description
+
+notice, , , metadata_vendor_name, , replace with 'Corelight'
+notice, , , metadata_event_type, , replace with 'STATUS_UPDATE'
+notice, , , metadata_product_name, , replace with 'Zeek'
+notice, ts, time, date, , An absolute time indicating when the notice occurred - defaults to the current network time.
+notice, uid, string, metadata_product_log_id, , A connection UID which uniquely identifies the endpoints concerned with the notice.
+notice, id.orig_h, string, principal_ip, , The originator's IP address.
+notice, id.orig_p, string, principal_port, string, The originator's port number.
+notice, id.resp_h, string, target_ip, , The responder's IP address.
+notice, id.resp_p, string, target_port, string, The responder's port number.
+notice, fuid,  string, ,  , A file unique ID if this notice is related to a file.  If the *f* field is provided - this will be automatically filled out.
+notice, file_mime_type,  string, ,  , A mime type if the notice is related to a file.  If the *f* field is provided - this will be automatically filled out.
+notice, file_desc,  string, ,  , Frequently files can be 'described' to give a bit more context.  This field will typically be automatically filled out from an fa_file record.  For example - if a notice was related to a file over HTTP - the URL of the request would be shown.
+notice, proto,  string, ,  , The transport protocol. Filled automatically when either *conn* - *iconn* or *p* is specified.
+notice, note,  string, metadata_description,  , The `Notice::Type` of the notice.
+notice, note,  string, security_result.description,  , The `Notice::Type` of the notice.
+notice, msg,  string, ,  , The human readable message for the notice.
+notice, sub,  string, ,  , The human readable sub-message.
+notice, src,  string, ,  , Source address - if we don't have a `conn_id`.
+notice, dst,  string, ,  , Destination address.
+notice, p,  integer, ,  , Associated port - if we don't have a `conn_id`.
+notice, n,  integer, ,  , Associated count - or perhaps a status code.
+notice, peer_descr,  string, ,  , Textual description for the peer that raised this notice - including name host address and port.
+notice, actions,  array[string], ,  , The actions which have been applied to this notice.
+notice, suppress_for,  number, ,  , This field indicates the length of time that this unique notice should be suppressed.
+notice, remote_location.country_code,  string, ,  , The country code.
+notice, remote_location.region,  string, ,  , The region.
+notice, remote_location.city,  string, ,  , The city.
+notice, remote_location.latitude,  number, ,  , Latitude.
+notice, remote_location.longitude,  number, ,  , Longitude.
