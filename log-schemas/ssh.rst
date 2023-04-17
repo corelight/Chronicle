@@ -38,10 +38,10 @@
      - Authentication result (T=success, F=failure, unset=unknown)
 
    * - ``auth_attempts`` (integer - count)
-     - The number of authentication attemps we observed. There's always
+     - The number of authentication attempts we observed. There's always
        at least one, since some servers might support no authentication at all.
        It's important to note that not all of these are failures, since
-       some servers require two-factor auth (e.g. password AND pubkey)
+       some servers require two-factor auth (e.g. password AND publickey)
 
    * - ``direction`` (string - enum)
      - Direction of the connection. If the client was a local host
