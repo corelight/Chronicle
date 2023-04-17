@@ -1,4 +1,4 @@
-``ssh`` UDM map reference
+``ssh`` UDM Map Reference
 -------------------------
 
 .. list-table::

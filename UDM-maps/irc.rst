@@ -1,4 +1,4 @@
-``irc`` UDM map reference
+``irc`` UDM Map Reference
 -------------------------
 
 .. list-table::

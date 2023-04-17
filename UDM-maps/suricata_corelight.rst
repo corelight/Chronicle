@@ -1,4 +1,4 @@
-``suricata_corelight`` UDM map reference
+``suricata_corelight`` UDM Map Reference
 ----------------------------------------
 
 .. list-table::

@@ -1,4 +1,4 @@
-``ssl`` UDM map reference
+``ssl`` UDM Map Reference
 -------------------------
 
 .. list-table::

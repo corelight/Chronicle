@@ -1,4 +1,4 @@
-``intel`` UDM map reference
+``intel`` UDM Map Reference
 ---------------------------
 
 .. list-table::

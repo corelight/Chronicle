@@ -1,4 +1,4 @@
-``dns`` UDM map reference
+``dns`` UDM Map Reference
 -------------------------
 
 .. list-table::

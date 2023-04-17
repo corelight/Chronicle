@@ -1,4 +1,4 @@
-``dce_rpc`` UDM map reference
+``dce_rpc`` UDM Map Reference
 -----------------------------
 
 .. list-table::

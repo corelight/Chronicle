@@ -1,4 +1,4 @@
-``sip`` UDM map reference
+``sip`` UDM Map Reference
 -------------------------
 
 .. list-table::

@@ -1,4 +1,4 @@
-``smtp_links`` UDM map reference
+``smtp_links`` UDM Map Reference
 --------------------------------
 
 .. list-table::

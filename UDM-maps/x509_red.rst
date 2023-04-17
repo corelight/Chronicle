@@ -1,4 +1,4 @@
-``x509_red`` UDM map reference
+``x509_red`` UDM Map Reference
 ------------------------------
 
 .. list-table::

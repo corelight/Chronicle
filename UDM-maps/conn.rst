@@ -1,4 +1,4 @@
-``conn`` UDM map reference
+``conn`` UDM Map Reference
 --------------------------
 
 .. list-table::

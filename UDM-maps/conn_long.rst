@@ -1,4 +1,4 @@
-``conn_long`` UDM map reference
+``conn_long`` UDM Map Reference
 -------------------------------
 
 .. list-table::

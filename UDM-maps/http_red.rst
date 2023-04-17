@@ -1,4 +1,4 @@
-``http_red`` UDM map reference
+``http_red`` UDM Map Reference
 ------------------------------
 
 .. list-table::

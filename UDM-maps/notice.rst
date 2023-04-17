@@ -1,4 +1,4 @@
-``notice`` UDM map reference
+``notice`` UDM Map Reference
 ----------------------------
 
 .. list-table::

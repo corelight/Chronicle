@@ -1,4 +1,4 @@
-``dns_red`` UDM map reference
+``dns_red`` UDM Map Reference
 -----------------------------
 
 .. list-table::

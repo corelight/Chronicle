@@ -1,4 +1,4 @@
-``files_red`` UDM map reference
+``files_red`` UDM Map Reference
 -------------------------------
 
 .. list-table::

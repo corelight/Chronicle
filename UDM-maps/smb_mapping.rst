@@ -1,4 +1,4 @@
-``smb_mapping`` UDM map reference
+``smb_mapping`` UDM Map Reference
 ---------------------------------
 
 .. list-table::

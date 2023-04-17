@@ -1,4 +1,4 @@
-``http`` UDM map reference
+``http`` UDM Map Reference
 ------------------------------
 
 .. list-table::

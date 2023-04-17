@@ -1,4 +1,4 @@
-``rdp`` UDM map reference
+``rdp`` UDM Map Reference
 -------------------------
 
 .. list-table::
