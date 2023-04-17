@@ -3,8 +3,8 @@ Log, Field Name, Type, UDM Field, Type, Description
 conn_long, , , metadata_vendor_name, , replace with 'Corelight'
 conn_long, , , metadata_event_type, , replace with 'NETWORK_CONNECTION'
 conn_long, , , metadata_product_name, , replace with 'Zeek'
-conn_long, _path, , metadata_product_event_type, ,
-conn_long, _system_name, , observer_hostname, ,
+conn_long, _path, , metadata_product_event_type, , The name of the log file.
+conn_long, _system_name, , observer_hostname, , The name of the sensor that observed the traffic.
 conn_long, ts, time, , , This is the time of the first packet.
 conn_long, uid, string, metadata_product_log_id, , A unique identifier of the connection.
 conn_long, id.orig_h, string, principal_ip, , The originator's IP address.

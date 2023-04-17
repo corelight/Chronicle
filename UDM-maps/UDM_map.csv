@@ -3,8 +3,8 @@ Log, Field Name, Type, UDM Field, Type, Description
 , , , metadata_vendor_name, , replace with 'Corelight'
 , , , metadata_event_type, , replace with 'GENRIC_EVENT'
 , , , metadata_product_name, , replace with 'Zeek'
-, _path, , metadata_product_event_type, ,
-, _system_name, , observer_hostname, ,
+, _path, , metadata_product_event_type, , The name of the log file.
+, _system_name, , observer_hostname, , The name of the sensor that observed the traffic.
 , ts, time, date, ,
 , uid, string, metadata_product_log_id, , A unique identifier of the connection.
 , fuid, string, metadata_product_log_id, , An identifier associated with a single file.

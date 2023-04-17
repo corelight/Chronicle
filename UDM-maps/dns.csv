@@ -3,8 +3,8 @@ Log, Field Name, Type, UDM Field, Type, Description
 dns, , , metadata_vendor_name, , replace with 'Corelight'
 dns, , , metadata_event_type, , replace with 'NETWORK_DNS'
 dns, , , metadata_product_name, , replace with 'Zeek'
-dns, _path, , metadata_product_event_type, ,
-dns, _system_name, , observer_hostname, ,
+dns, _path, , metadata_product_event_type, , The name of the log file.
+dns, _system_name, , observer_hostname, , The name of the sensor that observed the traffic.
 dns, ts, time, date, , The earliest time at which a DNS protocol message over the associated connection is observed.
 dns, uid, string, metadata_product_log_id, , A unique identifier of the connection over which DNS messages are being transferred.
 dns, id.orig_h, string, principal_ip, , The originator's IP address.

@@ -3,8 +3,8 @@ Log, Field Name, Type, UDM Field, Type, Description
 http, , , metadata_vendor_name, , replace with 'Corelight'
 http, , , metadata_event_type, , replace with 'NETWORK_HTTP'
 http, , , metadata_product_name, , replace with 'Zeek'
-http, _path, , metadata_product_event_type, ,
-http, _system_name, , observer_hostname, ,
+http, _path, , metadata_product_event_type, , The name of the log file.
+http, _system_name, , observer_hostname, , The name of the sensor that observed the traffic.
 http, ts, time, date, , Timestamp for when the request happened.
 http, uid, string, metadata_product_log_id, , A unique identifier of the connection.
 http, id.orig_h, string, principal_ip, , The originator's IP address.

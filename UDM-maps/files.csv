@@ -6,8 +6,8 @@ files, , , metadata_product_name, , replace with 'Zeek'
 files, , , principal_ip, , replace with '%{tx_hosts.0}'
 files, , , principal_hostname, , replace with '%{tx_hosts.0}'
 files, , , target_ip, , replace with '%{rx_hosts.0}'
-files, _path, , metadata_product_event_type, ,
-files, _system_name, , observer_hostname, ,
+files, _path, , metadata_product_event_type, , The name of the log file.
+files, _system_name, , observer_hostname, , The name of the sensor that observed the traffic.
 files, ts, time, , , The time when the file was first seen.
 files, fuid, string, metadata_product_log_id, , An identifier associated with a single file.
 files, tx_hosts, array[string], , , If this file was transferred over a network connection this should show the host or hosts that the data sourced from.

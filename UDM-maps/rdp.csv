@@ -4,8 +4,8 @@ rdp, , , metadata_vendor_name, , replace with 'Corelight'
 rdp, , , metadata_event_type, , replace with 'NETWORK_CONNECTION'
 rdp, , , metadata_product_name, , replace with 'Zeek'
 rdp, , , network_ip_protocol, , replace with 'TCP'
-rdp, _path, , metadata_product_event_type, ,
-rdp, _system_name, , observer_hostname, ,
+rdp, _path, , metadata_product_event_type, , The name of the log file.
+rdp, _system_name, , observer_hostname, , The name of the sensor that observed the traffic.
 rdp, ts, time, date, ,
 rdp, uid, string, metadata_product_log_id, , A unique identifier of the connection.
 rdp, id.orig_h, string, principal_ip, , The originator's IP address.
