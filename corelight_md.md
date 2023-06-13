@@ -1065,12 +1065,12 @@ The following table lists the log fields of the <code>notice</code> log type and
 </tr>
 <tr>
 <td><code>remote_location.latitude (number - double)</code></td>
-<td><code>about.location.region_latitude</code></td>
+<td><code>about.location.region_coordinates.latitude</code></td>
 <td></td>
 </tr>
 <tr>
 <td><code>remote_location.longitude (number - double)</code></td>
-<td><code>about.location.region_longitude</code></td>
+<td><code>about.location.region_coordinates.longitude</code></td>
 <td></td>
 </tr>
 <tr>
@@ -3278,53 +3278,43 @@ The following table lists the log fields of the <code>local_subnets</code> log t
 <td>The <code>metadata.product_name</code> UDM field is set to <code>Zeek</code>.</td>
 </tr>
 <tr>
-<td></td>
-<td><code>target.resource.resource_type</code></td>
-<td>The <code>target.resource.resource_type</code> UDM field is set to <code>VPC_NETWORK</code>.</td>
-</tr>
-<tr>
-<td></td>
-<td><code>target.resource.resource_subtype</code></td>
-<td>The <code>target.resource.resource_subtype</code> UDM field is set to <code>SUBNET</code>.</td>
-</tr>
-<tr>
 <td><code>round (integer - count)</code></td>
-<td><code>target.resource.attribute.labels [round]</code></td>
+<td><code>about.labels [round]</code></td>
 <td></td>
 </tr>
 <tr>
 <td><code>ip_version (integer - count)</code></td>
-<td><code>target.resource.attribute.labels [ip_version]</code></td>
+<td><code>about.labels [ip_version]</code></td>
 <td></td>
 </tr>
 <tr>
 <td><code>subnets (array[string] - set[subnet])</code></td>
-<td><code>target.resource.attribute.labels [subnets]</code></td>
+<td><code>about.labels [subnet]</code></td>
 <td></td>
 </tr>
 <tr>
 <td><code>component_ids (array[integer] - set[count])</code></td>
-<td><code>target.resource.attribute.labels [component_ids]</code></td>
+<td><code>about.labels [component_id]</code></td>
 <td></td>
 </tr>
 <tr>
 <td><code>size_of_component (integer - count)</code></td>
-<td><code>target.resource.attribute.labels [size_of_component]</code></td>
+<td><code>about.labels [size_of_component]</code></td>
 <td></td>
 </tr>
 <tr>
 <td><code>bipartite (boolean - bool)</code></td>
-<td><code>target.resource.attribute.labels [bipartite]</code></td>
+<td><code>about.labels [bipartite]</code></td>
 <td></td>
 </tr>
 <tr>
 <td><code>inferred_site (boolean - bool)</code></td>
-<td><code>target.resource.attribute.labels [inferred_site]</code></td>
+<td><code>about.labels [inferred_site]</code></td>
 <td></td>
 </tr>
 <tr>
 <td><code>other_ips (array[string] - set[addr])</code></td>
-<td><code>target.ip</code></td>
+<td><code>about.ip</code></td>
 <td></td>
 </tr>
 </tbody>
@@ -3358,23 +3348,13 @@ The following table lists the log fields of the <code>local_subnets_dj</code> lo
 <td>The <code>metadata.product_name</code> UDM field is set to <code>Zeek</code>.</td>
 </tr>
 <tr>
-<td></td>
-<td><code>target.resource.resource_type</code></td>
-<td>The <code>target.resource.resource_type</code> UDM field is set to <code>VPC_NETWORK</code>.</td>
-</tr>
-<tr>
-<td></td>
-<td><code>target.resource.resource_subtype</code></td>
-<td>The <code>target.resource.resource_subtype</code> UDM field is set to <code>SUBNET</code>.</td>
-</tr>
-<tr>
 <td><code>ip_version (integer - count)</code></td>
-<td><code>target.resource.attribute.labels [ip_version]</code></td>
+<td><code>about.labels [ip_version]</code></td>
 <td></td>
 </tr>
 <tr>
 <td><code>v (string - addr)</code></td>
-<td><code>target.ip</code></td>
+<td><code>about.ip</code></td>
 <td></td>
 </tr>
 <tr>
@@ -3413,18 +3393,8 @@ The following table lists the log fields of the <code>local_subnets_graphs</code
 <td>The <code>metadata.product_name</code> UDM field is set to <code>Zeek</code>.</td>
 </tr>
 <tr>
-<td></td>
-<td><code>target.resource.resource_type</code></td>
-<td>The <code>target.resource.resource_type</code> UDM field is set to <code>VPC_NETWORK</code>.</td>
-</tr>
-<tr>
-<td></td>
-<td><code>target.resource.resource_subtype</code></td>
-<td>The <code>target.resource.resource_subtype</code> UDM field is set to <code>SUBNET</code>.</td>
-</tr>
-<tr>
 <td><code>ip_version (integer - count)</code></td>
-<td><code>target.resource.attribute.labels [ip_version]</code></td>
+<td><code>about.labels [ip_version]</code></td>
 <td></td>
 </tr>
 <tr>
@@ -4144,12 +4114,12 @@ The following table lists the log fields of the <code>mysql</code> log type and 
 </tr>
 <tr>
 <td><code>success (boolean - bool)</code></td>
-<td><code>security_result.summary</code></td>
-<td>If the <code>success</code> log field value is equal to <code>true</code>, then the <code>security_result.summary</code> UDM field is set to <code>Query succesfully executated</code>.<br><br>Else, the <code>security_result.summary</code> UDM field is set to <code>Query execution failed</code>.</td>
+<td><code>target.resource.attribute.labels [success]</code></td>
+<td></td>
 </tr>
 <tr>
 <td><code>rows (integer - count)</code></td>
-<td><code>security_result.detection_fields [rows]</code></td>
+<td><code>target.resource.attribute.labels [rows]</code></td>
 <td></td>
 </tr>
 <tr>
