@@ -8776,3 +8776,48 @@ The following table lists the log fields of the <code>suricata_stats</code> log 
 </table>
 </devsite-filter>
 </div>
+<h3>Field mapping reference: CORELIGHT - logschema</h3>
+
+The following table lists the log fields of the <code>logschema</code> log type and their corresponding UDM fields.
+
+<div translate="no">
+<devsite-filter sortable="0">
+<input type="text" placeholder="Type a keyword to find a value.">
+<table class="fixed">
+<thead>
+<tr>
+<th>Log field</th>
+<th>UDM mapping</th>
+<th>Logic</th>
+</tr>
+</thead>
+<tbody class="list">
+<tr>
+<td></td>
+<td><code>metadata.event_type</code></td>
+<td>The <code>metadata.event_type</code> UDM field is set to <code>GENERIC_EVENT</code>.</td>
+</tr>
+<tr>
+<td><code>name(string)</code></td>
+<td><code>about.labels [name]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>text(string)</code></td>
+<td><code>about.labels [text]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>schema(string)</code></td>
+<td><code>about.labels [schema]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>avro(string)</code></td>
+<td><code>about.labels [avro]</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</devsite-filter>
+</div>
