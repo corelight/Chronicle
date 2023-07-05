@@ -8,12 +8,12 @@ For more information, see [Data ingestion to Chronicle](https://cloud.google.com
 
 The following deployment architecture diagram shows a Corelight sensor configured to send logs to Chronicle. A customer deployment can differ from this example, and might be more complex.
 
-EXAMPLE DIAGRAM
+![Image is a sample architecture showing the data flow from a Corelight sensor to Chronicle, using the Chronicle forwarder.](/assets/images/corelight_arch.png)
 
 The architecture diagram shows the following components:
 
 * Corelight sensor: The system running the sensor.
-* The Corelight exporter: Collects information from the sensor, and forwards the information to Chronicle forwarder.
+* The Corelight sensor exporter: Collects information from the sensor, and forwards the information to Chronicle forwarder.
 * Chronicle forwarder: A lightweight software component, deployed in the customer's network to forward the logs to Chronicle.
 * Chronicle: Retains and analyzes the logs from the sensor.
 
@@ -21,9 +21,19 @@ An ingestion label identifies the parser, which normalizes raw log data into the
 
 ## Before you begin
 
-* Verify the version of your Corelight sensor. The Corelight parser was designed for version 27.4 and earlier. Later versions of the Corelight sensor might have additional logs that would not be collected, parsed, and sent to Chronicle.
+* Verify the version of your Corelight sensor. The Corelight Chronicle parser was designed for version 27.4 and earlier. Later versions of the Corelight sensor might have additional logs that would not be collected, parsed, and sent to Chronicle.
 * ???? WHAT IS A GOLD PARSER Before you use the Gold parser, review the changes in field mappings between the default parser and Gold parser listed in this document. As part of the migration, ensure that the rules, searches, dashboards, or other processes that depend on the original fields use the updated fields.
 * ???? ARE THERE ANY OTHER CONSIDERABLE PRE_REQS THAT A CUSTOMER NEEDS TO KNOW?
+
+
+## Configure the Corelight sensor exporter
+
+Configure syslog out
+
+## Configure the Chronicle forwarder
+
+Configure syslog in
+
 
 
 <h3>Field mapping reference: CORELIGHT - Common Fields </h3>
