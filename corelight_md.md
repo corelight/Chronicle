@@ -52,12 +52,11 @@ enable_auto_update: false
 
 1. Log into your Corelight sensor as an adminstrator.
 2. Select the **Export** tab.
-3. Find and enable **EXPORT TO SYSLOG**.
-4. Under the **EXPORT TO SYSLOG** option, configure:
+3. Find and enable **EXPORT TO SYSLOG** option.
+4. Under **EXPORT TO SYSLOG**, configure:
    * **SYSLOG SERVER**: Provide the IP and port of the Chronicle forwarder syslog listener.
    * **Advanced Settings: SYSLOG FORMAT**: Change the setting to **Legacy**.
 5. Click **Apply Changes**.
-6. ???? Validation that this is working?
 
 
 <h3>Field mapping reference: CORELIGHT - Common Fields </h3>
