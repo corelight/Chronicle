@@ -13,11 +13,11 @@ The following deployment architecture diagram shows a Corelight sensor configure
 The architecture diagram shows the following components:
 
 * Corelight sensor: The system running the Corelight sensor.
-* The Corelight sensor exporter: Collects information from the sensor, and forwards the information to Chronicle forwarder.
-* Chronicle forwarder: A lightweight software component, deployed in the customer's network to forward the logs to Chronicle.
+* The Corelight sensor exporter: Collects log data from the sensor, and forwards it to the Chronicle forwarder.
+* Chronicle forwarder: A lightweight software component, deployed in the customer's network to collect and forward the logs to Chronicle.
 * Chronicle: Parses and analyzes the logs from the sensor.
 
-An ingestion label identifies the parser, which normalizes raw log data into the structured UDM format. The information in this document applies to the parser with Corelight ingestion label.
+An ingestion label is used to identify the parser, which normalizes raw log data into the structured UDM format. The information in this document applies to the parser with Corelight ingestion label.
 
 ## Before you begin
 
