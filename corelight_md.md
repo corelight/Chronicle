@@ -8,14 +8,14 @@ For more information, see [Data ingestion to Chronicle](https://cloud.google.com
 
 The following deployment architecture diagram shows a Corelight sensor configured to send logs to Chronicle. A customer deployment can differ from this example, and might be more complex.
 
-![Image is a sample architecture showing the data flow from a Corelight sensor to Chronicle, using the Chronicle forwarder.](/assets/images/corelight_arch.png)
+!(/images/corelight_parser_arch.png)
 
 The architecture diagram shows the following components:
 
-* Corelight sensor: The system running the sensor.
+* Corelight sensor: The system running the Corelight sensor.
 * The Corelight sensor exporter: Collects information from the sensor, and forwards the information to Chronicle forwarder.
 * Chronicle forwarder: A lightweight software component, deployed in the customer's network to forward the logs to Chronicle.
-* Chronicle: Retains and analyzes the logs from the sensor.
+* Chronicle: Parses and analyzes the logs from the sensor.
 
 An ingestion label identifies the parser, which normalizes raw log data into the structured UDM format. The information in this document applies to the parser with Corelight ingestion label.
 
