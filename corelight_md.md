@@ -21,9 +21,9 @@ An ingestion label is used to identify the parser, which normalizes raw log data
 
 ## Before you begin
 
-* Verify the version of your Corelight sensor. The Corelight Chronicle parser was designed for version 27.4 and earlier. Later versions of the Corelight sensor might have additional logs that would not be collected, parsed, and sent to Chronicle.
-* ???? WHAT IS A GOLD PARSER Before you use the Gold parser, review the changes in field mappings between the default parser and Gold parser listed in this document. As part of the migration, ensure that the rules, searches, dashboards, or other processes that depend on the original fields use the updated fields.
-* ???? ARE THERE ANY OTHER CONSIDERABLE PRE_REQS THAT A CUSTOMER NEEDS TO KNOW?
+* Verify the version of your Corelight sensor. The Corelight Chronicle parser was designed for version 27.4 and earlier. Later versions of the Corelight sensor might have additional logs that the parser will not recognize, and those logs might receive limited or no field parsing.  However, the log content will still be available in the raw log format in Chronicle.
+
+* Review the parser [Change log for CORELIGHT](https://cloud.google.com/chronicle/docs/ingestion/parser-list/corelight-changelog).
 
 ## Configure the Chronicle forwarder
 
@@ -40,9 +40,9 @@ collectors:
         data_hint:
         batch_n_seconds: 10
         batch_n_bytes: 1048576
-      tcp_address: <Chronicle forwarder IP:Port>
+      tcp_address: <Chronicle forwarder listening IP:Port>
       tcp_buffer_size: 524288
-      udp_address: <Chronicle forwarder IP:Port>
+      udp_address: <Chronicle forwarder listening IP:Port>
       connection_timeout_sec: 60
 enable_auto_update: false
 ```
