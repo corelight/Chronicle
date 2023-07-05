@@ -29,7 +29,6 @@ An ingestion label is used to identify the parser, which normalizes raw log data
 
 1. Set up a Chronicle Forwarder. See [Install and configure the forwarder on Linux](https://cloud.google.com/chronicle/docs/install/forwarder-linux).
 2. Configure the Chronicle Forwarder to listen for data.
-   For example, to configure the syslog listener to tag incoming data on the port as ```CORELIGHT``` data:
 
 ```
 collectors:
@@ -44,7 +43,6 @@ collectors:
       tcp_buffer_size: 524288
       udp_address: <Chronicle forwarder listening IP:Port>
       connection_timeout_sec: 60
-enable_auto_update: false
 ```
 
 
