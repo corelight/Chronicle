@@ -8,7 +8,7 @@ For more information, see [Data ingestion to Chronicle](https://cloud.google.com
 
 The following deployment architecture diagram shows a Corelight sensor configured to send logs to Chronicle. A customer deployment can differ from this example, and might be more complex.
 
-!(/images/corelight_parser_arch.png)
+![](images/corelight_parser_arch.png)
 
 The architecture diagram shows the following components:
 
@@ -57,6 +57,9 @@ enable_auto_update: false
    * **SYSLOG SERVER**: Provide the IP and port of the Chronicle forwarder syslog listener.
    * **Advanced Settings: SYSLOG FORMAT**: Change the setting to **Legacy**.
 5. Click **Apply Changes**.
+
+![](images/chronicle.jpg)
+
 
 
 <h3>Field mapping reference: CORELIGHT - Common Fields </h3>
