@@ -25,15 +25,22 @@ An ingestion label identifies the parser, which normalizes raw log data into the
 * ???? WHAT IS A GOLD PARSER Before you use the Gold parser, review the changes in field mappings between the default parser and Gold parser listed in this document. As part of the migration, ensure that the rules, searches, dashboards, or other processes that depend on the original fields use the updated fields.
 * ???? ARE THERE ANY OTHER CONSIDERABLE PRE_REQS THAT A CUSTOMER NEEDS TO KNOW?
 
+## Configure the Chronicle forwarder
+
+1. Set up a Chronicle Forwarder. See [Install and configure the forwarder on Linux](https://cloud.google.com/chronicle/docs/install/forwarder-linux).
+2. Configure the Chronicle Forwarder
+   * Syslog in
+
 
 ## Configure the Corelight sensor exporter
 
-Configure syslog out
-
-## Configure the Chronicle forwarder
-
-Configure syslog in
-
+1. Log into your Corelight sensor as an adminstrator.
+2. Browse to X.
+3. In the section Y, configure:
+   * A:
+   * B:
+4. Save the changes.
+5. ???? Validation that this is working?
 
 
 <h3>Field mapping reference: CORELIGHT - Common Fields </h3>
