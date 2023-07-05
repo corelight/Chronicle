@@ -28,8 +28,9 @@ An ingestion label is used to identify the parser, which normalizes raw log data
 ## Configure the Chronicle forwarder
 
 1. Set up a Chronicle Forwarder. See [Install and configure the forwarder on Linux](https://cloud.google.com/chronicle/docs/install/forwarder-linux).
-2. Configure the Chronicle Forwarder.
+2. Configure the Chronicle Forwarder to listen for data.
    For example, to configure the syslog listener to tag incoming data on the port as ```CORELIGHT``` data:
+
 ```
 collectors:
   - syslog:
@@ -50,12 +51,13 @@ enable_auto_update: false
 ## Configure the Corelight sensor exporter
 
 1. Log into your Corelight sensor as an adminstrator.
-2. Browse to X.
-3. In the section Y, configure:
-   * A:
-   * B:
-4. Save the changes.
-5. ???? Validation that this is working?
+2. Select the **Export** tab.
+3. Find and enable **EXPORT TO SYSLOG**.
+4. Under the **EXPORT TO SYSLOG** option, configure:
+   * **SYSLOG SERVER**: Provide the IP and port of the Chronicle forwarder syslog listener.
+   * **Advanced Settings: SYSLOG FORMAT**: Change the setting to **Legacy**.
+5. Click **Apply Changes**.
+6. ???? Validation that this is working?
 
 
 <h3>Field mapping reference: CORELIGHT - Common Fields </h3>
