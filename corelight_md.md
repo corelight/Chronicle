@@ -1,12 +1,12 @@
 # Collect Corelight Sensor logs
 
-This document describes how you can collect Corelight sensor logs by configuring the Corelight sensor and a Chronicle forwarder. This document also lists the supported log types and this parser supports all Corelight sensors versions from v27.4 and earlier.
+This document describes how you can collect Corelight sensor logs by configuring the Corelight sensor and a Chronicle forwarder. This document also lists the supported log types and supported Corelight versions.
 
 For more information, see [Data ingestion to Chronicle](https://cloud.google.com/chronicle/docs/data-ingestion-flow).
 
 ## Overview
 
-The following deployment architecture diagram shows how Corelight sensor configured to send logs to  Chronicle . Each customer deployment might differ from this representation and might be more complex.
+The following deployment architecture diagram shows how a Corelight sensor is configured to send logs to  Chronicle . Each customer deployment might differ from this representation and might be more complex.
 
 ![Deployment architecture](images/corelight_parser_arch.png)
 
