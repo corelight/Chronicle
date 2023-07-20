@@ -1,67 +1,30 @@
 # Collect Corelight Sensor logs
 
-This document describes how you can collect Corelight sensor logs by configuring the Corelight sensor and a Chronicle forwarder. This document also lists the supported log types and supported Corelight versions.
+This document describes how you can collect Corelight Sensor logs by configuring the Corelight Sensor and a Chronicle forwarder. This document also lists the supported log types and supported Corelight versions.
 
 For more information, see [Data ingestion to Chronicle](https://cloud.google.com/chronicle/docs/data-ingestion-flow).
 
-## Overview
-
-The following deployment architecture diagram shows how a Corelight sensor is configured to send logs to  Chronicle . Each customer deployment might differ from this representation and might be more complex.
+The following deployment architecture diagram shows how a Corelight Sensor is configured to send logs to  Chronicle . Each customer deployment might differ from this representation and might be more complex.
 
 ![Deployment architecture](images/corelight_parser_arch.png)
 
 The architecture diagram shows the following components:
 
-* **Corelight sensor**: The system running the Corelight sensor.
+* **Corelight Sensor**: The system running the [Corelight Sensor](https://docs.corelight.com/docs/sensor/sensor/export/syslog.html).
 
-* **The Corelight sensor exporter**: Collects log data from the sensor, and forwards it to the Chronicle forwarder.
+* **The Corelight Sensor exporter**: The [Corelight Sensor exporter](https://docs.corelight.com/docs/sensor/sensor/export/syslog.html) collects log data from the Sensor, and forwards it to the Chronicle forwarder.
 
 * **Chronicle forwarder**: The Chronicle  forwarder is a lightweight software component, deployed in the customer's network, that supports syslog. The Chronicle  forwarder forwards the logs to Chronicle .
 
-*  **Chronicle**: Chronicle  retains and analyzes the logs that the Chronicle sensor.
+*  **Chronicle**: Chronicle retains and analyzes the logs from Corelight Sensor.
 
 An ingestion label identifies the parser which normalizes raw log data to structured UDM format. The information in this document applies to the parser with the `CORELIGHT` ingestion label.
 
 ## Before you begin
 
-*  Verify the version of your Corelight sensor. The Corelight Chronicle parser was designed for version 27.4 and earlier. Later versions of the Corelight sensor might have additional logs that the parser will not recognize, and those logs might receive limited or no field parsing. However, the log content will still be available in the raw log format in Chronicle.
+*  Verify the version of your Corelight Sensor. The Corelight Chronicle parser was designed for version 27.4 and earlier. Later versions of the Corelight Sensor might have additional logs that the parser will not recognize, and those logs might receive limited or no field parsing. However, the log content will still be available in the raw log format in Chronicle.
 
-* Review the parser [Change log for CORELIGHT](https://cloud.google.com/chronicle/docs/ingestion/parser-list/corelight-changelog).
-
-## Configure the Chronicle forwarder
-
-To configure the Chronicle  forwarder, do the following:
-
-1.  Set up a Chronicle forwarder. See [Install and configure the forwarder on Linux](https://cloud.google.com/chronicle/docs/install/forwarder-linux).
-
-2. Configure the Chronicle forwarder to listen for data.
-
-  ```none
-    collectors:
-      - syslog:
-          common:
-            enabled: true
-            data_type:  CORELIGHT
-            data_hint:
-            batch_n_seconds: 10
-            batch_n_bytes: 1048576
-          tcp_address: <Chronicle forwarder listening IP:Port>
-          tcp_buffer_size: 524288
-          udp_address: <Chronicle forwarder listening IP:Port>
-          connection_timeout_sec: 60
-  ```
-
-## Configure the Corelight Sensor exporter
-
-1. Log into your Corelight sensor as an adminstrator.
-2. Select the **Export** tab.
-3. Find and enable **EXPORT TO SYSLOG** option.
-4. Under **EXPORT TO SYSLOG**, configure:
-   * **SYSLOG SERVER**: Provide the IP and port of the Chronicle forwarder syslog listener.
-   * **Advanced Settings: SYSLOG FORMAT**: Change the setting to **Legacy**.
-5. Click **Apply Changes**.
-
-![Corelight Sensor Configuration](images/chronicle.jpg)
+* Ensure that all systems in the deployment architecture are configured with the UTC time zone.
 
 ## Supported Corelight log types 
 
@@ -170,6 +133,43 @@ The Corelight parser supports the following log types:
     <li>x509_red</li>
   </ul>
 </div>
+
+
+## Configure the Chronicle forwarder
+
+To configure the Chronicle  forwarder, do the following:
+
+1.  Set up a Chronicle forwarder. See [Install and configure the forwarder on Linux](https://cloud.google.com/chronicle/docs/install/forwarder-linux).
+
+2. Configure the Chronicle forwarder to listen for data.
+
+  ```none
+    collectors:
+      - syslog:
+          common:
+            enabled: true
+            data_type:  CORELIGHT
+            data_hint:
+            batch_n_seconds: 10
+            batch_n_bytes: 1048576
+          tcp_address: <Chronicle forwarder listening IP:Port>
+          tcp_buffer_size: 524288
+          udp_address: <Chronicle forwarder listening IP:Port>
+          connection_timeout_sec: 60
+  ```
+
+## Configure the Corelight Sensor exporter
+
+1. Log into your Corelight Sensor as an adminstrator.
+2. Select the **Export** tab.
+3. Find and enable **EXPORT TO SYSLOG** option.
+4. Under **EXPORT TO SYSLOG**, configure:
+   * **SYSLOG SERVER**: Specify the IP address and port of the Chronicle forwarder syslog listener.
+   * Navigate to **Advanced Settings > SYSLOG FORMAT**, and change the setting to **Legacy**.
+
+
+![Corelight Sensor Configuration](images/chronicle.jpg)
+5. Click **Apply Changes**.
 
 ## Field mapping reference
 
