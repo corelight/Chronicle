@@ -16,7 +16,7 @@ The architecture diagram shows the following components:
 
 * **Chronicle forwarder**: The Chronicle  forwarder is a lightweight software component, deployed in the customer's network, that supports syslog. The Chronicle  forwarder forwards the logs to Chronicle .
 
-*  **Chronicle**: Chronicle retains and analyzes the logs that the Corelight Sensor.
+*  **Chronicle**: Chronicle retains and analyzes the logs from Corelight Sensor.
 
 An ingestion label identifies the parser which normalizes raw log data to structured UDM format. The information in this document applies to the parser with the `CORELIGHT` ingestion label.
 
