@@ -6,6 +6,9 @@
    :class: longtableup
    :widths: 1 3
 ​
+   * - Field (Type)
+     - Description
+
    * - ``ts`` (time)
      - The Suricata alert timestamp
 ​
