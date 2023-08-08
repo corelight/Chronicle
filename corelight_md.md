@@ -2532,6 +2532,66 @@ The following table lists the log fields of the <code>suricata_corelight</code> 
 <td><code>security_result.severity</code></td>
 <td>The <code>security_result.severity</code> UDM field is set to <code>INFORMATIONAL</code>.</td>
 </tr>
+<tr>
+<td><code>orig_vulnerable_host.cve (string)</code></td>
+<td><code>principal.asset.vulnerabilities.cve_id</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.hostname (string)</code></td>
+<td><code>principal.asset.hostname</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.host_uid (string)</code></td>
+<td><code>principal.asset.labels [orig_vulnerable_host_uid]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.machine_domain (string)</code></td>
+<td><code>principal.asset.network_domain</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.os_version (string)</code></td>
+<td><code>principal.asset.platform_software.platform_version</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.source (string)</code></td>
+<td><code>principal.asset.vulnerabilities.cve_description</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.cve (string)</code></td>
+<td><code>target.asset.vulnerabilities.cve_id</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.hostname (string)</code></td>
+<td><code>target.asset.hostname</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.host_uid (string)</code></td>
+<td><code>target.asset.labels [resp_vulnerable_host_uid]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.machine_domain (string)</code></td>
+<td><code>target.asset.network_domain</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.os_version (string)</code></td>
+<td><code>target.asset.platform_software.platform_version</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.source (string)</code></td>
+<td><code>target.asset.vulnerabilities.cve_description</code></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 </devsite-filter>
