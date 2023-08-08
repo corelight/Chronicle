@@ -2544,7 +2544,7 @@ The following table lists the log fields of the <code>suricata_corelight</code> 
 </tr>
 <tr>
 <td><code>orig_vulnerable_host.host_uid (string)</code></td>
-<td><code>principal.asset.labels [orig_vulnerable_host_uid]</code></td>
+<td><code>about.labels [orig_vulnerable_host_uid]</code></td>
 <td></td>
 </tr>
 <tr>
@@ -2574,7 +2574,7 @@ The following table lists the log fields of the <code>suricata_corelight</code> 
 </tr>
 <tr>
 <td><code>resp_vulnerable_host.host_uid (string)</code></td>
-<td><code>target.asset.labels [resp_vulnerable_host_uid]</code></td>
+<td><code>about.labels [resp_vulnerable_host_uid]</code></td>
 <td></td>
 </tr>
 <tr>
