@@ -1,65 +1,179 @@
-# Collect Corelight sensor logs
+# Collect Corelight Sensor logs
 
-This document describes how you can collect Corelight sensor logs by configuring the Corelight sensor and a Chronicle forwarder. This document also lists the supported log types and supported Corelight versions.
+This document describes how you can collect Corelight Sensor logs by configuring the Corelight Sensor and a Chronicle forwarder. This document also lists the supported log types and supported Corelight versions.
 
 For more information, see [Data ingestion to Chronicle](https://cloud.google.com/chronicle/docs/data-ingestion-flow).
 
-## Overview
+The following deployment architecture diagram shows how a Corelight Sensor is configured to send logs to  Chronicle . Each customer deployment might differ from this representation and might be more complex.
 
-The following deployment architecture diagram shows a Corelight sensor configured to send logs to Chronicle. A customer deployment can differ from this example, and might be more complex.
-
-![](images/corelight_parser_arch.png)
+![Deployment architecture](images/corelight_parser_arch.png)
 
 The architecture diagram shows the following components:
 
-* Corelight sensor: The system running the Corelight sensor.
-* The Corelight sensor exporter: Collects log data from the sensor, and forwards it to the Chronicle forwarder.
-* Chronicle forwarder: A lightweight software component, deployed in the customer's network to collect and forward the logs to Chronicle.
-* Chronicle: Parses and analyzes the logs from the sensor.
+* **Corelight Sensor**: The system running the [Corelight Sensor](https://docs.corelight.com/docs/sensor/sensor/export/syslog.html).
 
-An ingestion label is used to identify the parser, which normalizes raw log data into the structured UDM format. The information in this document applies to the parser with Corelight ingestion label.
+* **The Corelight Sensor exporter**: The [Corelight Sensor exporter](https://docs.corelight.com/docs/sensor/sensor/export/syslog.html) collects log data from the Sensor, and forwards it to the Chronicle forwarder.
+
+* **Chronicle forwarder**: The Chronicle  forwarder is a lightweight software component, deployed in the customer's network, that supports syslog. The Chronicle  forwarder forwards the logs to Chronicle .
+
+*  **Chronicle**: Chronicle retains and analyzes the logs from Corelight Sensor.
+
+An ingestion label identifies the parser which normalizes raw log data to structured UDM format. The information in this document applies to the parser with the `CORELIGHT` ingestion label.
 
 ## Before you begin
 
-* Verify the version of your Corelight sensor. The Corelight Chronicle parser was designed for version 27.4 and earlier. Later versions of the Corelight sensor might have additional logs that the parser will not recognize, and those logs might receive limited or no field parsing.  However, the log content will still be available in the raw log format in Chronicle.
+*  Verify the version of your Corelight Sensor. The Corelight Chronicle parser was designed for version 27.4 and earlier. Later versions of the Corelight Sensor might have additional logs that the parser will not recognize, and those logs might receive limited or no field parsing. However, the log content will still be available in the raw log format in Chronicle.
 
-* Review the parser [Change log for CORELIGHT](https://cloud.google.com/chronicle/docs/ingestion/parser-list/corelight-changelog).
+* Ensure that all systems in the deployment architecture are configured with the UTC time zone.
+
+## Supported Corelight log types
+
+The Corelight parser supports the following log types:
+ <div class="fixed" translate="no">
+  <h4>Log Type</h4>
+  <ul>
+    <li>conn</li>
+    <li>conn_long</li>
+    <li>conn_red</li>
+    <li>dce_rpc</li>
+    <li>dns</li>
+    <li>dns_red</li>
+    <li>files</li>
+    <li>files_red</li>
+    <li>http</li>
+    <li>http2</li>
+    <li>http_red</li>
+    <li>intel</li>
+    <li>irc</li>
+    <li>notice</li>
+    <li>rdp</li>
+    <li>sip</li>
+    <li>smb_files</li>
+    <li>smb_mapping</li>
+    <li>smtp</li>
+    <li>smtp_links</li>
+    <li>ssh</li>
+    <li>ssl</li>
+    <li>ssl_red</li>
+    <li>suricata_corelight</li>
+    <li>bacnet</li>
+    <li>cip</li>
+    <li>corelight_burst</li>
+    <li>corelight_overall_capture_loss</li>
+    <li>corelight_profiling</li>
+    <li>datared</li>
+    <li>dga</li>
+    <li>dhcp</li>
+    <li>dnp3</li>
+    <li>dpd</li>
+    <li>encrypted_dns</li>
+    <li>enip</li>
+    <li>enip_debug</li>
+    <li>enip_list_identity</li>
+    <li>etc_viz</li>
+    <li>ftp</li>
+    <li>generic_dns_tunnels</li>
+    <li>generic_icmp_tunnels</li>
+    <li>icmp_specific_tunnels</li>
+    <li>ipsec</li>
+    <li>iso_cotp</li>
+    <li>kerberos</li>
+    <li>known_certs</li>
+    <li>known_devices</li>
+    <li>known_domains</li>
+    <li>known_hosts</li>
+    <li>known_names</li>
+    <li>known_remotes</li>
+    <li>known_services</li>
+    <li>known_users</li>
+    <li>ldap</li>
+    <li>ldap_search</li>
+    <li>local_subnets</li>
+    <li>local_subnets_dj</li>
+    <li>local_subnets_graphs</li>
+    <li>log4shell</li>
+    <li>modbus</li>
+    <li>mqtt_connect</li>
+    <li>mqtt_publish</li>
+    <li>mqtt_subscribe</li>
+    <li>mysql</li>
+    <li>napatech_shunting</li>
+    <li>ntlm</li>
+    <li>ntp</li>
+    <li>pe</li>
+    <li>profinet</li>
+    <li>profinet_dce_rpc</li>
+    <li>profinet_debug</li>
+    <li>radius</li>
+    <li>reporter</li>
+    <li>rfb</li>
+    <li>s7comm</li>
+    <li>smartpcap</li>
+    <li>snmp</li>
+    <li>socks</li>
+    <li>software</li>
+    <li>specific_dns_tunnels</li>
+    <li>stepping</li>
+    <li>stun</li>
+    <li>stun_nat</li>
+    <li>suricata_eve</li>
+    <li>suricata_stats</li>
+    <li>syslog</li>
+    <li>tds</li>
+    <li>tds_rpc</li>
+    <li>tds_sql_batch</li>
+    <li>traceroute</li>
+    <li>tunnel</li>
+    <li>unknown-smartpcap</li>
+    <li>vpn</li>
+    <li>weird</li>
+    <li>weird_red</li>
+    <li>wireguard</li>
+    <li>x509</li>
+    <li>x509_red</li>
+  </ul>
+</div>
+
 
 ## Configure the Chronicle forwarder
 
-1. Set up a Chronicle Forwarder. See [Install and configure the forwarder on Linux](https://cloud.google.com/chronicle/docs/install/forwarder-linux).
-2. Configure the Chronicle Forwarder to listen for data.
+To configure the Chronicle  forwarder, do the following:
 
-```
-collectors:
-  - syslog:
-      common:
-        enabled: true
-        data_type:  CORELIGHT
-        data_hint:
-        batch_n_seconds: 10
-        batch_n_bytes: 1048576
-      tcp_address: <Chronicle forwarder listening IP:Port>
-      tcp_buffer_size: 524288
-      udp_address: <Chronicle forwarder listening IP:Port>
-      connection_timeout_sec: 60
-```
+1.  Set up a Chronicle forwarder. See [Install and configure the forwarder on Linux](https://cloud.google.com/chronicle/docs/install/forwarder-linux).
 
+2. Configure the Chronicle forwarder to listen for data.
 
-## Configure the Corelight sensor exporter
+  ```none
+    collectors:
+      - syslog:
+          common:
+            enabled: true
+            data_type:  CORELIGHT
+            data_hint:
+            batch_n_seconds: 10
+            batch_n_bytes: 1048576
+          tcp_address: <Chronicle forwarder listening IP:Port>
+          tcp_buffer_size: 524288
+          udp_address: <Chronicle forwarder listening IP:Port>
+          connection_timeout_sec: 60
+  ```
 
-1. Log into your Corelight sensor as an adminstrator.
+## Configure the Corelight Sensor exporter
+
+1. Log into your Corelight Sensor as an adminstrator.
 2. Select the **Export** tab.
 3. Find and enable **EXPORT TO SYSLOG** option.
 4. Under **EXPORT TO SYSLOG**, configure:
-   * **SYSLOG SERVER**: Provide the IP and port of the Chronicle forwarder syslog listener.
-   * **Advanced Settings: SYSLOG FORMAT**: Change the setting to **Legacy**.
+   * **SYSLOG SERVER**: Specify the IP address and port of the Chronicle forwarder syslog listener.
+   * Navigate to **Advanced Settings > SYSLOG FORMAT**, and change the setting to **Legacy**.
+
+
+![Corelight Sensor Configuration](images/chronicle.jpg)
 5. Click **Apply Changes**.
 
-![](images/chronicle.jpg)
+## Field mapping reference
 
-
-
+This section explains how the Chronicle  parser maps Corelight fields to Chronicle  Unified Data Model (UDM) fields.
 <h3>Field mapping reference: CORELIGHT - Common Fields </h3>
 
 The following table lists common fields of the <code>CORELIGHT</code> log and their corresponding UDM fields.
@@ -148,7 +262,7 @@ The following table lists the log fields of the <code>conn, conn_red, conn_long<
 </tr>
 <tr>
 <td></td>
-<td><code>metdata.product_name</code></td>
+<td><code>metadata.product_name</code></td>
 <td>The <code>metadata.product_name</code> UDM field is set to <code>Zeek</code>.</td>
 </tr>
 <tr>
@@ -179,7 +293,7 @@ The following table lists the log fields of the <code>conn, conn_red, conn_long<
 <tr>
 <td><code>conn_state (string)</code></td>
 <td><code>metadata.description</code></td>
-<td>If the <code>conn_state</code> log field value is equal to <code>S0</code>, then the <code>metadata.description</code> UDM field is set to <code>S0: Connection attempt seen, no reply</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>S1</code>, then the <code>metadata.description</code> UDM field is set to <code>S1: Connection established, not terminated</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>S2</code>, then the <code>metadata.description</code> UDM field is set to <code>S2: Connection established and close attempt by originator seen (but no reply from responder)</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>S3</code>, then the <code>metadata.description</code> UDM field is set to <code>S3: Connection established and close attempt by responder seen (but no reply from originator)</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>SF</code>, then the <code>metadata.description</code> UDM field is set to <code>SF: Normal SYN/FIN completion</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>REJ</code>, then the <code>metadata.description</code> UDM field is set to <code>REJ: Connection attempt rejected</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>RSTO</code>, then the <code>metadata.description</code> UDM field is set to <code>RSTO: Connection established, originator aborted (sent a RST)</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>RSTOS0</code>, then the <code>metadata.description</code> UDM field is set to <code>RSTOS0: Originator sent a SYN followed by a RST, we never saw a SYN-ACK from the responder</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>RSTOSH</code>, then the <code>metadata.description</code> UDM field is set to <code>RSTOSH: Responder sent a SYN ACK followed by a RST, we never saw a SYN from the (purported) originator</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>RSTR</code>, then the <code>metadata.description</code> UDM field is set to <code>RSTR: Established, responder aborted</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>SH</code>, then the <code>metadata.description</code> UDM field is set to <code>SH: Originator sent a SYN followed by a FIN, we never saw a SYN ACK from the responder (hence the connection was “half” open)</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>SHR</code>, then the <code>metadata.description</code> UDM field is set to <code>SHR: Responder sent a SYN ACK followed by a FIN, we never saw a SYN from the originator</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>OTH</code>, then the <code>metadata.description</code> UDM field is set to <code>OTH: No SYN seen, just midstream traffic (a partial connection that was not later closed)</code>.</td>
+<td>If the <code>conn_state</code> log field value is equal to <code>S0</code>, then the <code>metadata.description</code> UDM field is set to <code>S0: Connection attempt seen, no reply</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>S1</code>, then the <code>metadata.description</code> UDM field is set to <code>S1: Connection established, not terminated</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>S2</code>, then the <code>metadata.description</code> UDM field is set to <code>S2: Connection established and close attempt by originator seen (but no reply from responder)</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>S3</code>, then the <code>metadata.description</code> UDM field is set to <code>S3: Connection established and close attempt by responder seen (but no reply from originator)</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>SF</code>, then the <code>metadata.description</code> UDM field is set to <code>SF: Normal SYN/FIN completion</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>REJ</code>, then the <code>metadata.description</code> UDM field is set to <code>REJ: Connection attempt rejected</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>RSTO</code>, then the <code>metadata.description</code> UDM field is set to <code>RSTO: Connection established, originator aborted (sent a RST)</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>RSTOS0</code>, then the <code>metadata.description</code> UDM field is set to <code>RSTOS0: Originator sent a SYN followed by a RST, we never saw a SYN-ACK from the responder</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>RSTOSH</code>, then the <code>metadata.description</code> UDM field is set to <code>RSTOSH: Responder sent a SYN ACK followed by a RST, we never saw a SYN from the (purported) originator</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>RSTR</code>, then the <code>metadata.description</code> UDM field is set to <code>RSTR: Established, responder aborted</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>SH</code>, then the <code>metadata.description</code> UDM field is set to <code>SH: Originator sent a SYN followed by a FIN, we never saw a SYN ACK from the responder (hence the connection was "half" open)</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>SHR</code>, then the <code>metadata.description</code> UDM field is set to <code>SHR: Responder sent a SYN ACK followed by a FIN, we never saw a SYN from the originator</code>.<br><br>Else, if the <code>conn_state</code> log field value is equal to <code>OTH</code>, then the <code>metadata.description</code> UDM field is set to <code>OTH: No SYN seen, just midstream traffic (a partial connection that was not later closed)</code>.</td>
 </tr>
 <tr>
 <td><code>local_orig (boolean - bool)</code></td>
@@ -1818,7 +1932,7 @@ The following table lists the log fields of the <code>intel</code> log type and 
 <tr>
 <td><code>seen.indicator (string)</code></td>
 <td><code>entity.resource.name</code></td>
-<td>If the <code>metadta.entity_type</code> log field value is equal to <code>RESOURCE</code>, then the <code>seen.indicatior</code> log field is mapped to the <code>entity.resource.name</code> UDM field.</td>
+<td>If the <code>metadata.entity_type</code> log field value is equal to <code>RESOURCE</code>, then the <code>seen.indicatior</code> log field is mapped to the <code>entity.resource.name</code> UDM field.</td>
 </tr>
 <tr>
 <td></td>
@@ -1828,7 +1942,7 @@ The following table lists the log fields of the <code>intel</code> log type and 
 <tr>
 <td><code>seen.indicator_type (string - enum)</code></td>
 <td><code>entity.resource.resource_sub_type</code></td>
-<td>If the <code>metadta.entity_type</code> log field value is equal to <code>RESOURCE</code>, then the <code>seen.indicatior_type</code> log field is mapped to the <code>entity.resource.resource_sub_type</code> UDM field.</td>
+<td>If the <code>metadata.entity_type</code> log field value is equal to <code>RESOURCE</code>, then the <code>seen.indicatior_type</code> log field is mapped to the <code>entity.resource.resource_sub_type</code> UDM field.</td>
 </tr>
 <tr>
 <td><code>seen.where (string - enum)</code></td>
@@ -2417,6 +2531,66 @@ The following table lists the log fields of the <code>suricata_corelight</code> 
 <td></td>
 <td><code>security_result.severity</code></td>
 <td>The <code>security_result.severity</code> UDM field is set to <code>INFORMATIONAL</code>.</td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.cve (string)</code></td>
+<td><code>principal.asset.vulnerabilities.cve_id</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.hostname (string)</code></td>
+<td><code>principal.asset.hostname</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.host_uid (string)</code></td>
+<td><code>about.labels [orig_vulnerable_host_uid]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.machine_domain (string)</code></td>
+<td><code>principal.asset.network_domain</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.os_version (string)</code></td>
+<td><code>principal.asset.platform_software.platform_version</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.source (string)</code></td>
+<td><code>principal.asset.vulnerabilities.cve_description</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.cve (string)</code></td>
+<td><code>target.asset.vulnerabilities.cve_id</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.hostname (string)</code></td>
+<td><code>target.asset.hostname</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.host_uid (string)</code></td>
+<td><code>about.labels [resp_vulnerable_host_uid]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.machine_domain (string)</code></td>
+<td><code>target.asset.network_domain</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.os_version (string)</code></td>
+<td><code>target.asset.platform_software.platform_version</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.source (string)</code></td>
+<td><code>target.asset.vulnerabilities.cve_description</code></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -8883,3 +9057,7 @@ The following table lists the log fields of the <code>logschema</code> log type 
 </table>
 </devsite-filter>
 </div>
+
+## What's next
+
+-   [Data ingestion to Chronicle ](https://cloud.devsite.corp.google.com/chronicle/docs/data-ingestion-flow)
