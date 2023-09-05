@@ -1252,7 +1252,17 @@ The following table lists the log fields of the <code>notice</code> log type and
 <tr>
 <td></td>
 <td><code>security_result.severity</code></td>
-<td>The <code>security_result.severity</code> UDM field is set to <code>INFORMATIONAL</code>.</td>
+<td>If the <code>severity.level</code> log field value is equal to <code>0</code> or <code>1</code> or <code>2</code>, then the <code>security_result.severity</code> UDM field is set to <code>CRITICAL</code>.<br><br>Else, if the <code>severity.level</code> log field value is equal to <code>3</code>, then the <code>security_result.severity</code> UDM field is set to <code>ERROR</code>.<br><br>Else, if the <code>severity.level</code> log field value is equal to <code>4</code>, then the <code>security_result.severity</code> UDM field is set to <code>HIGH</code>.<br><br>Else, if the <code>severity.level</code> log field value is equal to <code>5</code>, then the <code>security_result.severity</code> UDM field is set to <code>LOW</code>.<br><br>Else, if the <code>severity.level</code> log field value is equal to <code>6</code>, then the <code>security_result.severity</code> UDM field is set to <code>INFORMATIONAL</code>.<br><br>Else, the <code>security_result.severity</code> UDM field is set to <code>UNKNOWN_SEVERITY</code>.</td>
+</tr>
+<tr>
+<td><code>severity.name</code></td>
+<td><code>security_result.severity_details</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>severity.level</code></td>
+<td><code>security_result.detection_fields [severity_level]</code></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -1902,12 +1912,12 @@ The following table lists the log fields of the <code>intel</code> log type and 
 <tr>
 <td><code>seen.indicator_type (string - enum)</code></td>
 <td><code>entity.metadata.entity_type</code></td>
-<td>If the <code>indicator.type</code> log field value is equal to <code>Intel::ADDR</code>, then the <code>metadata.entity_type</code> UDM field is set to <code>IP_ADDRESS</code>.<br><br>Else, if the <code>indicator.type</code> log field value is equal to <code>Intel::SUBNET</code> or <code>Intel::SOFTWARE</code> or <code>Intel::CERT_HASH</code> or <code>Intel::PUBKEY_HASH</code>, then the <code>metadata.entity_type</code> UDM field is set to <code>RESOURCE</code>.<br><br>Else, if the <code>indicator.type</code> log field value is equal to <code>Intel::URL</code>, then the <code>metadata.entity_type</code> UDM field is set to <code>URL</code>.<br><br>Else, if the <code>indicator.type</code> log field value is equal to the <code>Intel::EMAIL</code> or <code>Intel::USER_NAME</code>, then the <code>metadata.entity_type</code> UDM field is set to <code>USER</code>.<br><br>Else, if the <code>indicator.type</code> log field value is equal to <code>Intel::DOMAIN</code>, then the <code>metadata.entity_type</code> UDM field is set to <code>DOMAIN_NAME</code>.<br><br>Else, if the <code>indicator.type</code> log field value is equal to the <code>Intel::FILE_HASH</code> or <code>Intel::FILE_NAME</code>, then the <code>metadata.entity_type</code> UDM field is set to <code>FILE</code>.<br><br>Else, the <code>metadata.entity_type</code> UDM field is set to <code>RESOURCE</code>.</td>
+<td>If the <code>indicator.type</code> log field value is equal to <code>Intel::ADDR</code> or <code>Intel::SUBNET</code>, then the <code>metadata.entity_type</code> UDM field is set to <code>IP_ADDRESS</code>.<br><br>Else, if the <code>indicator.type</code> log field value is equal to <code>Intel::SOFTWARE</code> or <code>Intel::CERT_HASH</code> or <code>Intel::PUBKEY_HASH</code>, then the <code>metadata.entity_type</code> UDM field is set to <code>RESOURCE</code>.<br><br>Else, if the <code>indicator.type</code> log field value is equal to <code>Intel::URL</code>, then the <code>metadata.entity_type</code> UDM field is set to <code>URL</code>.<br><br>Else, if the <code>indicator.type</code> log field value is equal to the <code>Intel::EMAIL</code> or <code>Intel::USER_NAME</code>, then the <code>metadata.entity_type</code> UDM field is set to <code>USER</code>.<br><br>Else, if the <code>indicator.type</code> log field value is equal to <code>Intel::DOMAIN</code>, then the <code>metadata.entity_type</code> UDM field is set to <code>DOMAIN_NAME</code>.<br><br>Else, if the <code>indicator.type</code> log field value is equal to the <code>Intel::FILE_HASH</code> or <code>Intel::FILE_NAME</code>, then the <code>metadata.entity_type</code> UDM field is set to <code>FILE</code>.<br><br>Else, the <code>metadata.entity_type</code> UDM field is set to <code>RESOURCE</code>.</td>
 </tr>
 <tr>
 <td><code>seen.indicator (string)</code></td>
 <td><code>entity.ip</code></td>
-<td>If the <code>indicator.type</code> log field value is equal to <code>Intel::ADDR</code>, then the <code>seen.indicator</code> log field is mapped to the <code>entity.ip</code> UDM field.</td>
+<td>If the <code>indicator.type</code> log field value is equal to <code>Intel::ADDR</code> or <code>Intel::SUBNET</code>, then the <code>seen.indicator</code> log field is mapped to the <code>entity.ip</code> UDM field.</td>
 </tr>
 <tr>
 <td><code>seen.indicator (string)</code></td>
@@ -1933,11 +1943,6 @@ The following table lists the log fields of the <code>intel</code> log type and 
 <td><code>seen.indicator (string)</code></td>
 <td><code>entity.resource.name</code></td>
 <td>If the <code>metadata.entity_type</code> log field value is equal to <code>RESOURCE</code>, then the <code>seen.indicatior</code> log field is mapped to the <code>entity.resource.name</code> UDM field.</td>
-</tr>
-<tr>
-<td></td>
-<td><code>entity.resource.resource_type</code></td>
-<td>If the <code>indicator.type</code> log field value is equal to <code>Intel::SUBNET</code>, then the <code>entity.resource.resource_name</code> UDM field is set to <code>VPC_NETWORK</code>.</td>
 </tr>
 <tr>
 <td><code>seen.indicator_type (string - enum)</code></td>
@@ -2022,6 +2027,36 @@ The following table lists the log fields of the <code>intel</code> log type and 
 <tr>
 <td><code>reports (array[string] - set[string])</code></td>
 <td><code>entity.labels [report]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>seen.indicator (string)</code></td>
+<td><code>about.labels [indicator]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>seen.indicator_type (string - enum)</code></td>
+<td><code>about.labels [indicator_type]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>seen.where (string - enum)</code></td>
+<td><code>about.labels [where]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>sources (array[string] - set[string])</code></td>
+<td><code>about.labels [sources]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>confidence (array[number] - set[double])</code></td>
+<td><code>about.labels [confidence]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>category (array[string] - set[string])</code></td>
+<td><code>about.labels [category]</code></td>
 <td></td>
 </tr>
 </tbody>
