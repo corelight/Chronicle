@@ -450,6 +450,11 @@ The following table lists the log fields of the <code>conn, conn_red, conn_long<
 <td><code>security_result.severity</code></td>
 <td>The <code>security_result.severity</code> UDM field is set to <code>INFORMATIONAL</code>.</td>
 </tr>
+<tr>
+<td><code>service (string)</code></td>
+<td><code>about.labels [service]</code></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 </devsite-filter>
