@@ -2632,6 +2632,11 @@ The following table lists the log fields of the <code>suricata_corelight</code> 
 <td><code>target.asset.vulnerabilities.cve_description</code></td>
 <td></td>
 </tr>
+<tr>
+<td><code>service (string)</code></td>
+<td><code>about.labels [service]</code></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 </devsite-filter>
