@@ -5,7 +5,7 @@ ecat_coe_info
 .. list-table::
    :header-rows: 1
    :class: longtable
-   :widths: 1 3
+   :widths: 1 3 3
 
    * - Field (Type)
      - Source

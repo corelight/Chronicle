@@ -5,7 +5,7 @@ opcua_binary_event_filter_simple_attribute_operand_browse_paths
 .. list-table::
    :header-rows: 1
    :class: longtable
-   :widths: 1 3
+   :widths: 1 3 3
 
    * - Field (Type)
      - Source

@@ -5,7 +5,7 @@ opcua_binary_create_monitored_items_create_item
 .. list-table::
    :header-rows: 1
    :class: longtable
-   :widths: 1 3
+   :widths: 1 3 3
 
    * - Field (Type)
      - Source
