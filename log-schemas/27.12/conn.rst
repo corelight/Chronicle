@@ -37,35 +37,35 @@ conn
 
    * - ``id.orig_ep_status`` (string)
      - site/packages/customer-bundle/packages/Zeek-Endpoint-Enrichment/id-logs.zeek
-     - The id.orig_ep_status information.
+     - The status of the originator's endpoint agent.
 
    * - ``id.orig_ep_uid`` (string)
      - site/packages/customer-bundle/packages/Zeek-Endpoint-Enrichment/id-logs.zeek
-     - The id.orig_ep_uid information.
+     - The originator's endpoint unique ID.
 
    * - ``id.orig_ep_cid`` (string)
      - site/packages/customer-bundle/packages/Zeek-Endpoint-Enrichment/id-logs.zeek
-     - The id.orig_ep_cid information.
+     - The originator's endpoint Customer ID.
 
    * - ``id.orig_ep_source`` (string)
      - site/packages/customer-bundle/packages/Zeek-Endpoint-Enrichment/id-logs.zeek
-     - The id.orig_ep_source information.
+     - The originator's endpoint information source.
 
    * - ``id.resp_ep_status`` (string)
      - site/packages/customer-bundle/packages/Zeek-Endpoint-Enrichment/id-logs.zeek
-     - The id.resp_ep_status information.
+     - The status of the responder's endpoint agent.
 
    * - ``id.resp_ep_uid`` (string)
      - site/packages/customer-bundle/packages/Zeek-Endpoint-Enrichment/id-logs.zeek
-     - The id.resp_ep_uid information.
+     - The responder's endpoint unique ID.
 
    * - ``id.resp_ep_cid`` (string)
      - site/packages/customer-bundle/packages/Zeek-Endpoint-Enrichment/id-logs.zeek
-     - The id.resp_ep_cid information.
+     - The responder's endpoint Customer ID.
 
    * - ``id.resp_ep_source`` (string)
      - site/packages/customer-bundle/packages/Zeek-Endpoint-Enrichment/id-logs.zeek
-     - The id.resp_ep_source information.
+     - The responder's endpoint information source.
 
    * - ``id.vlan`` (integer - int)
      - site/packages/customer-bundle/packages/log-add-vlan-everywhere/main.zeek
@@ -309,32 +309,32 @@ conn
 
    * - ``orig_ep_status`` (string)
      - site/packages/customer-bundle/packages/Zeek-Endpoint-Enrichment/conn.zeek
-     - The orig_ep_status information.
+     - The status of the originator's endpoint agent.
 
    * - ``orig_ep_uid`` (string)
      - site/packages/customer-bundle/packages/Zeek-Endpoint-Enrichment/conn.zeek
-     - The orig_ep_uid information.
+     - The originator's endpoint unique ID.
 
    * - ``orig_ep_cid`` (string)
      - site/packages/customer-bundle/packages/Zeek-Endpoint-Enrichment/conn.zeek
-     - The orig_ep_cid information.
+     - The originator's endpoint Customer ID.
 
    * - ``orig_ep_source`` (string)
      - site/packages/customer-bundle/packages/Zeek-Endpoint-Enrichment/conn.zeek
-     - The orig_ep_source information.
+     - The originator's endpoint information source.
 
    * - ``resp_ep_status`` (string)
      - site/packages/customer-bundle/packages/Zeek-Endpoint-Enrichment/conn.zeek
-     - The resp_ep_status information.
+     - The status of the responder's endpoint agent.
 
    * - ``resp_ep_uid`` (string)
      - site/packages/customer-bundle/packages/Zeek-Endpoint-Enrichment/conn.zeek
-     - The resp_ep_uid information.
+     - The responder's endpoint unique ID.
 
    * - ``resp_ep_cid`` (string)
      - site/packages/customer-bundle/packages/Zeek-Endpoint-Enrichment/conn.zeek
-     - The resp_ep_cid information.
+     - The responder's endpoint Customer ID.
 
    * - ``resp_ep_source`` (string)
      - site/packages/customer-bundle/packages/Zeek-Endpoint-Enrichment/conn.zeek
-     - The resp_ep_source information.
+     - The responder's endpoint information source.
