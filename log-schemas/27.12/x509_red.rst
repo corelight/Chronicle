@@ -1,0 +1,108 @@
+.. _ref_logs_x509_red:
+
+x509_red
+--------
+.. list-table::
+   :header-rows: 1
+   :class: longtable
+   :widths: 1 3 3
+
+   * - Field (Type)
+     - Source
+     - Description
+
+   * - ``ts`` (time)
+     - base
+     - Current timestamp.
+
+   * - ``fingerprint`` (string)
+     - base
+     - Fingerprint of the certificate - uses chosen algorithm.
+
+   * - ``certificate.version`` (integer - count)
+     - base
+     - Version number.
+
+   * - ``certificate.serial`` (string)
+     - base
+     - Serial number.
+
+   * - ``certificate.subject`` (string)
+     - base
+     - Subject.
+
+   * - ``certificate.issuer`` (string)
+     - base
+     - Issuer.
+
+   * - ``certificate.not_valid_before`` (time)
+     - base
+     - Timestamp before when certificate is not valid.
+
+   * - ``certificate.not_valid_after`` (time)
+     - base
+     - Timestamp after when certificate is not valid.
+
+   * - ``certificate.key_alg`` (string)
+     - base
+     - Name of the key algorithm
+
+   * - ``certificate.sig_alg`` (string)
+     - base
+     - Name of the signature algorithm
+
+   * - ``certificate.key_type`` (string)
+     - base
+     - Key type, if key parseable by openssl (either rsa, dsa or ec)
+
+   * - ``certificate.key_length`` (integer - count)
+     - base
+     - Key length in bits
+
+   * - ``certificate.exponent`` (string)
+     - base
+     - Exponent, if RSA-certificate
+
+   * - ``certificate.curve`` (string)
+     - base
+     - Curve, if EC-certificate
+
+   * - ``san.dns`` (array[string] - vector of string)
+     - base
+     - List of DNS entries in SAN
+
+   * - ``san.uri`` (array[string] - vector of string)
+     - base
+     - List of URI entries in SAN
+
+   * - ``san.email`` (array[string] - vector of string)
+     - base
+     - List of email entries in SAN
+
+   * - ``san.ip`` (array[string] - vector of addr)
+     - base
+     - List of IP entries in SAN
+
+   * - ``basic_constraints.ca`` (boolean - bool)
+     - base
+     - CA flag set?
+
+   * - ``basic_constraints.path_len`` (integer - count)
+     - base
+     - Maximum path length
+
+   * - ``host_cert`` (boolean - bool)
+     - base
+     - Indicates if this certificate was a end-host certificate, or sent as part of a chain
+
+   * - ``client_cert`` (boolean - bool)
+     - base
+     - Indicates if this certificate was sent from the client
+
+   * - ``vlan`` (integer - int)
+     - site/packages/customer-bundle/packages/log-add-vlan-everywhere/x509.zeek
+     - The vlan information.
+
+   * - ``vlan_inner`` (integer - int)
+     - site/packages/customer-bundle/packages/log-add-vlan-everywhere/x509.zeek
+     - The vlan_inner information.
