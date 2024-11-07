@@ -4,27 +4,110 @@ This document describes how you can collect Corelight Sensor logs by configuring
 
 For more information, see [Data ingestion to Chronicle](https://cloud.google.com/chronicle/docs/data-ingestion-flow).
 
-The following deployment architecture diagram shows how a Corelight Sensor is configured to send logs to  Chronicle . Each customer deployment might differ from this representation and might be more complex.
+## Before you begin
 
-![Deployment architecture](images/corelight_parser_arch.png)
+*  Verify the version of Corelight Sensor. The Corelight Google SecOps parser was designed for version 27.12 and earlier. Later versions of the Corelight Sensor might have additional logs that the parser won't recognize, and those logs might receive limited or no field parsing. However, the log content will still be available in the raw log format in Google SecOps.
+*  Ensure that all systems in the deployment architecture are configured with the UTC time zone.
+
+
+## Deployment and Log Ingestion Methods
+
+The following deployment architecture diagram illustrates how a Corelight Sensor is set up to send logs to Google Security Operations using two different ingestion architectures. It's important to note that each customer deployment may vary from this representation and could be more complex.
+
+An ingestion label identifies the parser which normalizes raw log data
+to structured UDM format. The information in this document applies to the parser
+with the `CORELIGHT` ingestion label.
+
+## Ingesting Logs into Google SecOps using Corelight Exporters 
+
+![Deployment architecture](images/parser-corelight-architecture-without-forwarder.png)
 
 The architecture diagram shows the following components:
 
-* **Corelight Sensor**: The system running the [Corelight Sensor](https://docs.corelight.com/docs/sensor/sensor/export/syslog.html).
+*  **Corelight Sensor**: The system running the [Corelight Sensor ](https://docs.corelight.com/docs/sensor/sensor/export/syslog.html).
 
-* **The Corelight Sensor exporter**: The [Corelight Sensor exporter](https://docs.corelight.com/docs/sensor/sensor/export/syslog.html) collects log data from the Sensor, and forwards it to the Chronicle forwarder.
+*  **Corelight Sensor exporters**: The [Corelight Sensor exporter](https://docs.corelight.com/docs/sensor/sensor/export/syslog.html) collects log data from the Sensor, and forwards it to the Google Security Operations.
 
-* **Chronicle forwarder**: The Chronicle  forwarder is a lightweight software component, deployed in the customer's network, that supports syslog. The Chronicle  forwarder forwards the logs to Chronicle .
+*  **Google Security Operations**: Google Security Operations retains and analyzes the logs from
+    Corelight Sensor.
 
-*  **Chronicle**: Chronicle retains and analyzes the logs from Corelight Sensor.
+### Configure the Corelight log Exporter for Google SecOps 
 
-An ingestion label identifies the parser which normalizes raw log data to structured UDM format. The information in this document applies to the parser with the `CORELIGHT` ingestion label.
+1. Sign into Corelight Sensor as an adminstrator.
 
-## Before you begin
+2. Select the **Exporters (Dynamic)** tab and select Google SecOps.
 
-*  Verify the version of your Corelight Sensor. The Corelight Chronicle parser was designed for version 27.4 and earlier. Later versions of the Corelight Sensor might have additional logs that the parser will not recognize, and those logs might receive limited or no field parsing. However, the log content will still be available in the raw log format in Chronicle.
+  ![Deployment architecture](images/dynamic-exporter-step-1.png)
 
-* Ensure that all systems in the deployment architecture are configured with the UTC time zone.
+3. Configure the following input parameters:
+  - **Exporter Name**: the name of the exporter.
+  - **Google SecOps Customer ID**: the customer Id of the Google SecOps.
+  - **Google SecOps Namespace**: the unique namespace associated with Google SecOps for organizing and managing data.
+  - **Google SecOps Labels**: a set of key-value pairs representing the labels.
+  - **Region**: the geographical region where Google SecOps is deployed.
+  - **Credentials**: the authentication details required to securely connect and export data to Google SecOps.
+  - **Proxy URL**: the URL of the proxy server used to route traffic between the exporter and Google SecOps.
+  - **Log Type Filter**: specify whether to include or exclude certain log types.
+  - **Zeek Logs**: select which log types to include or exclude by selecting all applicable options.
+
+  ![Deployment architecture](images/dynamic-exporter-step-2.png)
+
+4. Click **Done**
+
+  ![Deployment architecture](images/dynamic-exporter-step-3.png)
+
+## Ingesting Logs into Google SecOps Using a Forwarder 
+
+  ![Deployment architecture](images/parser-corelight-architecture.png)
+
+The architecture diagram shows the following components:
+
+*  **Corelight Sensor**: The system running the [Corelight Sensor ](https://docs.corelight.com/docs/sensor/sensor/export/syslog.html).
+
+*  **Corelight Sensor exporter**: The [Corelight Sensor exporter](https://docs.corelight.com/docs/sensor/sensor/export/syslog.html) collects log data from the Sensor, and forwards it to the Google Security Operations forwarder.
+
+*  **Google Security Operations forwarder**: The Google Security Operations forwarder is a lightweight
+   software component, deployed in the customer's network, that supports syslog.
+   The Google Security Operations forwarder forwards the logs to Google Security Operations.
+
+*  **Google Security Operations**: Google Security Operations retains and analyzes the logs from
+    Corelight Sensor.
+
+### Configure the Google Security Operations forwarder
+
+To configure the Google Security Operations forwarder, do the following:
+
+1.  Set up a Google Security Operations forwarder. See [Install and configure the forwarder on Linux](/chronicle/docs/install/forwarder-linux).
+
+2. Configure the Google Security Operations forwarder to send logs to Google Security Operations.
+
+  ```none
+    collectors:
+      - syslog:
+          common:
+            enabled: true
+            data_type:  CORELIGHT
+            data_hint:
+            batch_n_seconds: 10
+            batch_n_bytes: 1048576
+          tcp_address: <Chronicle forwarder listening IP:Port>
+          tcp_buffer_size: 524288
+          udp_address: <Chronicle forwarder listening IP:Port>
+          connection_timeout_sec: 60
+  ```
+
+### Configure the Corelight Sensor exporter 
+
+1. Log into Corelight Sensor as an adminstrator.
+2. Select the **Export** tab.
+3. Find and enable **EXPORT TO SYSLOG** option.
+4. Under **EXPORT TO SYSLOG**, configure the following fields:
+  * **SYSLOG SERVER**: Specify the IP address and port of the Google Security Operations forwarder syslog listener.
+  * Navigate to **Advanced Settings > SYSLOG FORMAT**, and change the setting to **Legacy**.
+
+  ![Corelight Sensor Configuration](images/chronicle.jpg)
+
+5. Click **Apply Changes**.
 
 ## Supported Corelight log types
 
@@ -134,46 +217,10 @@ The Corelight parser supports the following log types:
   </ul>
 </div>
 
+## Field mapping reference 
 
-## Configure the Chronicle forwarder
+This section explains how the Google Security Operations parser maps Google Security Operations fields to Google Security Operations Unified Data Model (UDM) fields.
 
-To configure the Chronicle  forwarder, do the following:
-
-1.  Set up a Chronicle forwarder. See [Install and configure the forwarder on Linux](https://cloud.google.com/chronicle/docs/install/forwarder-linux).
-
-2. Configure the Chronicle forwarder to listen for data.
-
-  ```none
-    collectors:
-      - syslog:
-          common:
-            enabled: true
-            data_type:  CORELIGHT
-            data_hint:
-            batch_n_seconds: 10
-            batch_n_bytes: 1048576
-          tcp_address: <Chronicle forwarder listening IP:Port>
-          tcp_buffer_size: 524288
-          udp_address: <Chronicle forwarder listening IP:Port>
-          connection_timeout_sec: 60
-  ```
-
-## Configure the Corelight Sensor exporter
-
-1. Log into your Corelight Sensor as an adminstrator.
-2. Select the **Export** tab.
-3. Find and enable **EXPORT TO SYSLOG** option.
-4. Under **EXPORT TO SYSLOG**, configure:
-   * **SYSLOG SERVER**: Specify the IP address and port of the Chronicle forwarder syslog listener.
-   * Navigate to **Advanced Settings > SYSLOG FORMAT**, and change the setting to **Legacy**.
-
-
-![Corelight Sensor Configuration](images/chronicle.jpg)
-5. Click **Apply Changes**.
-
-## Field mapping reference
-
-This section explains how the Chronicle  parser maps Corelight fields to Chronicle  Unified Data Model (UDM) fields.
 <h3>Field mapping reference: CORELIGHT - Common Fields </h3>
 
 The following table lists common fields of the <code>CORELIGHT</code> log and their corresponding UDM fields.
@@ -233,6 +280,61 @@ The following table lists common fields of the <code>CORELIGHT</code> log and th
 <tr>
 <td><code>id.resp_p (integer - port)</code></td>
 <td><code>target.port</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>_write_ts</code></td><code></code>
+<td><code>metadata.collected_timestamp</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>id.vlan (integer - int)</code></td>
+<td><code>additional.fields [id_vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>id.vlan_inner (integer - int)</code></td>
+<td><code>additional.fields [id_vlan_inner]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>id.orig_ep_cid (string)</code></td>
+<td><code>additional.fields [id_orig_ep_cid]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>id.orig_ep_source (string)</code></td>
+<td><code>additional.fields [id_orig_ep_source]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>id.orig_ep_status (string)</code></td>
+<td><code>additional.fields [id_orig_ep_status]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>id.orig_ep_uid (string)</code></td>
+<td><code>additional.fields [id_orig_ep_uid]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>id.resp_ep_cid (string)</code></td>
+<td><code>additional.fields [id_resp_ep_cid]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>id.resp_ep_source (string)</code></td>
+<td><code>additional.fields [id_resp_ep_source]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>id.resp_ep_status (string)</code></td>
+<td><code>additional.fields [id_resp_ep_status]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>id.resp_ep_uid (string)</code></td>
+<td><code>additional.fields [id_resp_ep_uid]</code></td>
 <td></td>
 </tr>
 </tbody>
@@ -450,6 +552,51 @@ The following table lists the log fields of the <code>conn, conn_red, conn_long<
 <td><code>security_result.severity</code></td>
 <td>The <code>security_result.severity</code> UDM field is set to <code>INFORMATIONAL</code>.</td>
 </tr>
+<tr>
+<td><code>service (string)</code></td>
+<td><code>about.labels [service]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_ep_cid (string)</code></td>
+<td><code>additional.fields [orig_ep_cid]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_ep_source (string)</code></td>
+<td><code>additional.fields [orig_ep_source]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_ep_status (string)</code></td>
+<td><code>additional.fields [orig_ep_status]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_ep_uid (string)</code></td>
+<td><code>additional.fields [orig_ep_uid]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_ep_cid (string)</code></td>
+<td><code>additional.fields [resp_ep_cid]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_ep_source (string)</code></td>
+<td><code>additional.fields [resp_ep_source]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_ep_status (string)</code></td>
+<td><code>additional.fields [resp_ep_status]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_ep_uid (string)</code></td>
+<td><code>additional.fields [resp_ep_uid]</code></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 </devsite-filter>
@@ -606,6 +753,11 @@ The following table lists the log fields of the <code>dns, dns_red</code> log ty
 <td></td>
 </tr>
 <tr>
+<td><code>rcode (integer - count)</code></td>
+<td><code>network.dns.response</code></td>
+<td>If the <code>rcode</code> log field value is <em>not</em> empty, then the <code>network.dns.response</code> UDM field is set to <code>true</code>.</td>
+</tr>
+<tr>
 <td><code>rcode_name (string)</code></td>
 <td><code>about.labels [rcode_name]</code></td>
 <td></td>
@@ -647,7 +799,7 @@ The following table lists the log fields of the <code>dns, dns_red</code> log ty
 </tr>
 <tr>
 <td><code>rejected (boolean - bool)</code></td>
-<td><code>network.dns.response</code></td>
+<td><code>about.labels [rejected]</code></td>
 <td></td>
 </tr>
 <tr>
@@ -1100,6 +1252,36 @@ The following table lists the log fields of the <code>files, files_red</code> lo
 <td></td>
 </tr>
 <tr>
+<td><code>md5 (string)</code></td>
+<td><code>network.tls.client.certificate.md5</code></td>
+<td>If the <code>source</code> log field value is equal to <code>ssl</code> and the <code>mime_type</code> log field value is equal to <code>application/x-x509-user-cert</code> and the <code>_path</code> log field value is equal to <code>files</code>, then the <code>network.tls.client.certificate.md5</code> UDM field is set to <code>md5</code>.</td>
+</tr>
+<tr>
+<td><code>sha1 (string)</code></td>
+<td><code>network.tls.client.certificate.sha1</code></td>
+<td>If the <code>source</code> log field value is equal to <code>ssl</code> and the <code>mime_type</code> log field value is equal to <code>application/x-x509-user-cert</code> and the <code>_path</code> log field value is equal to <code>files</code>, then the <code>network.tls.client.certificate.sha1</code> UDM field is set to <code>sha1</code>.</td>
+</tr>
+<tr>
+<td><code>sha256 (string)</code></td>
+<td><code>network.tls.client.certificate.sha256</code></td>
+<td>If the <code>source</code> log field value is equal to <code>ssl</code> and the <code>mime_type</code> log field value is equal to <code>application/x-x509-user-cert</code> and the <code>_path</code> log field value is equal to <code>files</code>, then the <code>network.tls.client.certificate.sha256</code> UDM field is set to <code>sha256</code>.</td>
+</tr>
+<tr>
+<td><code>md5 (string)</code></td>
+<td><code>network.tls.server.certificate.md5</code></td>
+<td>If the <code>source</code> log field value is equal to <code>ssl</code> and the <code>mime_type</code> log field value is equal to <code>application/x-x509-ca-cert</code> and the <code>_path</code> log field value is equal to <code>files</code>, then the <code>network.tls.server.certificate.md5</code> UDM field is set to <code>md5</code>.</td>
+</tr>
+<tr>
+<td><code>sha1 (string)</code></td>
+<td><code>network.tls.server.certificate.sha1</code></td>
+<td>If the <code>source</code> log field value is equal to <code>ssl</code> and the <code>mime_type</code> log field value is equal to <code>application/x-x509-ca-cert</code> and the <code>_path</code> log field value is equal to <code>files</code>, then the <code>network.tls.server.certificate.sha1</code> UDM field is set to <code>sha1</code>.</td>
+</tr>
+<tr>
+<td><code>sha256 (string)</code></td>
+<td><code>network.tls.server.certificate.sha256</code></td>
+<td>If the <code>source</code> log field value is equal to <code>ssl</code> and the <code>mime_type</code> log field value is equal to <code>application/x-x509-ca-cert</code> and the <code>_path</code> log field value is equal to <code>files</code>, then the <code>network.tls.server.certificate.sha256</code> UDM field is set to <code>sha256</code>.</td>
+</tr>
+<tr>
 <td><code>extracted (array[string] - set[string])</code></td>
 <td><code>about.file.names</code></td>
 <td></td>
@@ -1117,6 +1299,16 @@ The following table lists the log fields of the <code>files, files_red</code> lo
 <tr>
 <td><code>num (integer - count)</code></td>
 <td><code>about.labels [num]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>vlan (integer - int)</code></td>
+<td><code>additional.fields [vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>vlan_inner (integer - int)</code></td>
+<td><code>additional.fields [vlan_inner]</code></td>
 <td></td>
 </tr>
 </tbody>
@@ -1252,7 +1444,97 @@ The following table lists the log fields of the <code>notice</code> log type and
 <tr>
 <td></td>
 <td><code>security_result.severity</code></td>
-<td>The <code>security_result.severity</code> UDM field is set to <code>INFORMATIONAL</code>.</td>
+<td><div style='margin-bottom: 0.0em;'></div>If the <code>severity.level</code> log field value contain one of the following values<div style='margin-top: -0.8em;'></div><ul><li><code>0</code></li><li><code> 1</code></li></ul><div style='margin-top: -0.8em;'></div> then, the <code>  security_result.severity </code> UDM field is set to <code>HIGH</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>severity.level</code> log field value is equal to <code> 2 </code> then, the <code>  security_result.severity </code> UDM field is set to <code>CRITICAL</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>severity.level</code> log field value is equal to <code> 3 </code> then, the <code>  security_result.severity </code> UDM field is set to <code>ERROR</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>severity.level</code> log field value contain one of the following values<div style='margin-top: -0.8em;'></div><ul><li><code>4</code></li><li><code>5</code></li><li><code>6</code></li></ul><div style='margin-top: -0.8em;'></div> then, the <code>  security_result.severity </code> UDM field is set to <code>INFORMATIONAL</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>severity.level</code> log field value is equal to <code> 7 </code> then, the <code>  security_result.severity </code> UDM field is set to <code>LOW</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else The <code>  security_result.severity </code> UDM field is set to <code>UNKNOWN_SEVERITY</code>. <br></td>
+</tr>
+<tr>
+<td><code>severity.name</code></td>
+<td><code>security_result.severity_details</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>severity.level</code></td>
+<td><code>security_result.detection_fields [severity_level]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.criticality (string)</code></td>
+<td><code>target.asset.vulnerabilities.severity</code></td>
+<td><div style='margin-bottom: 0.0em;'></div>If the <code>resp_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)Critical" or the <code>resp_vulnerable_host.criticality</code> log field value is equal to <code> "4 </code>" </code> then, the <code> "target.asset.vulnerabilities.severity" </code> UDM field is set to <code>CRITICAL</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>resp_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)High" or the <code>resp_vulnerable_host.criticality</code> log field value is equal to <code> "3 </code>" </code> then, the <code> "target.asset.vulnerabilities.severity" </code> UDM field is set to <code>HIGH</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>resp_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)Low" or the <code>resp_vulnerable_host.criticality</code> log field value is equal to <code> "1 </code>" </code> then, the <code> "target.asset.vulnerabilities.severity" </code> UDM field is set to <code>LOW</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>resp_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)Medium" or the <code>resp_vulnerable_host.criticality</code> log field value is equal to <code> "2 </code>" </code> then, the <code> "target.asset.vulnerabilities.severity" </code> UDM field is set to <code>MEDIUM</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>resp_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)Unknown_Severity" </code> or the <code>resp_vulnerable_host.criticality</code> log field value is equal to <code> "0 </code>" then, the <code> "target.asset.vulnerabilities.severity" </code> UDM field is set to <code>UNKNOWN_SEVERITY</code>. <br></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.criticality (string)</code></td>
+<td><code>target.asset.vulnerabilities.severity_details</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.cve (string)</code></td>
+<td><code>target.asset.vulnerabilities.cve_id</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.host_uid (string)</code></td>
+<td><code>additional.fields [resp_vulnerable_host_uid]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.hostname (string)</code></td>
+<td><code>target.asset.hostname</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.machine_domain (string)</code></td>
+<td><code>target.asset.network_domain</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.os_version (string)</code></td>
+<td><code>target.asset.platform_software.platform_version</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.source (string)</code></td>
+<td><code>target.asset.vulnerabilities.cve_description</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.criticality (string)</code></td>
+<td><code>principal.asset.vulnerabilities.severity</code></td>
+<td><div style='margin-bottom: 0.0em;'></div>If the <code>orig_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)Critical" or the <code>orig_vulnerable_host.criticality</code> log field value is equal to <code> "4 </code>" </code> then, the <code> "principal.asset.vulnerabilities.severity" </code> UDM field is set to <code>CRITICAL</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>orig_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)High" or the <code>orig_vulnerable_host.criticality</code> log field value is equal to <code> "3 </code>" </code> then, the <code> "principal.asset.vulnerabilities.severity" </code> UDM field is set to <code>HIGH</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>orig_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)Low" or the <code>orig_vulnerable_host.criticality</code> log field value is equal to <code> "1 </code>" </code> then, the <code> "principal.asset.vulnerabilities.severity" </code> UDM field is set to <code>LOW</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>orig_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)Medium" or the <code>orig_vulnerable_host.criticality</code> log field value is equal to <code> "2 </code>" </code> then, the <code> "principal.asset.vulnerabilities.severity" </code> UDM field is set to <code>MEDIUM</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>orig_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)Unknown_Severity" </code> or the <code>orig_vulnerable_host.criticality</code> log field value is equal to <code> "0 </code>" then, the <code> "principal.asset.vulnerabilities.severity" </code> UDM field is set to <code>UNKNOWN_SEVERITY</code>. <br></td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.criticality (string)</code></td>
+<td><code>principal.asset.vulnerabilities.severity_details</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.cve (string)</code></td>
+<td><code>principal.asset.vulnerabilities.cve_id</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.host_uid (string)</code></td>
+<td><code>additional.fields [orig_vulnerable_host_uid]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.hostname (string)</code></td>
+<td><code>principal.asset.hostname</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.machine_domain (string)</code></td>
+<td><code>principal.asset.network_domain</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.os_version (string)</code></td>
+<td><code>principal.asset.platform_software.platform_version</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.source (string)</code></td>
+<td><code>principal.asset.vulnerabilities.cve_description</code></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -2024,6 +2306,51 @@ The following table lists the log fields of the <code>intel</code> log type and 
 <td><code>entity.labels [report]</code></td>
 <td></td>
 </tr>
+<tr>
+<td><code>seen.indicator (string)</code></td>
+<td><code>about.labels [indicator]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>seen.indicator_type (string - enum)</code></td>
+<td><code>about.labels [indicator_type]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>seen.where (string - enum)</code></td>
+<td><code>about.labels [where]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>sources (array[string] - set[string])</code></td>
+<td><code>about.labels [sources]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>confidence (array[number] - set[double])</code></td>
+<td><code>about.labels [confidence]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>category (array[string] - set[string])</code></td>
+<td><code>about.labels [category]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>threat_score (array[number] - set[double])</code></td>
+<td><code>entity.security_result.detection_fields[threat_score]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>verdict (array[string] - set[string])</code></td>
+<td><code>entity.security_result.verdict_info.verdict_response</code></td>
+<td>Iterate through <code>verdict</code>,<div style='margin-bottom: 0.5em;'></div><div style='margin-bottom: 0.0em;'></div>If the <code>verdict</code> log field value matches the regular expression pattern <code> "(?i)Malicious" or the <code>verdict</code> log field value is equal to <code> "1" </code> </code> then, the <code>        "entity.security_result.verdict_info.verdict_response" </code> UDM field is set to <code>MALICIOUS</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>verdict</code> log field value matches the regular expression pattern <code> "(?i)Benign" or the <code>verdict</code> log field value is equal to <code> "2" </code> </code> then, the <code>        "entity.security_result.verdict_info.verdict_response" </code> UDM field is set to <code>BENIGN</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else The <code>        "entity.security_result.verdict_info.verdict_response" </code> UDM field is set to <code>VERDICT_RESPONSE_UNSPECIFIED</code>. <br></td>
+</tr>
+<tr>
+<td><code>verdict_source (array[string] - set[string])</code></td>
+<td><code>entity.security_result.verdict_info.source_provider</code></td>
+<td>Iterate through <code>verdict_source</code>,<div style='margin-bottom: 0.5em;'></div><code>verdict_source</code> log field is mapped to the <code>    entity.security_result.VerdictInfo.source_provider </code> UDM field.</td>
+</tr>
 </tbody>
 </table>
 </devsite-filter>
@@ -2498,8 +2825,18 @@ The following table lists the log fields of the <code>suricata_corelight</code> 
 <td></td>
 </tr>
 <tr>
+<td><code>payload (string)</code></td>
+<td><code>about.labels [payload_decoded]</code></td>
+<td></td>
+</tr>
+<tr>
 <td><code>packet (string)</code></td>
 <td><code>about.labels [packet]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>packet (string)</code></td>
+<td><code>about.labels [packet_decoded]</code></td>
 <td></td>
 </tr>
 <tr>
@@ -2528,68 +2865,183 @@ The following table lists the log fields of the <code>suricata_corelight</code> 
 <td>The <code>idm.is_significant</code> UDM field is set to <code>true</code>.</td>
 </tr>
 <tr>
-<td></td>
+<td><code>signature_severity</code></td>
 <td><code>security_result.severity</code></td>
-<td>The <code>security_result.severity</code> UDM field is set to <code>INFORMATIONAL</code>.</td>
+<td>If <code>alert.rule</code> log field value matches the grok pattern <code>signature_severity (?<signature_severity>Critical|Major|Minor|Informational)</code> then <div style='margin-bottom: 0.0em;'></div>If the <code>signature_severity</code> extracted field value is equal to <code>Critical</code> then, the <code>security_result.severity</code> UDM field is set to <code>CRITICAL</code> and <code>signature_severity</code> extracted field is mapped to the <code>security_result.severity_details</code> UDM field. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>signature_severity</code> extracted field value is equal to <code>Major</code> then, the <code>security_result.severity</code> UDM field is set to <code>MEDIUM</code> and <code>signature_severity</code> extracted field is mapped to the <code> security_result.severity_details</code> UDM field. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>signature_severity</code> extracted field value is equal to <code>Minor</code> then, the <code>security_result.severity</code> UDM field is set to <code>LOW</code> and <code>signature_severity</code> extracted field is mapped to the <code>security_result.severity_details</code> UDM field. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>signature_severity</code> extracted field value is equal to <code>Informational</code> then, the <code>security_result.severity</code> UDM field is set to <code>INFORMATIONAL</code> and <code>signature_severity</code> extracted field is mapped to the <code>security_result.severity_details</code> UDM field.<br></td>
 </tr>
 <tr>
-<td><code>orig_vulnerable_host.cve (string)</code></td>
+<td><code>orig_vulnerable_host.cve(string)</code></td>
 <td><code>principal.asset.vulnerabilities.cve_id</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>orig_vulnerable_host.hostname (string)</code></td>
+<td><code>orig_vulnerable_host.hostname(string)</code></td>
 <td><code>principal.asset.hostname</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>orig_vulnerable_host.host_uid (string)</code></td>
+<td><code>orig_vulnerable_host.host_uid(string)</code></td>
 <td><code>about.labels [orig_vulnerable_host_uid]</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>orig_vulnerable_host.machine_domain (string)</code></td>
+<td><code>orig_vulnerable_host.machine_domain(string)</code></td>
 <td><code>principal.asset.network_domain</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>orig_vulnerable_host.os_version (string)</code></td>
+<td><code>orig_vulnerable_host.os_version(string)</code></td>
 <td><code>principal.asset.platform_software.platform_version</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>orig_vulnerable_host.source (string)</code></td>
+<td><code>orig_vulnerable_host.source(string)</code></td>
 <td><code>principal.asset.vulnerabilities.cve_description</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>resp_vulnerable_host.cve (string)</code></td>
+<td><code>resp_vulnerable_host.cve(string)</code></td>
 <td><code>target.asset.vulnerabilities.cve_id</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>resp_vulnerable_host.hostname (string)</code></td>
+<td><code>resp_vulnerable_host.hostname(string)</code></td>
 <td><code>target.asset.hostname</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>resp_vulnerable_host.host_uid (string)</code></td>
+<td><code>resp_vulnerable_host.host_uid(string)</code></td>
 <td><code>about.labels [resp_vulnerable_host_uid]</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>resp_vulnerable_host.machine_domain (string)</code></td>
+<td><code>resp_vulnerable_host.machine_domain(string)</code></td>
 <td><code>target.asset.network_domain</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>resp_vulnerable_host.os_version (string)</code></td>
+<td><code>resp_vulnerable_host.os_version(string)</code></td>
 <td><code>target.asset.platform_software.platform_version</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>resp_vulnerable_host.source (string)</code></td>
+<td><code>resp_vulnerable_host.source(string)</code></td>
 <td><code>target.asset.vulnerabilities.cve_description</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>service (string)</code></td>
+<td><code>about.labels [service]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>alert.rule (string)</code></td>
+<td><code>security_result.description</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>alert.references (array[string] - vector of string)</code></td>
+<td><code>security_result.detection_fields[alert_references]</code></td>
+<td>iterate through alert.references,<div style='margin-bottom: 0.5em;'></div><code>alert.references</code> log field is mapped to the <code> security_result.detection_fields.alert_references </code> UDM field.</td>
+</tr>
+<tr>
+<td><code>payload_printable (string)</code></td>
+<td><code>security_result.detection_fields[payload_printable]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>references (array[string] - vector of string)</code></td>
+<td><code>security_result.detection_fields[references]</code></td>
+<td>iterate through references,<div style='margin-bottom: 0.5em;'></div><code>references</code> log field is mapped to the <code> security_result.detection_fields.references </code> UDM field.</td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.criticality (string)</code></td>
+<td><code>principal.asset.vulnerabilities.severity</code></td>
+<td><div style='margin-bottom: 0.0em;'></div>If the <code>orig_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)Critical" or the <code>orig_vulnerable_host.criticality</code> log field value is equal to <code> "4" </code> </code> then, the <code> "principal.asset.vulnerabilities.severity" </code> UDM field is set to <code>CRITICAL</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>orig_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)High" or the <code>orig_vulnerable_host.criticality</code> log field value is equal to <code> "3" </code> </code> then, the <code> "principal.asset.vulnerabilities.severity" </code> UDM field is set to <code>HIGH</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>orig_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)Low" or the <code>orig_vulnerable_host.criticality</code> log field value is equal to <code> "1" </code> </code> then, the <code> "principal.asset.vulnerabilities.severity" </code> UDM field is set to <code>LOW</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>orig_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)Medium" or the <code>orig_vulnerable_host.criticality</code> log field value is equal to <code> "2" </code> </code> then, the <code> "principal.asset.vulnerabilities.severity" </code> UDM field is set to <code>MEDIUM</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>orig_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)Unknown_Severity" or the <code>orig_vulnerable_host.criticality</code> log field value is equal to <code> "0" </code> </code> then, the <code> "principal.asset.vulnerabilities.severity" </code> UDM field is set to <code>UNKNOWN_SEVERITY</code>. <br></td>
+</tr>
+<tr>
+<td><code>orig_vulnerable_host.criticality (string)</code></td>
+<td><code>principal.asset.vulnerabilities.severity_details</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.criticality (string)</code></td>
+<td><code>target.asset.vulnerabilities.severity</code></td>
+<td><div style='margin-bottom: 0.0em;'></div>If the <code>resp_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)Critical" or the <code>resp_vulnerable_host.criticality</code> log field value is equal to <code> "4 </code>" </code> then, the <code> "target.asset.vulnerabilities.severity" </code> UDM field is set to <code>CRITICAL</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>resp_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)High" or the <code>resp_vulnerable_host.criticality</code> log field value is equal to <code> "3 </code>" </code> then, the <code> "target.asset.vulnerabilities.severity" </code> UDM field is set to <code>HIGH</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>resp_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)Low" or the <code>resp_vulnerable_host.criticality</code> log field value is equal to <code> "1 </code>" </code> then, the <code> "target.asset.vulnerabilities.severity" </code> UDM field is set to <code>LOW</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>resp_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)Medium" or the <code>resp_vulnerable_host.criticality</code> log field value is equal to <code> "2 </code>" </code> then, the <code> "target.asset.vulnerabilities.severity" </code> UDM field is set to <code>MEDIUM</code>. <br> <div style='margin-bottom: 0.5em;'></div>Else, If <code>resp_vulnerable_host.criticality</code> log field value matches the regular expression pattern <code> "(?i)Unknown_Severity" or the <code>resp_vulnerable_host.criticality</code> log field value is equal to <code> "0 </code>" </code> then, the <code> "target.asset.vulnerabilities.severity" </code> UDM field is set to <code>UNKNOWN_SEVERITY</code>. <br></td>
+</tr>
+<tr>
+<td><code>resp_vulnerable_host.criticality (string)</code></td>
+<td><code>target.asset.vulnerabilities.severity_details</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>rule_content</code></td>
+<td><code>security_result.detection_fields[alert_rule_content]</code></td>
+<td>If <code>alert.rule</code> log field value matches the grok pattern <code>%{GREEDYDATA:_}content:\\"%{GREEDYDATA:rule_content}\\"</code> then, the <code>rule_content</code> extracted field is mapped to <code>security_result.detection_fields [alert_rule_content]</code> UDM field.</td>
+</tr>
+<tr>
+<td><code>rule_classtype</code></td>
+<td><code>security_result.detection_fields [alert_rule_classtype]</code></td>
+<td>If <code>alert.rule</code> log field value matches the grok pattern <code>%{GREEDYDATA:_}classtype:%{DATA:rule_classtype};</code> then, the <code>rule_classtype</code> extracted field is mapped to <code>security_result.detection_fields [alert_rule_classtype]</code> UDM field.</td>
+</tr>
+<tr>
+<td><code>reference_url</code></td>
+<td><code>security_result.detection_fields[alert_rule_reference_url]</code></td>
+<td>If <code>alert.rule</code> log field value matches the grok pattern <code>%{GREEDYDATA:_}reference:url,%{DATA:reference_url};</code> then, the <code>reference_url</code> extracted field is mapped to <code>security_result.detection_fields [alert_rule_reference_url]</code> UDM field.</td>
+</tr>
+<tr>
+<td><code>attack_target</code></td>
+<td><code>security_result.detection_fields[alert_rule_attack_target]</code></td>
+<td>If <code>alert.rule</code> log field value matches the grok pattern <code>%{GREEDYDATA:_}metadata:%{DATA:rule_metadata};</code> and, The <code>attack_target</code> is extracted from <code>rule_metadata</code> using <code>kv filter</code> then the extracted <code>attack_target</code> field is mapped to <code>security_result.detection_fields [alert_rule_attack_target]</code> UDM field.</td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td><code>security_result.detection_fields[alert_rule_created_at]</code></td>
+<td>If <code>alert.rule</code> log field value matches the grok pattern <code>%{GREEDYDATA:_}metadata:%{DATA:rule_metadata};</code> and, The <code>created_at</code> is extracted from <code>rule_metadata</code> using <code>kv filter</code> then the extracted <code>created_at</code> field is mapped to <code>security_result.detection_fields [alert_rule_created_at]</code> UDM field.</td>
+</tr>
+<tr>
+<td><code>deployment</code></td>
+<td><code>security_result.detection_fields[alert_rule_deployment]</code></td>
+<td>If <code>alert.rule</code> log field value matches the grok pattern <code>%{GREEDYDATA:_}metadata:%{DATA:rule_metadata};</code> and, The <code>deployment</code> is extracted from <code>rule_metadata</code> using <code>kv filter</code> then the extracted <code>deployment</code> field is mapped to <code>security_result.detection_fields [alert_rule_deployment]</code> UDM field.</td>
+</tr>
+<tr>
+<td><code>performance_impact</code></td>
+<td><code>security_result.detection_fields[alert_rule_performance_impact]</code></td>
+<td>If <code>alert.rule</code> log field value matches the grok pattern <code>%{GREEDYDATA:_}metadata:%{DATA:rule_metadata};</code> and, The <code>performance_impact</code> is extracted from <code>rule_metadata</code> using <code>kv filter</code> then the extracted <code>performance_impact</code> field is mapped to <code>security_result.detection_fields [alert_rule_performance_impact]</code> UDM field.</td>
+</tr>
+<tr>
+<td><code>updated_at</code></td>
+<td><code>security_result.detection_fields[alert_rule_updated_at]</code></td>
+<td>If <code>alert.rule</code> log field value matches the grok pattern <code>%{GREEDYDATA:_}metadata:%{DATA:rule_metadata};</code> and, The <code>updated_at</code> is extracted from <code>rule_metadata</code> using <code>kv filter</code> then the extracted <code>updated_at</code> field is mapped to <code>security_result.detection_fields [alert_rule_updated_at]</code> UDM field.</td>
+</tr>
+<tr>
+<td><code>uri</code></td>
+<td><code>target.url</code></td>
+<td>If the <code>payload_printable</code> log field is <code>not empty</code> then, If <code>payload_printable</code> log field value matches the grok pattern <code>%{WORD:http_method} %{NOTSPACE:uri} HTTP/%{NOTSPACE:proto_version}</code> then, the <code>uri</code> extracted field is mapped to <code>target.url</code> UDM field.<br><br>Else If the <code>payload</code> log field is <code>not empty</code> then, If <code>payload</code> log field value matches the grok pattern <code>%{WORD:http_method} %{NOTSPACE:uri} HTTP/%{NOTSPACE:proto_version}</code> then, the <code>uri</code> extracted field is mapped to <code>target.url</code> UDM field.</td>
+</tr>
+<tr>
+<td><code>http_method</code></td>
+<td><code>network.http.method</code></td>
+<td>If the <code>payload_printable</code> log field is <code>not empty</code> then, If <code>payload_printable</code> log field value matches the grok pattern <code>%{WORD:http_method} %{NOTSPACE:uri} HTTP/%{NOTSPACE:proto_version}</code> then, the <code>http_method</code> extracted field is mapped to <code>network.http.method</code> UDM field.<br><br>Else If the <code>payload</code> log field is <code>not empty</code> then, If <code>payload</code> log field value matches the grok pattern <code>%{WORD:http_method} %{NOTSPACE:uri} HTTP/%{NOTSPACE:proto_version}</code> then, the <code>http_method</code> extracted field is mapped to <code>network.http.method</code> UDM field.</td>
+</tr>
+<tr>
+<td><code>proto_version</code></td>
+<td><code>network.application_protocol_version</code></td>
+<td>If the <code>payload_printable</code> log field is <code>not empty</code> then, If <code>payload_printable</code> log field value matches the grok pattern <code>%{WORD:http_method} %{NOTSPACE:uri} HTTP/%{NOTSPACE:proto_version}</code> then, the <code>proto_version</code> extracted field is mapped to <code>network.application_protocol_version</code> UDM field.<br><br>Else If the <code>payload</code> log field is <code>not empty</code> then, If <code>payload</code> log field value matches the grok pattern <code>%{WORD:http_method} %{NOTSPACE:uri} HTTP/%{NOTSPACE:proto_version}</code> then, the <code>proto_version</code> extracted field is mapped to <code>network.application_protocol_version</code> UDM field.</td>
+</tr>
+<tr>
+<td><code>user_agent</code></td>
+<td><code>target.http.useragent</code></td>
+<td>If the <code>payload_printable</code> log field is <code>not empty</code> then, If <code>payload_printable</code> log field value matches the grok pattern <code> ^User-Agent: %{GREEDYDATA:user_agent}</code> then, the <code>user_agent</code> extracted field is mapped to <code>target.http.useragent</code> UDM field.<br><br>Else If the <code>payload</code> log field is <code>not empty</code> then, If <code>payload</code> log field value matches the grok pattern <code> ^User-Agent: %{GREEDYDATA:user_agent}</code> then, the <code>user_agent</code> extracted field is mapped to <code>target.http.useragent</code> UDM field.</td>
+</tr>
+<tr>
+<td><code>hostname</code></td>
+<td><code>target.hostname</code></td>
+<td>If the <code>payload_printable</code> log field is <code>not empty</code> then, If <code>payload_printable</code> log field value matches the grok pattern <code>^Host: %{IPORHOST:hostname}</code> then, the <code>hostname</code> extracted field is mapped to <code>target.hostname</code> UDM field.<br><br>Else If the <code>payload</code> log field is <code>not empty</code> then, If <code>payload</code> log field value matches the grok pattern <code>^Host: %{IPORHOST:hostname}</code> then, the <code>hostname</code> extracted field is mapped to <code>target.hostname</code> UDM field.</td>
+</tr>
+<tr>
+<td><code>meta (array[string] - vector of string)</code></td>
+<td><code>additional.fields [meta]</code></td>
 <td></td>
 </tr>
 </tbody>
@@ -2647,6 +3099,31 @@ The following table lists the log fields of the <code>bacnet</code> log type and
 <td><code>about.labels [data]</code></td>
 <td></td>
 </tr>
+<tr>
+<td>invoke_id (integer - count)</td>
+<td>additional.fields [invoke_id]</td>
+<td></td>
+</tr>
+<tr>
+<td>is_orig (boolean - bool)</td>
+<td>additional.fields [is_orig]</td>
+<td></td>
+</tr>
+<tr>
+<td>pdu_service (string)</td>
+<td>additional.fields [pdu_service]</td>
+<td></td>
+</tr>
+<tr>
+<td>pdu_type (string)</td>
+<td>additional.fields [pdu_type]</td>
+<td></td>
+</tr>
+<tr>
+<td>result_code (string)</td>
+<td>additional.fields [result_code]</td>
+<td></td>
+</tr>
 </tbody>
 </table>
 </devsite-filter>
@@ -2690,6 +3167,71 @@ The following table lists the log fields of the <code>cip</code> log type and th
 <tr>
 <td><code>tags (string)</code></td>
 <td><code>about.labels [tag]</code></td>
+<td></td>
+</tr>
+<tr>
+<td>attribute_id (string)</td>
+<td>additional.fields [attribute_id]</td>
+<td></td>
+</tr>
+<tr>
+<td>cip_extended_status (string)</td>
+<td>additional.fields [cip_extended_status]</td>
+<td></td>
+</tr>
+<tr>
+<td>cip_extended_status_code (string)</td>
+<td>additional.fields [cip_extended_status_code]</td>
+<td></td>
+</tr>
+<tr>
+<td>cip_sequence_count (integer - count)</td>
+<td>additional.fields [cip_sequence_count]</td>
+<td></td>
+</tr>
+<tr>
+<td>cip_service (string)</td>
+<td>additional.fields [cip_service]</td>
+<td></td>
+</tr>
+<tr>
+<td>cip_service_code (string)</td>
+<td>additional.fields [cip_service_code]</td>
+<td></td>
+</tr>
+<tr>
+<td>cip_status (string)</td>
+<td>additional.fields [cip_status]</td>
+<td></td>
+</tr>
+<tr>
+<td>cip_status_code (string)</td>
+<td>additional.fields [cip_status_code]</td>
+<td></td>
+</tr>
+<tr>
+<td>class_id (string)</td>
+<td>additional.fields [class_id]</td>
+<td></td>
+</tr>
+<tr>
+<td>class_name (string)</td>
+<td>additional.fields [class_name]</td>
+<td></td>
+</tr>
+<tr>
+<td>direction (string)</td>
+<td>additional.fields [direction]</td>
+<td></td>
+</tr>
+<tr>
+<td>instance_id (string)</td>
+<td>additional.fields [instance_id]</td>
+<td></td>
+</tr>
+<tr>
+<td>is_orig (boolean - bool)</td>
+<td>additional.fields [is_orig]</td>
 <td></td>
 </tr>
 </tbody>
@@ -3598,6 +4140,16 @@ The following table lists the log fields of the <code>local_subnets_dj</code> lo
 <td><code>about.labels [side]</code></td>
 <td></td>
 </tr>
+<tr>
+<td><code>component_id (integer - count)</code></td>
+<td><code>additional.fields [component_id]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>round (integer - count)</code></td>
+<td><code>additional.fields [round]</code></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 </devsite-filter>
@@ -4261,6 +4813,16 @@ The following table lists the log fields of the <code>x509, x509_red</code> log 
 <tr>
 <td><code>client_cert (boolean - bool)</code></td>
 <td><code>about.labels [client_cert]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>vlan (integer - int)</code></td>
+<td><code>additional.fields [vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>vlan_inner (integer - int)</code></td>
+<td><code>additional.fields [vlan_inner]</code></td>
 <td></td>
 </tr>
 </tbody>
@@ -4960,6 +5522,21 @@ The following table lists the log fields of the <code>modbus</code> log type and
 <td><code>security_result.description</code></td>
 <td></td>
 </tr>
+<tr>
+<td><code>pdu_type (string)</code></td>
+<td><code>additional.fields [pdu_type]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>tid (integer - count)</code></td>
+<td><code>additional.fields [tid]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>unit (integer - count)</code></td>
+<td><code>additional.fields [unit]</code></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 </devsite-filter>
@@ -5318,6 +5895,26 @@ The following table lists the log fields of the <code>enip</code> log type and t
 <tr>
 <td><code>options (string)</code></td>
 <td><code>about.labels [options]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>enip_command (string)</code></td>
+<td><code>additional.fields [enip_command]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>enip_command_code (string)</code></td>
+<td><code>additional.fields [enip_command_code]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>enip_status (string)</code></td>
+<td><code>additional.fields [enip_status]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>is_orig (boolean - bool)</code></td>
+<td><code>additional.fields [is_orig]</code></td>
 <td></td>
 </tr>
 </tbody>
@@ -5981,6 +6578,11 @@ The following table lists the log fields of the <code>ipsec</code> log type and 
 <td><code>about.labels [situation]</code></td>
 <td></td>
 </tr>
+<tr>
+<td><code>is_orig (boolean - bool)</code></td>
+<td><code>additional.fields [is_orig]</code></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 </devsite-filter>
@@ -6331,6 +6933,26 @@ The following table lists the log fields of the <code>known_certs</code> log typ
 <td><code>entity.labels [last_active_interval]</code></td>
 <td></td>
 </tr>
+<tr>
+<td><code>host_inner_vlan (integer - int)</code></td>
+<td><code>additional.fields [host_inner_vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>host_vlan (integer - int)</code></td>
+<td><code>additional.fields [host_vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>long_conns (integer - count)</code></td>
+<td><code>metadata.threat.detection_fields [long_conns]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>port_num (integer - port)</code></td>
+<td><code>entity.port</code></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 </devsite-filter>
@@ -6421,6 +7043,21 @@ The following table lists the log fields of the <code>known_devices</code> log t
 <td><code>entity.labels [last_active_interval]</code></td>
 <td></td>
 </tr>
+<tr>
+<td><code>host_inner_vlan (integer - int)</code></td>
+<td><code>additional.fields [host_inner_vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>host_vlan (integer - int)</code></td>
+<td><code>additional.fields [host_vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>long_conns (integer - count)</code></td>
+<td><code>metadata.threat.detection_fields [long_conns]</code></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 </devsite-filter>
@@ -6504,6 +7141,21 @@ The following table lists the log fields of the <code>known_domains</code> log t
 <tr>
 <td><code>last_active_interval (number - interval)</code></td>
 <td><code>entity.labels [last_active_interval]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>host_inner_vlan (integer - int)</code></td>
+<td><code>additional.fields [host_inner_vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>host_vlan (integer - int)</code></td>
+<td><code>additional.fields [host_vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>long_conns (integer - count)</code></td>
+<td><code>metadata.threat.detection_fields [long_conns]</code></td>
 <td></td>
 </tr>
 </tbody>
@@ -6591,6 +7243,51 @@ The following table lists the log fields of the <code>known_hosts</code> log typ
 <td><code>entity.labels [last_active_interval]</code></td>
 <td></td>
 </tr>
+<tr>
+<td><code>ep.cid (string)</code></td>
+<td><code>additional.fields [ep_cid]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>ep.criticality (string)</code></td>
+<td><code>entity.security_result.detection_fields[ep_criticality]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>ep.desc (string)</code></td>
+<td><code>metadata.description</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>ep.os_version (string)</code></td>
+<td><code>entity.platform_version</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>ep.source (string)</code></td>
+<td><code>additional.fields [ep_source]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>ep.status (string)</code></td>
+<td><code>additional.fields [ep_status]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>ep.uid (string)</code></td>
+<td><code>additional.fields [ep_uid]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>host_inner_vlan (integer - int)</code></td>
+<td><code>additional.fields [host_inner_vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>host_vlan (integer - int)</code></td>
+<td><code>additional.fields [host_vlan]</code></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 </devsite-filter>
@@ -6671,6 +7368,21 @@ The following table lists the log fields of the <code>known_names</code> log typ
 <td><code>entity.labels [last_active_interval]</code></td>
 <td></td>
 </tr>
+<tr>
+<td><code>host_inner_vlan (integer - int)</code></td>
+<td><code>additional.fields [host_inner_vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>host_vlan (integer - int)</code></td>
+<td><code>additional.fields [host_vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>long_conns (integer - count)</code></td>
+<td><code>metadata.threat.detection_fields [long_conns]</code></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 </devsite-filter>
@@ -6729,6 +7441,21 @@ The following table lists the log fields of the <code>known_remotes</code> log t
 <tr>
 <td><code>annotations (array[string] - vector of string)</code></td>
 <td><code>metadata.threat.detection_fields [annotations]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>host_inner_vlan (integer - int)</code></td>
+<td><code>additional.fields [host_inner_vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>host_vlan (integer - int)</code></td>
+<td><code>additional.fields [host_vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>long_conns (integer - count)</code></td>
+<td><code>metadata.threat.detection_fields [long_conns]</code></td>
 <td></td>
 </tr>
 </tbody>
@@ -6827,6 +7554,36 @@ The following table lists the log fields of the <code>known_services</code> log 
 <td><code>entity.labels [last_active_interval]</code></td>
 <td></td>
 </tr>
+<tr>
+<td><code>host_inner_vlan (integer - int)</code></td>
+<td><code>additional.fields [host_inner_vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>host_vlan (integer - int)</code></td>
+<td><code>additional.fields [host_vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>long_conns (integer - count)</code></td>
+<td><code>metadata.threat.detection_fields [long_conns]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>num_conns_complete (integer - count)</code></td>
+<td><code>entity.security_result.detection_fields[num_conns_complete]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>num_conns_pending (integer - int)</code></td>
+<td><code>entity.security_result.detection_fields[num_conns_pending]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>port_num (integer - port)</code></td>
+<td><code>entity.port</code></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 </devsite-filter>
@@ -6912,6 +7669,31 @@ The following table lists the log fields of the <code>known_users</code> log typ
 <td><code>entity.labels [last_active_interval]</code></td>
 <td></td>
 </tr>
+<tr>
+<td><code>host_inner_vlan (integer - int)</code></td>
+<td><code>additional.fields [host_inner_vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>host_vlan (integer - int)</code></td>
+<td><code>additional.fields [host_vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>remote_inner_vlan (integer - int)</code></td>
+<td><code>additional.fields [remote_inner_vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>remote_vlan (integer - int)</code></td>
+<td><code>additional.fields [remote_vlan]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>long_conns (integer - count)</code></td>
+<td><code>metadata.threat.detection_fields [long_conns]</code></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 </devsite-filter>
@@ -6960,6 +7742,56 @@ The following table lists the log fields of the <code>s7comm</code> log type and
 <tr>
 <td><code>data_info (array[string] - vector of string)</code></td>
 <td><code>about.labels [data_info]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>error_class (string)</code></td>
+<td><code>additional.fields [error_class]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>error_code (string)</code></td>
+<td><code>additional.fields [error_code]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>function_code (string)</code></td>
+<td><code>additional.fields [function_code]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>function_name (string)</code></td>
+<td><code>additional.fields [function_name]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>is_orig (boolean - bool)</code></td>
+<td><code>additional.fields [is_orig]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>pdu_reference (integer - count)</code></td>
+<td><code>additional.fields [pdu_reference]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>rosctr_code (integer - count)</code></td>
+<td><code>additional.fields [rosctr_code]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>rosctr_name (string)</code></td>
+<td><code>additional.fields [rosctr_name]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>subfunction_code (string)</code></td>
+<td><code>additional.fields [subfunction_code]</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>subfunction_name (string)</code></td>
+<td><code>additional.fields [subfunction_name]</code></td>
 <td></td>
 </tr>
 </tbody>
@@ -9057,7 +9889,3 @@ The following table lists the log fields of the <code>logschema</code> log type 
 </table>
 </devsite-filter>
 </div>
-
-## What's next
-
--   [Data ingestion to Chronicle ](https://cloud.devsite.corp.google.com/chronicle/docs/data-ingestion-flow)
