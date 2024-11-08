@@ -24,9 +24,9 @@ with the `CORELIGHT` ingestion label.
 
 The architecture diagram shows the following components:
 
-*  **Corelight Sensor**: The system running the [Corelight Sensor ](https://docs.corelight.com/docs/sensor/sensor/export/syslog.html).
+*  **Corelight Sensor**: The system running the [Corelight Sensor ](https://docs.corelight.com/docs/sensor/sensor/quickstarts/quickstart.html).
 
-*  **Corelight Sensor exporters**: The [Corelight Sensor exporter](https://docs.corelight.com/docs/sensor/sensor/export/syslog.html) collects log data from the Sensor, and forwards it to the Google Security Operations.
+*  **Corelight Sensor exporters**: The [Corelight Sensor exporter](https://docs.corelight.com/docs/sensor/sensor/export/goosecops_exp.html) collects log data from the Sensor, and forwards it to Google Security Operations.
 
 *  **Google Security Operations**: Google Security Operations retains and analyzes the logs from
     Corelight Sensor.
@@ -62,7 +62,7 @@ The architecture diagram shows the following components:
 
 The architecture diagram shows the following components:
 
-*  **Corelight Sensor**: The system running the [Corelight Sensor ](https://docs.corelight.com/docs/sensor/sensor/export/syslog.html).
+*  **Corelight Sensor**: The system running the [Corelight Sensor ](https://docs.corelight.com/docs/sensor/sensor/quickstarts/quickstart.html).
 
 *  **Corelight Sensor exporter**: The [Corelight Sensor exporter](https://docs.corelight.com/docs/sensor/sensor/export/syslog.html) collects log data from the Sensor, and forwards it to the Google Security Operations forwarder.
 
